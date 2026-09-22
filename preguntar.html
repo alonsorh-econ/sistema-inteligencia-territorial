@@ -1,0 +1,63 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Preguntar · Sistema de Inteligencia Territorial</title>
+<style>
+:root{--pet:#0D5A60;--pet2:#083D42;--verde:#20975A;--nar:#F25100;--dor:#FFB600;--azul:#0038E3;--tinta:#10232B;--gris:#5C6B73;--fondo:#F4F7F6}
+*{box-sizing:border-box}body{margin:0;background:var(--fondo);color:var(--tinta);font-family:"Archivo","Avenir Next","Helvetica Neue",Arial,sans-serif}
+header{background:var(--pet2);color:#fff;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+header h1{font-size:18px;margin:0;font-weight:700}header small{opacity:.8}
+main{max-width:980px;margin:0 auto;padding:20px 16px 60px}
+.caja{background:#fff;border-radius:14px;padding:18px;box-shadow:0 6px 20px rgba(8,61,66,.08);margin-bottom:16px}
+textarea{width:100%;min-height:76px;border:1.5px solid #cfd8dc;border-radius:10px;padding:12px;font:inherit;font-size:16px;resize:vertical}
+.fila{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:10px}
+button{background:var(--nar);color:#fff;border:0;border-radius:10px;padding:12px 18px;font:inherit;font-weight:700;cursor:pointer}button[disabled]{opacity:.45;cursor:default}
+button.sec{background:var(--pet)}input[type=password],select{border:1.5px solid #cfd8dc;border-radius:10px;padding:10px;font:inherit}
+.barra{display:grid;grid-template-columns:repeat(9,1fr);gap:6px;margin:14px 0 6px}
+.et{background:#e6ecee;border-radius:8px;padding:8px 6px;font-size:12px;text-align:center;color:var(--gris);border-bottom:4px solid #cfd8dc;transition:all .3s}
+.et.encurso{background:#fff3e8;border-color:var(--nar);color:var(--nar);animation:p 1.2s infinite}.et.listo{background:#e6f5ec;border-color:var(--verde);color:var(--pet2)}
+@keyframes p{0%,100%{opacity:1}50%{opacity:.55}}
+.lineas{font-size:13px;color:var(--gris);min-height:40px}.lineas div{padding:3px 0;border-bottom:1px dashed #e3e8ea}.lineas b{color:var(--pet)}
+.resp h2{color:var(--pet2);font-size:18px;margin:18px 0 6px;border-bottom:2px solid var(--dor);padding-bottom:4px}.resp p,.resp li{line-height:1.5}
+.cita{display:inline-block;background:#e6f0f1;color:var(--pet);border-radius:6px;padding:0 5px;font-size:12px;font-weight:700;cursor:pointer}
+.fuentes{font-size:13px}.fuentes li{margin:6px 0}.fuentes .r{color:var(--gris)}
+.aviso{font-size:13px;color:var(--gris)}.err{color:#b00020;font-weight:700}
+.sello{display:inline-block;background:var(--verde);color:#fff;border-radius:999px;padding:4px 12px;font-size:12px;font-weight:700;margin-top:8px}
+</style></head><body>
+<header><div><h1>Preguntar al sistema</h1><small>Sistema de Inteligencia Territorial · DIE, Cámara de Comercio de Cartagena</small></div><div><a href="index.html" style="color:#fff">← Volver al sistema</a></div></header>
+<main>
+<div class="caja">
+ <textarea id="q" placeholder="Escribe una pregunta sobre Cartagena y Bolívar frente al Plan Nacional de Desarrollo…"></textarea>
+ <div class="fila">
+  <select id="modo"><option value="expres">Expediente exprés (capas · nivel 2 · nivel 3 · auditoría)</option><option value="simple">Respuesta simple con citas</option></select>
+  <input type="password" id="llave" placeholder="Llave de acceso" size="18">
+  <button id="btn">Preguntar</button>
+  <span class="aviso" id="estado"></span>
+ </div>
+ <div class="barra" id="barra"></div>
+ <div class="lineas" id="lineas"></div>
+</div>
+<div class="caja resp" id="resp" hidden></div>
+<div class="caja fuentes" id="fu" hidden></div>
+<p class="aviso">Responde solo con el acervo auditado del sistema, con citas. Lo que no está en el acervo lo dice. Las respuestas ya producidas se sirven desde la caché sin costo.</p>
+</main>
+<script>
+const BASE = localStorage.getItem('sit_base') || (location.hostname==='localhost'||location.hostname==='127.0.0.1' ? '' : 'https://192-81-211-68.sslip.io');
+const ET=[['entender','Entender'],['norma','1 Norma'],['dato','2 Dato'],['referentes','3 Referentes'],['voz','4 Voz'],['nivel2','Nivel 2'],['nivel3','Nivel 3'],['cierre','Cierre'],['auditoria','Auditoría']];
+const $=s=>document.querySelector(s); const llaveG=$('#llave'); llaveG.value=localStorage.getItem('sit_llave')||''; llaveG.onchange=()=>localStorage.setItem('sit_llave',llaveG.value);
+function barra(etapas){$('#barra').innerHTML=ET.map(([k,n])=>{const e=(etapas||[]).find(x=>x.nombre===k)||{estado:'pendiente'};return `<div class="et ${e.estado==='en curso'?'encurso':e.estado==='listo'?'listo':''}">${n}</div>`}).join('');
+ $('#lineas').innerHTML=(etapas||[]).filter(e=>e.linea&&e.estado==='listo').map(e=>`<div><b>${(ET.find(x=>x[0]===e.nombre)||[])[1]||e.nombre}</b> · ${e.t}s · ${esc(e.linea)}</div>`).join('');}
+function esc(s){return (s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}
+function md(t){ // markdown mínimo: títulos, viñetas, negritas, citas [n]
+ let h=esc(t).replace(/^## (.+)$/gm,'<h2>$1</h2>').replace(/^### (.+)$/gm,'<h3>$1</h3>').replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\[(\d+)\]/g,'<span class="cita" data-n="$1">$1</span>');
+ h=h.replace(/(^|\n)((?:[-•] .+\n?)+)/g,(m,a,b)=>a+'<ul>'+b.trim().split(/\n/).map(l=>'<li>'+l.replace(/^[-•] /,'')+'</li>').join('')+'</ul>');
+ return h.replace(/\n{2,}/g,'</p><p>').replace(/^(?!<)/,'<p>')+'</p>';}
+function fuentes(fs){if(!fs||!fs.length){$('#fu').hidden=true;return}$('#fu').hidden=false;$('#fu').innerHTML='<h3>Fuentes citadas</h3><ol>'+fs.map(f=>`<li id="f${f.n||''}"><b>${esc(f.titulo)}</b>${f.seccion?' › '+esc(f.seccion):''}<div class="r">${esc(f.ruta)}</div><div>${esc(f.extracto||'')}…</div></li>`).join('')+'</ol>';}
+async function pedir(ruta,cuerpo){const r=await fetch(BASE+ruta,{method:'POST',headers:{'Content-Type':'application/json','X-Llave':llaveG.value},body:JSON.stringify(cuerpo)});const j=await r.json();if(!r.ok)throw new Error(j.error||r.status);return j;}
+$('#btn').onclick=async()=>{const q=$('#q').value.trim();if(!q)return;$('#btn').disabled=true;$('#resp').hidden=true;$('#fu').hidden=true;$('#estado').textContent='enviando…';barra([]);
+ try{ if($('#modo').value==='simple'){const j=await pedir('/api/preguntar',{pregunta:q});$('#estado').textContent=j.de_cache?'desde la caché':'listo';$('#resp').hidden=false;$('#resp').innerHTML=md(j.respuesta||'(sin redacción: falta la llave del API en el servidor)');fuentes((j.fuentes||[]).map((f,i)=>({...f,n:i+1})));}
+ else{const j=await pedir('/api/expres',{pregunta:q});$('#estado').textContent=j.de_cache?'desde la caché':'trabajando…';let listo=false;
+  while(!listo){await new Promise(r=>setTimeout(r,2500));const e=await (await fetch(BASE+'/api/estado/'+j.id)).json();barra(e.etapas);$('#estado').textContent=(e.listo?'listo':'trabajando… ')+' '+e.segundos+' s';listo=e.listo;if(e.error)throw new Error(e.error);}
+  const r=await (await fetch(BASE+'/api/resultado/'+j.id)).json();if(r.error)throw new Error(r.error);
+  $('#resp').hidden=false;$('#resp').innerHTML=md(r.cierre||'')+(r.auditoria?`<div class="sello">Auditoría: ${r.auditoria.cotejadas||0} afirmaciones cotejadas · ${r.auditoria.retiradas||0} retiradas · ${r.auditoria.verificar||0} por verificar</div>`:'')+`<p class="aviso">${r.segundos||''} s · ${(r.fuentes||[]).length} fuentes</p>`;fuentes(r.fuentes);}
+ }catch(e){$('#estado').innerHTML='<span class="err">'+esc(e.message)+'</span>'}finally{$('#btn').disabled=false}};
+document.addEventListener('click',ev=>{const c=ev.target.closest('.cita');if(c){const f=document.getElementById('f'+c.dataset.n);if(f){f.scrollIntoView({behavior:'smooth',block:'center'});f.style.background='#fff3e8';setTimeout(()=>f.style.background='',1500)}}});
+barra([]);
+</script></body></html>
