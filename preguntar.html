@@ -48,7 +48,7 @@ function barra(etapas,sinLineas){$('#barra').innerHTML=ET.map(([k,n])=>{const e=
  $('#lineas').innerHTML=sinLineas?'':(etapas||[]).filter(e=>e.linea&&e.estado==='listo').map(e=>`<div><b>${(ET.find(x=>x[0]===e.nombre)||[])[1]||e.nombre}</b> · ${e.t}s · ${esc(e.linea)}</div>`).join('');}
 function esc(s){return (s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}
 function md(t){ // markdown mínimo: títulos, viñetas, negritas, citas [n]
- t=(t||'').replace(/^#\s*Texto auditado\s*\n?/i,'');
+ t=(t||'').replace(/^#\s*(Texto auditado|Texto corregido|Auditor[ií]a del texto)\s*\n?/i,'');
  let h=esc(t).replace(/^## (.+)$/gm,'<h2>$1</h2>').replace(/^### (.+)$/gm,'<h3>$1</h3>').replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\[(\d+)\]/g,'<span class="cita" data-n="$1">$1</span>');
  h=h.replace(/(^|\n)((?:[-•] .+\n?)+)/g,(m,a,b)=>a+'<ul>'+b.trim().split(/\n/).map(l=>'<li>'+l.replace(/^[-•] /,'')+'</li>').join('')+'</ul>');
  return h.replace(/\n{2,}/g,'</p><p>').replace(/^(?!<)/,'<p>')+'</p>';}
