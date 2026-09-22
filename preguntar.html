@@ -19,6 +19,7 @@ button.sec{background:var(--pet)}input[type=password],select{border:1.5px solid 
 .cita{display:inline-block;background:#e6f0f1;color:var(--pet);border-radius:6px;padding:0 5px;font-size:12px;font-weight:700;cursor:pointer}
 .fuentes{font-size:13px}.fuentes li{margin:6px 0}.fuentes .r{color:var(--gris)}
 .aviso{font-size:13px;color:var(--gris)}.err{color:#b00020;font-weight:700}
+.pan{margin-top:16px;border-top:1px dashed #cfd8dc;padding-top:10px}.pan h3{font-size:14px;color:var(--gris);margin:0 0 6px}.pan details{border:1px solid #e3e8ea;border-radius:8px;padding:6px 10px;margin:6px 0;background:#fafcfc}.pan summary{cursor:pointer;font-weight:700;color:var(--pet2)}.pan p{font-size:13.5px}
 .sello{display:inline-block;background:var(--verde);color:#fff;border-radius:999px;padding:4px 12px;font-size:12px;font-weight:700;margin-top:8px}
 </style></head><body>
 <header><div><h1>Preguntar al sistema</h1><small>Sistema de Inteligencia Territorial · DIE, Cámara de Comercio de Cartagena</small></div><div><a href="index.html" style="color:#fff">← Volver al sistema</a></div></header>
@@ -51,6 +52,10 @@ function md(t){ // markdown mínimo: títulos, viñetas, negritas, citas [n]
  let h=esc(t).replace(/^## (.+)$/gm,'<h2>$1</h2>').replace(/^### (.+)$/gm,'<h3>$1</h3>').replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\[(\d+)\]/g,'<span class="cita" data-n="$1">$1</span>');
  h=h.replace(/(^|\n)((?:[-•] .+\n?)+)/g,(m,a,b)=>a+'<ul>'+b.trim().split(/\n/).map(l=>'<li>'+l.replace(/^[-•] /,'')+'</li>').join('')+'</ul>');
  return h.replace(/\n{2,}/g,'</p><p>').replace(/^(?!<)/,'<p>')+'</p>';}
+const CAPAS=[['norma','Capa 1 · Norma'],['dato','Capa 2 · Dato'],['referentes','Capa 3 · Referentes'],['voz','Capa 4 · Voz']];
+function panorama(r){const c=r.capas||{};let h='';CAPAS.forEach(([k,t])=>{if(c[k])h+=`<details><summary>${t}</summary>${md(c[k])}</details>`});
+ if(r.nivel2)h+=`<details><summary>Nivel 2 · contradicciones, cifras y estado</summary>${md(r.nivel2)}</details>`;if(r.nivel3)h+=`<details><summary>Nivel 3 · puerta y propuesta</summary>${md(r.nivel3)}</details>`;
+ return h?`<div class="pan"><h3>El panorama por capas: lo que el sistema recorrió antes de cerrar</h3>${h}</div>`:''}
 function fuentes(fs){if(!fs||!fs.length){$('#fu').hidden=true;return}$('#fu').hidden=false;$('#fu').innerHTML='<h3>Fuentes citadas</h3><ol>'+fs.map(f=>`<li id="f${f.n||''}"><b>${esc(f.titulo)}</b>${f.seccion?' › '+esc(f.seccion):''}<div class="r">${esc(f.ruta)}</div><div>${esc(f.extracto||'')}…</div></li>`).join('')+'</ol>';}
 async function pedir(ruta,cuerpo){const r=await fetch(BASE+ruta,{method:'POST',headers:{'Content-Type':'application/json','X-Llave':llaveG.value},body:JSON.stringify(cuerpo)});const j=await r.json();if(!r.ok)throw new Error(j.error||r.status);return j;}
 const YA='ya trabajada por el sistema · respuesta inmediata';
@@ -60,7 +65,7 @@ $('#btn').onclick=async()=>{const q=$('#q').value.trim();if(!q)return;$('#btn').
  else{const j=await pedir('/api/expres',{pregunta:q});const cache=!!j.de_cache;$('#estado').textContent=cache?YA:'el sistema está trabajando…';let listo=false;
   while(!listo){await new Promise(r=>setTimeout(r,cache?300:2500));const e=await (await fetch(BASE+'/api/estado/'+j.id)).json();barra(e.etapas,cache);$('#estado').textContent=cache?YA:((e.listo?'listo':'el sistema está trabajando… ')+' '+e.segundos+' s');listo=e.listo;if(e.error)throw new Error(e.error);}
   const r=await (await fetch(BASE+'/api/resultado/'+j.id)).json();if(r.error)throw new Error(r.error);
-  $('#resp').hidden=false;$('#resp').innerHTML=md(r.cierre||'')+(r.auditoria?`<div class="sello">Auditoría: ${r.auditoria.cotejadas||0} afirmaciones cotejadas · ${r.auditoria.retiradas||0} retiradas · ${r.auditoria.verificar||0} por verificar</div>`:'')+`<p class="aviso">${cache?'Expediente producido en '+(r.segundos||'')+' s':(r.segundos||'')+' s'} · ${(r.fuentes||[]).length} fuentes</p>`;fuentes(r.fuentes);$('#corta').innerHTML='';$('#estadoCorta').textContent='';$('#cortaCaja').hidden=false;}
+  $('#resp').hidden=false;$('#resp').innerHTML=md(r.cierre||'')+(r.auditoria?`<div class="sello">Auditoría: ${r.auditoria.cotejadas||0} afirmaciones cotejadas · ${r.auditoria.retiradas||0} retiradas · ${r.auditoria.verificar||0} por verificar</div>`:'')+`<p class="aviso">${cache?'Expediente producido en '+(r.segundos||'')+' s':(r.segundos||'')+' s'} · ${(r.fuentes||[]).length} fuentes</p>`+panorama(r);fuentes(r.fuentes);$('#corta').innerHTML='';$('#estadoCorta').textContent='';$('#cortaCaja').hidden=false;}
  }catch(e){$('#estado').innerHTML='<span class="err">'+esc(amable(e.message))+'</span>'}finally{$('#btn').disabled=false}};
 $('#btnCorta').onclick=async()=>{const q=$('#q').value.trim();$('#btnCorta').disabled=true;$('#estadoCorta').textContent='redactando…';
  try{const j=await pedir('/api/corta',{pregunta:q});$('#estadoCorta').textContent=j.de_cache?YA:('lista en '+(j.segundos||'')+' s');$('#corta').innerHTML=md(j.corta||'');}
