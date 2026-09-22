@@ -35,6 +35,7 @@ button.sec{background:var(--pet)}input[type=password],select{border:1.5px solid 
  <div class="lineas" id="lineas"></div>
 </div>
 <div class="caja resp" id="resp" hidden></div>
+<div class="caja" id="cortaCaja" hidden><button class="sec" id="btnCorta">Versión de una página para el congresista</button> <span class="aviso" id="estadoCorta"></span><div class="resp" id="corta"></div></div>
 <div class="caja fuentes" id="fu" hidden></div>
 <p class="aviso">Responde solo con el acervo auditado del sistema, con citas. Lo que no está en el acervo lo dice. Las preguntas ya trabajadas se responden al instante; una pregunta nueva pone a trabajar al sistema y necesita llave de acceso.</p>
 </main>
@@ -54,13 +55,16 @@ function fuentes(fs){if(!fs||!fs.length){$('#fu').hidden=true;return}$('#fu').hi
 async function pedir(ruta,cuerpo){const r=await fetch(BASE+ruta,{method:'POST',headers:{'Content-Type':'application/json','X-Llave':llaveG.value},body:JSON.stringify(cuerpo)});const j=await r.json();if(!r.ok)throw new Error(j.error||r.status);return j;}
 const YA='ya trabajada por el sistema · respuesta inmediata';
 function amable(m){return /llave/i.test(m)?'Esta pregunta es nueva: para ponerla a trabajar hace falta la llave de acceso. Las preguntas ya trabajadas se responden sin llave.':m}
-$('#btn').onclick=async()=>{const q=$('#q').value.trim();if(!q)return;$('#btn').disabled=true;$('#resp').hidden=true;$('#fu').hidden=true;$('#estado').textContent='enviando…';barra([]);
+$('#btn').onclick=async()=>{const q=$('#q').value.trim();if(!q)return;$('#btn').disabled=true;$('#resp').hidden=true;$('#fu').hidden=true;$('#cortaCaja').hidden=true;$('#estado').textContent='enviando…';barra([]);
  try{ if($('#modo').value==='simple'){const j=await pedir('/api/preguntar',{pregunta:q});$('#estado').textContent=j.de_cache?YA:'listo';$('#resp').hidden=false;$('#resp').innerHTML=md(j.respuesta||'(sin redacción: falta la llave del API en el servidor)');fuentes((j.fuentes||[]).map((f,i)=>({...f,n:i+1})));}
  else{const j=await pedir('/api/expres',{pregunta:q});const cache=!!j.de_cache;$('#estado').textContent=cache?YA:'el sistema está trabajando…';let listo=false;
   while(!listo){await new Promise(r=>setTimeout(r,cache?300:2500));const e=await (await fetch(BASE+'/api/estado/'+j.id)).json();barra(e.etapas,cache);$('#estado').textContent=cache?YA:((e.listo?'listo':'el sistema está trabajando… ')+' '+e.segundos+' s');listo=e.listo;if(e.error)throw new Error(e.error);}
   const r=await (await fetch(BASE+'/api/resultado/'+j.id)).json();if(r.error)throw new Error(r.error);
-  $('#resp').hidden=false;$('#resp').innerHTML=md(r.cierre||'')+(r.auditoria?`<div class="sello">Auditoría: ${r.auditoria.cotejadas||0} afirmaciones cotejadas · ${r.auditoria.retiradas||0} retiradas · ${r.auditoria.verificar||0} por verificar</div>`:'')+`<p class="aviso">${cache?'Expediente producido en '+(r.segundos||'')+' s':(r.segundos||'')+' s'} · ${(r.fuentes||[]).length} fuentes</p>`;fuentes(r.fuentes);}
+  $('#resp').hidden=false;$('#resp').innerHTML=md(r.cierre||'')+(r.auditoria?`<div class="sello">Auditoría: ${r.auditoria.cotejadas||0} afirmaciones cotejadas · ${r.auditoria.retiradas||0} retiradas · ${r.auditoria.verificar||0} por verificar</div>`:'')+`<p class="aviso">${cache?'Expediente producido en '+(r.segundos||'')+' s':(r.segundos||'')+' s'} · ${(r.fuentes||[]).length} fuentes</p>`;fuentes(r.fuentes);$('#corta').innerHTML='';$('#estadoCorta').textContent='';$('#cortaCaja').hidden=false;}
  }catch(e){$('#estado').innerHTML='<span class="err">'+esc(amable(e.message))+'</span>'}finally{$('#btn').disabled=false}};
+$('#btnCorta').onclick=async()=>{const q=$('#q').value.trim();$('#btnCorta').disabled=true;$('#estadoCorta').textContent='redactando…';
+ try{const j=await pedir('/api/corta',{pregunta:q});$('#estadoCorta').textContent=j.de_cache?YA:('lista en '+(j.segundos||'')+' s');$('#corta').innerHTML=md(j.corta||'');}
+ catch(e){$('#estadoCorta').innerHTML='<span class="err">'+esc(amable(e.message))+'</span>'}finally{$('#btnCorta').disabled=false}};
 // Llega desde la portada con ?q=… : se carga y se lanza sola
 const qURL=new URLSearchParams(location.search).get('q');if(qURL){$('#q').value=qURL;setTimeout(()=>$('#btn').click(),150)}
 document.addEventListener('click',ev=>{const c=ev.target.closest('.cita');if(c){const f=document.getElementById('f'+c.dataset.n);if(f){f.scrollIntoView({behavior:'smooth',block:'center'});f.style.background='#fff3e8';setTimeout(()=>f.style.background='',1500)}}});
