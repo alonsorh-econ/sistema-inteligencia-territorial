@@ -190,6 +190,7 @@ tr:last-child td{border-bottom:0}
   <button class="nv" data-v="inicio" aria-current="page"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h14V10"/></svg>Inicio</button>
   <button class="nv" data-v="mapa"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="4"/><rect x="3" y="10" width="18" height="4"/><rect x="3" y="16" width="18" height="4"/></svg>El sistema en un mapa</button>
   <button class="nv" data-v="conv"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></svg>Conversar</button>
+  <a class="nv" href="preguntar.html" style="text-decoration:none"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Preguntar en vivo</a>
   <button class="nv" data-v="exp"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8"/><rect x="13" y="3" width="8" height="8"/><rect x="3" y="13" width="8" height="8"/><rect x="13" y="13" width="8" height="8"/></svg>Explorar el acervo</button>
   <button class="nv" data-v="ficha"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6zM15 3v4h4M9 12h7M9 16h7"/></svg>Un expediente por dentro</button>
   <button class="nv" data-v="ppi"><svg viewBox="0 0 24 24"><path d="M3 20h18M6 20V9l6-5 6 5v11M10 20v-6h4v6"/></svg>Proyectos estratégicos</button>
@@ -355,6 +356,7 @@ tr:last-child td{border-bottom:0}
 <section id="v-conv" class="cont pag" hidden>
   <span class="ey">Conversar</span>
   <h1>Una respuesta, sus fuentes y lo que todavía no se sabe</h1>
+  <p class="dek">Tres respuestas ya establecidas por el sistema. Para una pregunta nueva, <a href="preguntar.html" style="color:var(--acc);font-weight:700">pregúntele al sistema en vivo →</a></p>
   <div class="sugs" id="sug2"></div>
   <div class="dos"><div id="conv"></div><aside class="panel"><p class="cap">Fuentes de esta respuesta</p><div id="fuentes"></div></aside></div>
 </section>
@@ -444,7 +446,9 @@ document.querySelectorAll(".nv").forEach(b=>b.onclick=()=>ver(b.dataset.v));
 function responder(i){const d=QA[i];$("#conv").innerHTML=`<div class="msg u">${d.q}</div><div class="msg s"><div class="quien"><i><b></b><b></b><b></b><b></b></i>Sistema · responde solo desde el acervo</div>${d.a}<div class="falta"><strong>Lo que todavía no está en el sistema:</strong> ${d.n}</div></div>`;$("#fuentes").innerHTML=d.f.map(x=>`<div class="fu">${DOC}<span><b>${x[0]}</b>${x[1]}</span></div>`).join("");document.querySelectorAll("#sug2 .sug").forEach((b,k)=>b.classList.toggle("on",k===i));ver("conv")}
 function sugs(el){QA.forEach((d,i)=>{const b=document.createElement("button");b.className="sug";b.textContent=d.q;b.onclick=()=>responder(i);el.appendChild(b)})}
 sugs($("#sug1"));sugs($("#sug2"));
-$("#go").onclick=()=>responder(0);$("#q").addEventListener("keydown",e=>{if(e.key==="Enter")responder(0)});
+// Pregunta escrita → página viva (servidor); vacío → la muestra guionada
+function irVivo(){const q=$("#q").value.trim();if(q)location.href="preguntar.html?q="+encodeURIComponent(q);else ver("conv")}
+$("#go").onclick=irVivo;$("#q").addEventListener("keydown",e=>{if(e.key==="Enter")irVivo()});
 function tarjeta(e){const b=document.createElement("button");b.className="card t-"+e[0];b.innerHTML=`<span class="tema">${e[0]}</span><h3>${e[1]}</h3><p>${e[2]}</p><div class="meta"><span class="pill ${e[4]}">${e[3]}</span></div>`;b.onclick=()=>ver("ficha");return b}
 [EXP[0],EXP[3],EXP[6]].forEach(e=>$("#destacados").appendChild(tarjeta(e)));
 function sector(s){const d=document.createElement("div");d.className="sector";d.innerHTML=`<h3>${s[0]}</h3><div class="barra">${s[1].map(x=>`<span class="${x}"></span>`).join("")}</div><div class="leg"><span>norma</span><span>dato</span><span>referentes</span><span>voz</span></div><div class="n">${s[2]}</div>`;return d}

@@ -36,7 +36,7 @@ button.sec{background:var(--pet)}input[type=password],select{border:1.5px solid 
 </div>
 <div class="caja resp" id="resp" hidden></div>
 <div class="caja fuentes" id="fu" hidden></div>
-<p class="aviso">Responde solo con el acervo auditado del sistema, con citas. Lo que no está en el acervo lo dice. Las respuestas ya producidas se sirven desde la caché sin costo.</p>
+<p class="aviso">Responde solo con el acervo auditado del sistema, con citas. Lo que no está en el acervo lo dice. Las preguntas ya trabajadas se responden al instante; una pregunta nueva pone a trabajar al sistema y necesita llave de acceso.</p>
 </main>
 <script>
 const BASE = localStorage.getItem('sit_base') || (location.hostname==='localhost'||location.hostname==='127.0.0.1' ? '' : 'https://192-81-211-68.sslip.io');
@@ -51,13 +51,17 @@ function md(t){ // markdown mínimo: títulos, viñetas, negritas, citas [n]
  return h.replace(/\n{2,}/g,'</p><p>').replace(/^(?!<)/,'<p>')+'</p>';}
 function fuentes(fs){if(!fs||!fs.length){$('#fu').hidden=true;return}$('#fu').hidden=false;$('#fu').innerHTML='<h3>Fuentes citadas</h3><ol>'+fs.map(f=>`<li id="f${f.n||''}"><b>${esc(f.titulo)}</b>${f.seccion?' › '+esc(f.seccion):''}<div class="r">${esc(f.ruta)}</div><div>${esc(f.extracto||'')}…</div></li>`).join('')+'</ol>';}
 async function pedir(ruta,cuerpo){const r=await fetch(BASE+ruta,{method:'POST',headers:{'Content-Type':'application/json','X-Llave':llaveG.value},body:JSON.stringify(cuerpo)});const j=await r.json();if(!r.ok)throw new Error(j.error||r.status);return j;}
+const YA='ya trabajada por el sistema · respuesta inmediata';
+function amable(m){return /llave/i.test(m)?'Esta pregunta es nueva: para ponerla a trabajar hace falta la llave de acceso. Las preguntas ya trabajadas se responden sin llave.':m}
 $('#btn').onclick=async()=>{const q=$('#q').value.trim();if(!q)return;$('#btn').disabled=true;$('#resp').hidden=true;$('#fu').hidden=true;$('#estado').textContent='enviando…';barra([]);
- try{ if($('#modo').value==='simple'){const j=await pedir('/api/preguntar',{pregunta:q});$('#estado').textContent=j.de_cache?'desde la caché':'listo';$('#resp').hidden=false;$('#resp').innerHTML=md(j.respuesta||'(sin redacción: falta la llave del API en el servidor)');fuentes((j.fuentes||[]).map((f,i)=>({...f,n:i+1})));}
- else{const j=await pedir('/api/expres',{pregunta:q});$('#estado').textContent=j.de_cache?'desde la caché':'trabajando…';let listo=false;
-  while(!listo){await new Promise(r=>setTimeout(r,2500));const e=await (await fetch(BASE+'/api/estado/'+j.id)).json();barra(e.etapas);$('#estado').textContent=(e.listo?'listo':'trabajando… ')+' '+e.segundos+' s';listo=e.listo;if(e.error)throw new Error(e.error);}
+ try{ if($('#modo').value==='simple'){const j=await pedir('/api/preguntar',{pregunta:q});$('#estado').textContent=j.de_cache?YA:'listo';$('#resp').hidden=false;$('#resp').innerHTML=md(j.respuesta||'(sin redacción: falta la llave del API en el servidor)');fuentes((j.fuentes||[]).map((f,i)=>({...f,n:i+1})));}
+ else{const j=await pedir('/api/expres',{pregunta:q});const cache=!!j.de_cache;$('#estado').textContent=cache?YA:'el sistema está trabajando…';let listo=false;
+  while(!listo){await new Promise(r=>setTimeout(r,cache?300:2500));const e=await (await fetch(BASE+'/api/estado/'+j.id)).json();barra(e.etapas);$('#estado').textContent=cache?YA:((e.listo?'listo':'el sistema está trabajando… ')+' '+e.segundos+' s');listo=e.listo;if(e.error)throw new Error(e.error);}
   const r=await (await fetch(BASE+'/api/resultado/'+j.id)).json();if(r.error)throw new Error(r.error);
-  $('#resp').hidden=false;$('#resp').innerHTML=md(r.cierre||'')+(r.auditoria?`<div class="sello">Auditoría: ${r.auditoria.cotejadas||0} afirmaciones cotejadas · ${r.auditoria.retiradas||0} retiradas · ${r.auditoria.verificar||0} por verificar</div>`:'')+`<p class="aviso">${r.segundos||''} s · ${(r.fuentes||[]).length} fuentes</p>`;fuentes(r.fuentes);}
- }catch(e){$('#estado').innerHTML='<span class="err">'+esc(e.message)+'</span>'}finally{$('#btn').disabled=false}};
+  $('#resp').hidden=false;$('#resp').innerHTML=md(r.cierre||'')+(r.auditoria?`<div class="sello">Auditoría: ${r.auditoria.cotejadas||0} afirmaciones cotejadas · ${r.auditoria.retiradas||0} retiradas · ${r.auditoria.verificar||0} por verificar</div>`:'')+`<p class="aviso">${cache?'Expediente producido en '+(r.segundos||'')+' s':(r.segundos||'')+' s'} · ${(r.fuentes||[]).length} fuentes</p>`;fuentes(r.fuentes);}
+ }catch(e){$('#estado').innerHTML='<span class="err">'+esc(amable(e.message))+'</span>'}finally{$('#btn').disabled=false}};
+// Llega desde la portada con ?q=… : se carga y se lanza sola
+const qURL=new URLSearchParams(location.search).get('q');if(qURL){$('#q').value=qURL;setTimeout(()=>$('#btn').click(),150)}
 document.addEventListener('click',ev=>{const c=ev.target.closest('.cita');if(c){const f=document.getElementById('f'+c.dataset.n);if(f){f.scrollIntoView({behavior:'smooth',block:'center'});f.style.background='#fff3e8';setTimeout(()=>f.style.background='',1500)}}});
 barra([]);
 </script></body></html>
