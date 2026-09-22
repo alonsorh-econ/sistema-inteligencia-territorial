@@ -42,10 +42,11 @@ button.sec{background:var(--pet)}input[type=password],select{border:1.5px solid 
 const BASE = localStorage.getItem('sit_base') || (location.hostname==='localhost'||location.hostname==='127.0.0.1' ? '' : 'https://192-81-211-68.sslip.io');
 const ET=[['entender','Entender'],['norma','1 Norma'],['dato','2 Dato'],['referentes','3 Referentes'],['voz','4 Voz'],['nivel2','Nivel 2'],['nivel3','Nivel 3'],['cierre','Cierre'],['auditoria','Auditoría']];
 const $=s=>document.querySelector(s); const llaveG=$('#llave'); llaveG.value=localStorage.getItem('sit_llave')||''; llaveG.onchange=()=>localStorage.setItem('sit_llave',llaveG.value);
-function barra(etapas){$('#barra').innerHTML=ET.map(([k,n])=>{const e=(etapas||[]).find(x=>x.nombre===k)||{estado:'pendiente'};return `<div class="et ${e.estado==='en curso'?'encurso':e.estado==='listo'?'listo':''}">${n}</div>`}).join('');
- $('#lineas').innerHTML=(etapas||[]).filter(e=>e.linea&&e.estado==='listo').map(e=>`<div><b>${(ET.find(x=>x[0]===e.nombre)||[])[1]||e.nombre}</b> · ${e.t}s · ${esc(e.linea)}</div>`).join('');}
+function barra(etapas,sinLineas){$('#barra').innerHTML=ET.map(([k,n])=>{const e=(etapas||[]).find(x=>x.nombre===k)||{estado:'pendiente'};return `<div class="et ${e.estado==='en curso'?'encurso':e.estado==='listo'?'listo':''}">${n}</div>`}).join('');
+ $('#lineas').innerHTML=sinLineas?'':(etapas||[]).filter(e=>e.linea&&e.estado==='listo').map(e=>`<div><b>${(ET.find(x=>x[0]===e.nombre)||[])[1]||e.nombre}</b> · ${e.t}s · ${esc(e.linea)}</div>`).join('');}
 function esc(s){return (s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}
 function md(t){ // markdown mínimo: títulos, viñetas, negritas, citas [n]
+ t=(t||'').replace(/^#\s*Texto auditado\s*\n?/i,'');
  let h=esc(t).replace(/^## (.+)$/gm,'<h2>$1</h2>').replace(/^### (.+)$/gm,'<h3>$1</h3>').replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\[(\d+)\]/g,'<span class="cita" data-n="$1">$1</span>');
  h=h.replace(/(^|\n)((?:[-•] .+\n?)+)/g,(m,a,b)=>a+'<ul>'+b.trim().split(/\n/).map(l=>'<li>'+l.replace(/^[-•] /,'')+'</li>').join('')+'</ul>');
  return h.replace(/\n{2,}/g,'</p><p>').replace(/^(?!<)/,'<p>')+'</p>';}
@@ -56,7 +57,7 @@ function amable(m){return /llave/i.test(m)?'Esta pregunta es nueva: para ponerla
 $('#btn').onclick=async()=>{const q=$('#q').value.trim();if(!q)return;$('#btn').disabled=true;$('#resp').hidden=true;$('#fu').hidden=true;$('#estado').textContent='enviando…';barra([]);
  try{ if($('#modo').value==='simple'){const j=await pedir('/api/preguntar',{pregunta:q});$('#estado').textContent=j.de_cache?YA:'listo';$('#resp').hidden=false;$('#resp').innerHTML=md(j.respuesta||'(sin redacción: falta la llave del API en el servidor)');fuentes((j.fuentes||[]).map((f,i)=>({...f,n:i+1})));}
  else{const j=await pedir('/api/expres',{pregunta:q});const cache=!!j.de_cache;$('#estado').textContent=cache?YA:'el sistema está trabajando…';let listo=false;
-  while(!listo){await new Promise(r=>setTimeout(r,cache?300:2500));const e=await (await fetch(BASE+'/api/estado/'+j.id)).json();barra(e.etapas);$('#estado').textContent=cache?YA:((e.listo?'listo':'el sistema está trabajando… ')+' '+e.segundos+' s');listo=e.listo;if(e.error)throw new Error(e.error);}
+  while(!listo){await new Promise(r=>setTimeout(r,cache?300:2500));const e=await (await fetch(BASE+'/api/estado/'+j.id)).json();barra(e.etapas,cache);$('#estado').textContent=cache?YA:((e.listo?'listo':'el sistema está trabajando… ')+' '+e.segundos+' s');listo=e.listo;if(e.error)throw new Error(e.error);}
   const r=await (await fetch(BASE+'/api/resultado/'+j.id)).json();if(r.error)throw new Error(r.error);
   $('#resp').hidden=false;$('#resp').innerHTML=md(r.cierre||'')+(r.auditoria?`<div class="sello">Auditoría: ${r.auditoria.cotejadas||0} afirmaciones cotejadas · ${r.auditoria.retiradas||0} retiradas · ${r.auditoria.verificar||0} por verificar</div>`:'')+`<p class="aviso">${cache?'Expediente producido en '+(r.segundos||'')+' s':(r.segundos||'')+' s'} · ${(r.fuentes||[]).length} fuentes</p>`;fuentes(r.fuentes);}
  }catch(e){$('#estado').innerHTML='<span class="err">'+esc(amable(e.message))+'</span>'}finally{$('#btn').disabled=false}};
