@@ -30,6 +30,7 @@ button.sec{background:var(--pet)}input[type=password],select{border:1.5px solid 
   <select id="modo"><option value="expres">Expediente exprés (capas · nivel 2 · nivel 3 · auditoría)</option><option value="simple">Respuesta simple con citas</option></select>
   <input type="password" id="llave" placeholder="Llave de acceso" size="18">
   <button id="btn">Preguntar</button>
+  <label class="aviso" style="display:flex;align-items:center;gap:5px"><input type="checkbox" id="fresco"> Volver a trabajarla aunque ya exista (necesita llave)</label>
   <span class="aviso" id="estado"></span>
  </div>
  <div class="barra" id="barra"></div>
@@ -57,7 +58,7 @@ function panorama(r){const c=r.capas||{};let h='';CAPAS.forEach(([k,t])=>{if(c[k
  if(r.nivel2)h+=`<details><summary>Nivel 2 · contradicciones, cifras y estado</summary>${md(r.nivel2)}</details>`;if(r.nivel3)h+=`<details><summary>Nivel 3 · puerta y propuesta</summary>${md(r.nivel3)}</details>`;
  return h?`<div class="pan"><h3>El panorama por capas: lo que el sistema recorrió antes de cerrar</h3>${h}</div>`:''}
 function fuentes(fs){if(!fs||!fs.length){$('#fu').hidden=true;return}$('#fu').hidden=false;$('#fu').innerHTML='<h3>Fuentes citadas</h3><ol>'+fs.map(f=>`<li id="f${f.n||''}"><b>${esc(f.titulo)}</b>${f.seccion?' › '+esc(f.seccion):''}<div class="r">${esc(f.ruta)}</div><div>${esc(f.extracto||'')}…</div></li>`).join('')+'</ol>';}
-async function pedir(ruta,cuerpo){const r=await fetch(BASE+ruta,{method:'POST',headers:{'Content-Type':'application/json','X-Llave':llaveG.value},body:JSON.stringify(cuerpo)});const j=await r.json();if(!r.ok)throw new Error(j.error||r.status);return j;}
+async function pedir(ruta,cuerpo){if($('#fresco')&&$('#fresco').checked)cuerpo={...cuerpo,sin_cache:true};const r=await fetch(BASE+ruta,{method:'POST',headers:{'Content-Type':'application/json','X-Llave':llaveG.value},body:JSON.stringify(cuerpo)});const j=await r.json();if(!r.ok)throw new Error(j.error||r.status);return j;}
 const YA='ya trabajada por el sistema · respuesta inmediata';
 function amable(m){return /llave/i.test(m)?'Esta pregunta es nueva: para ponerla a trabajar hace falta la llave de acceso. Las preguntas ya trabajadas se responden sin llave.':m}
 $('#btn').onclick=async()=>{const q=$('#q').value.trim();if(!q)return;$('#btn').disabled=true;$('#resp').hidden=true;$('#fu').hidden=true;$('#cortaCaja').hidden=true;$('#estado').textContent='enviando…';barra([]);
