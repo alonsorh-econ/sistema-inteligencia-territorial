@@ -1,0 +1,244 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sistema de inteligencia territorial · Junta de Juntas</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--pet:#0D5A60;--pet2:#083D42;--verde:#20975A;--nar:#F25100;--dor:#FFB600;--azul:#0038E3;--tinta:#10232B;--gris:#5C6B73;--fondo:#F4F7F6;--blanco:#fff}
+*{box-sizing:border-box}html,body{height:100%;margin:0}
+body{background:var(--pet2);color:var(--tinta);font-family:"Source Serif 4",Georgia,serif;overflow:hidden}
+h1,h2,h3,.ey,.et,.k,.num,.tag,th,.btn,.pie,.nav{font-family:Archivo,"Avenir Next","Helvetica Neue",Arial,sans-serif}
+/* barra viva */
+#barra{position:fixed;top:0;left:0;right:0;height:52px;background:var(--pet2);color:#fff;display:none;align-items:center;gap:8px;padding:0 18px;z-index:9;border-bottom:3px solid var(--nar)}
+#barra.on{display:flex}
+#barra .q{font-family:Archivo;font-size:13px;opacity:.85;max-width:34vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#barra .ets{display:flex;gap:5px;flex:1}
+.et{flex:1;font-size:11px;letter-spacing:.03em;text-transform:uppercase;text-align:center;padding:6px 4px;border-radius:6px;background:rgba(255,255,255,.08);border-bottom:3px solid rgba(255,255,255,.15);color:rgba(255,255,255,.6)}
+.et.encurso{background:rgba(242,81,0,.25);border-color:var(--nar);color:#fff;animation:p 1.2s infinite}.et.listo{background:rgba(32,151,90,.3);border-color:var(--verde);color:#fff}
+@keyframes p{0%,100%{opacity:1}50%{opacity:.55}}
+#barra .t{font-family:Archivo;font-size:13px;min-width:120px;text-align:right}
+/* láminas */
+.lam{position:absolute;inset:0;display:none;padding:64px 72px 56px;background:var(--fondo)}
+.lam.on{display:block}
+.lam.oscura{background:var(--pet2);color:#fff}.lam.oscura .ey{color:var(--dor)}.lam.oscura h1{color:#fff}.lam.oscura p{color:#dfe9ea}
+.ey{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--pet);font-weight:700;margin-bottom:10px}
+h1{font-size:44px;line-height:1.08;margin:0 0 16px;color:var(--pet2);font-weight:800;letter-spacing:-.01em}
+h2{font-size:30px;margin:0 0 14px;color:var(--pet2);font-weight:800}
+h3{font-size:16px;margin:0 0 6px;color:var(--pet)}
+p{font-size:20px;line-height:1.45;margin:0 0 10px;max-width:1100px}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:28px}.tres{display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px}
+.caja{background:var(--blanco);border-radius:14px;padding:18px 20px;box-shadow:0 6px 20px rgba(8,61,66,.08)}
+.caja.pide{border-top:5px solid var(--verde)}.caja.no{border-top:5px solid var(--nar)}.caja.falta{border-top:5px solid var(--dor)}
+.caja p,.caja li{font-size:17px;line-height:1.4}.caja ol,.caja ul{margin:4px 0 0 20px;padding:0}
+.num{font-size:64px;font-weight:800;color:var(--pet);line-height:1}.lab{font-size:15px;color:var(--gris);font-family:Archivo}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;font-size:15px}
+th{background:#e6f0f1;color:var(--pet2);text-align:left;padding:8px 10px;font-size:12px;letter-spacing:.05em;text-transform:uppercase}
+td{padding:7px 10px;border-top:1px solid #e3e8ea;vertical-align:top;line-height:1.35}
+.tag{display:inline-block;font-size:11px;font-weight:700;padding:2px 7px;border-radius:5px;color:#fff}
+.tag.v{background:var(--verde)}.tag.c{background:var(--dor);color:#10232B}.tag.n{background:var(--gris)}
+.pie{position:absolute;left:72px;right:72px;bottom:18px;font-size:12px;color:var(--gris);display:flex;justify-content:space-between}
+.oscura .pie{color:#9fb8ba}
+.paso{display:flex;gap:14px;align-items:stretch;margin-top:18px}.paso>div{flex:1;background:#fff;border-radius:12px;padding:14px;border-top:5px solid var(--pet)}
+.paso b{display:block;font-family:Archivo;color:var(--pet2);font-size:15px;margin-bottom:4px}.paso small{font-size:14px;color:var(--gris);line-height:1.35;display:block}
+.flecha{align-self:center;color:var(--nar);font-size:28px;font-weight:800}
+.ask{display:flex;gap:10px;margin-top:22px}.ask input{flex:1;font:inherit;font-size:22px;padding:14px 16px;border:2px solid #cfd8dc;border-radius:12px}
+.btn{background:var(--nar);color:#fff;border:0;border-radius:12px;padding:14px 26px;font-size:18px;font-weight:700;cursor:pointer}
+.sug{display:inline-block;margin:10px 8px 0 0;padding:8px 14px;background:#fff;border:1.5px solid #cfd8dc;border-radius:999px;font-size:15px;cursor:pointer;font-family:Archivo}
+.resp{background:#fff;border-radius:14px;padding:18px 24px;max-height:calc(100vh - 220px);overflow:auto;font-size:16px}
+.resp h2{font-size:20px;border-bottom:2px solid var(--dor);padding-bottom:4px;margin:14px 0 6px}.resp h3{font-size:17px;margin:10px 0 4px}.resp p,.resp li{font-size:16px;line-height:1.45}
+.cita{display:inline-block;background:#e6f0f1;color:var(--pet);border-radius:5px;padding:0 5px;font-size:12px;font-weight:700}
+.sello{display:inline-block;background:var(--verde);color:#fff;border-radius:999px;padding:5px 14px;font-size:14px;font-weight:700;font-family:Archivo}
+.nav{position:fixed;right:18px;bottom:14px;font-size:12px;color:#9fb8ba;font-family:Archivo}
+</style></head><body>
+
+<div id="barra"><div class="q" id="bq"></div><div class="ets" id="ets"></div><div class="t" id="bt">sin lanzar</div></div>
+
+<!-- 1 -->
+<section class="lam oscura on">
+  <div class="ey">Cámara de Comercio de Cartagena · Consejo Gremial de Bolívar · CRCI · Invest in Cartagena</div>
+  <h1 style="font-size:58px;max-width:1000px">Pregúntele a la evidencia antes de pedirle algo al Plan</h1>
+  <p style="font-size:24px;max-width:900px">Un sistema que arma expedientes de norma, dato, referentes y voz sobre Cartagena y Bolívar, los audita, y dice por qué puerta puede entrar cada cosa al Plan Nacional de Desarrollo 2026-2030.</p>
+  <p style="font-size:18px;opacity:.8;margin-top:26px">Junta de Juntas · viernes 25 de septiembre de 2026 · Departamento de Investigaciones Económicas</p>
+  <div class="pie"><span>Sistema de inteligencia territorial</span><span>1</span></div>
+</section>
+
+<!-- 2 -->
+<section class="lam">
+  <div class="ey">La pregunta de hoy</div>
+  <h1>Empecemos por la pregunta de un congresista</h1>
+  <p>Mientras hablamos, el sistema la trabaja: cuatro capas de evidencia, dos niveles de contraste, una agenda con evidencia marcada y una auditoría independiente. La barra de arriba muestra por dónde va.</p>
+  <div class="ask"><input id="q" placeholder="Escriba la pregunta…"><button class="btn" id="go">Lanzar</button></div>
+  <div id="sugs"></div>
+  <p style="font-size:14px;color:var(--gris);margin-top:16px" id="estado2"></p>
+  <div class="pie"><span>La máquina busca, lee y ordena; las personas verifican, miden y deciden.</span><span>2</span></div>
+</section>
+
+<!-- 3 -->
+<section class="lam">
+  <div class="ey">El método</div>
+  <h1>Un expediente por pregunta, cuatro capas encadenadas, una auditoría que no participó</h1>
+  <div class="paso">
+    <div><b>Pregunta con verbo</b><small>«¿Vence en 2026 el régimen tarifario del Caribe?», no «energía».</small></div><div class="flecha">→</div>
+    <div><b>1 · Norma</b><small>Leída acto por acto: número, artículo, fecha, y dónde se rompe la cadena.</small></div><div class="flecha">→</div>
+    <div><b>2 · Dato</b><small>Oficial o propio (censo, registro, GEIH): cifra, unidad, año, fuente.</small></div><div class="flecha">→</div>
+    <div><b>3 · Referentes</b><small>Qué hicieron los planes anteriores y otras regiones; qué tumbó la Corte.</small></div><div class="flecha">→</div>
+    <div><b>4 · Voz</b><small>Lo que el sector afirma, contrastado con las tres capas.</small></div>
+  </div>
+  <div class="paso" style="margin-top:14px">
+    <div style="border-top-color:var(--dor)"><b>Nivel 2 · contradicciones</b><small>Estado de cada afirmación: confirmada · contradicha · huérfana · sin medir · sin doliente.</small></div><div class="flecha">→</div>
+    <div style="border-top-color:var(--dor)"><b>Nivel 3 · la puerta</b><small>El PND lo cambia · lo ordena · no es del PND · primero se mide.</small></div><div class="flecha">→</div>
+    <div style="border-top-color:var(--nar)"><b>Auditoría independiente</b><small>Otra sesión coteja cada cita con su fuente; retira o marca. Después, una persona.</small></div>
+  </div>
+  <div class="pie"><span>Cada capa escribe la pregunta de la siguiente. Si una desmiente a la anterior, se vuelve atrás.</span><span>3</span></div>
+</section>
+
+<!-- 4 -->
+<section class="lam">
+  <div class="ey">Lo recorrido</div>
+  <h1>Ocho días de trabajo continuo, cuatro sectores, un equipo</h1>
+  <div class="tres" style="margin-top:20px">
+    <div class="caja"><div class="num">30</div><div class="lab">expedientes: energía, marítimo, turismo, proyectos estratégicos y vivienda</div></div>
+    <div class="caja"><div class="num">18</div><div class="lab">propuestas con texto de artículo, vía y precedente, auditadas</div></div>
+    <div class="caja"><div class="num">96</div><div class="lab">afirmaciones marítimas cotejadas en una noche: 90 confirmadas, 6 corregidas antes de salir</div></div>
+  </div>
+  <div class="tres" style="margin-top:18px">
+    <div class="caja"><div class="num">5.245</div><div class="lab">ocupados del sector marítimo en Cartagena, calculados con microdatos de la GEIH (2024-25)</div></div>
+    <div class="caja"><div class="num">64</div><div class="lab">fuentes oficiales que un asistente está bajando a mano porque los portales bloquean robots</div></div>
+    <div class="caja"><div class="num">3</div><div class="lab">investigadoras y un asistente auditando frase por frase lo que la máquina dejó marcado</div></div>
+  </div>
+  <div class="pie"><span>Cifras a 23-sep-2026, con fuente en cada expediente.</span><span>4</span></div>
+</section>
+
+<!-- 5 energía -->
+<section class="lam">
+  <div class="ey">Energía</div>
+  <h2>El Caribe no paga la energía más cara: paga las pérdidas más altas. Y el régimen tarifario no vence en una fecha.</h2>
+  <div class="tres">
+    <div class="caja pide"><h3>Lo que puede pedir en el Plan</h3><ol><li>Que la UPME publique cada semestre, por operador y departamento, las solicitudes de conexión que ya recibe.</li><li>Licencia ambiental y consulta previa <b>antes</b> de licitar transmisión.</li><li>Publicar si subsisten las causas del régimen tarifario especial, con plazo máximo.</li><li>Meta cuatrienal de normalización eléctrica, con los fondos blindados.</li></ol></div>
+    <div class="caja no"><h3>Lo que no resiste</h3><ul><li>«El Estado debe $10 billones».</li><li>«El Caribe paga la energía más cara».</li><li>«14.000 solicitudes solares represadas».</li><li>Fijar tarifas en la ley: es de la CREG (C-364/2025).</li></ul></div>
+    <div class="caja falta"><h3>Lo que falta confirmar</h3><ul><li>Si ya opera el decreto de los nuevos fondos (375/2026).</li><li>La fecha de firmeza de las resoluciones de 2021.</li><li>Si la recusación ante la CREG sigue vigente.</li></ul></div>
+  </div>
+  <div class="pie"><span>6 propuestas con texto · 2 cerraron sin arreglos · fuente: CIFRAS_canonicas_energia, expedientes E1–E16</span><span>5</span></div>
+</section>
+
+<!-- 6 marítimo -->
+<section class="lam">
+  <div class="ey">Marítimo y astilleros</div>
+  <h2>Los instrumentos existen en el papel y no operan: el offset industrial no nombra a los astilleros y PROASTILLEROS tiene un solo beneficiario.</h2>
+  <div class="tres">
+    <div class="caja pide"><h3>Lo que puede pedir en el Plan</h3><ol><li>Que DIMAR publique el registro de astilleros y talleres con licencia, construcción aparte de reparación.</li><li>Que el Gobierno evalúe PROASTILLEROS con plazo, incluido el costo fiscal de extenderlo a reparación.</li><li>Que MinCIT y MinDefensa definan con plazo las Áreas de Interés del offset (art. 257).</li></ol></div>
+    <div class="caja no"><h3>Lo que no resiste</h3><ul><li>«La ley pro-astilleros de 2019»: no existe; es un decreto de 2018 ya reglamentado.</li><li>Tocar el arancel o el IVA en el Plan: se cae (C-026/2020).</li><li>La hipoteca naval en el articulado: es ley propia y regulación financiera.</li></ul></div>
+    <div class="caja falta"><h3>Lo que se midió y lo que falta</h3><ul><li><b>5.245</b> ocupados marítimos, 1.748 navales (GEIH): el «150.000» no existía.</li><li>Falta: cuántos astilleros fabrican y cuántos reparan (único conteo: 2019).</li></ul></div>
+  </div>
+  <div class="pie"><span>5 propuestas con texto · 2 cerraron sin arreglos · fuente: CIFRAS_canonicas_maritimo, MARITIMO_diagnostico_integrado, GEIH</span><span>6</span></div>
+</section>
+
+<!-- 7 turismo -->
+<section class="lam">
+  <div class="ey">Turismo</div>
+  <h2>La ley le dio a Cartagena instrumentos en 2013 que nadie ha reglamentado, y el alojamiento cambió de forma sin que nadie midiera las camas.</h2>
+  <div class="tres">
+    <div class="caja pide"><h3>Lo que puede pedir en el Plan</h3><ol><li>Que el Gobierno expida en seis meses los decretos de financiación de la Ley 1617 (arts. 92 y 102) y presente el proyecto de ley del art. 133.</li><li>Que las Bases nombren el turismo de reuniones y la red de recintos del Caribe.</li><li>Un asiento para los distritos turísticos en la línea de FONTUR.</li></ol></div>
+    <div class="caja no"><h3>Lo que no resiste</h3><ul><li>«Ya está ordenada la compensación»: se ordenó un proyecto de ley.</li><li>Cifras de Airbnb, o el «94,8 % de informalidad».</li><li>Regular la renta corta reformando la ley de turismo: es el POT y la Hacienda distrital.</li></ul></div>
+    <div class="caja falta"><h3>Lo que se sabe y lo que falta</h3><ul><li>12.123 inscripciones en el RNT; 8.573 viviendas turísticas (70,7 %); 825 alojamientos formales.</li><li>Falta: cuánta parafiscalidad genera Cartagena y cuánto le vuelve (nadie lo ha medido).</li></ul></div>
+  </div>
+  <div class="pie"><span>3 propuestas con texto · expedientes T1–T5 · fuente: RNT (recontado), Ley 1617, CIFRAS_canonicas_turismo</span><span>7</span></div>
+</section>
+
+<!-- 8 proyectos -->
+<section class="lam">
+  <div class="ey">Proyectos estratégicos</div>
+  <h2>En seis de los diez proyectos lo que traba no es plata: es una licencia, un pleito o un doliente.</h2>
+  <div class="tres">
+    <div class="caja pide"><h3>Lo que puede pedir en el Plan</h3><ol><li>Blindar las vigencias futuras del Canal del Dique contra aplazamientos.</li><li>Designar en seis meses quién responde por el Tren Regional y financiar su factibilidad.</li><li>Que los accesos portuarios urbanos (Mamonal) puedan volverse red nacional o cofinanciarse (Ley 105, art. 15).</li><li>Publicidad trimestral de la evaluación de iniciativas privadas (Bayunca).</li></ol></div>
+    <div class="caja no"><h3>Lo que no resiste</h3><ul><li>Que el Plan «declare» el Dique: eso lo hace el CONPES.</li><li>«Celeridad» en Bayunca: la Corte no le fijó plazo a la ANI.</li><li>Ninguna cifra aplazada al Dique sin el decreto en la mano.</li></ul></div>
+    <div class="caja falta"><h3>Lo que falta confirmar</h3><ul><li>El estado contractual real de Bayunca (dos versiones incompatibles).</li><li>El costo de obra del Tren Regional.</li></ul></div>
+  </div>
+  <div class="pie"><span>4 propuestas con texto · 10 fichas contrastadas con registro oficial (v2, 23-sep)</span><span>8</span></div>
+</section>
+
+<!-- 9 agenda -->
+<section class="lam">
+  <div class="ey">La agenda</div>
+  <h2>Dieciocho propuestas con texto, vía y precedente. Cinco cerraron sin un solo arreglo de fondo.</h2>
+  <div class="dos">
+    <table><tr><th>ID</th><th>Qué pide</th><th>Vía</th><th>Auditoría</th></tr>
+      <tr><td><b>EN-4</b></td><td>La UPME publica cada semestre lo que ya recibe</td><td>Articulado</td><td><span class="tag v">cierra</span></td></tr>
+      <tr><td><b>E5</b></td><td>Licencia y consulta previa antes de licitar transmisión</td><td>Articulado</td><td><span class="tag v">cierra</span></td></tr>
+      <tr><td><b>TU-1</b></td><td>Decretos de la Ley 1617 en seis meses; proyecto de ley del art. 133</td><td>Articulado</td><td><span class="tag v">cierra</span></td></tr>
+      <tr><td><b>MA-4</b></td><td>DIMAR publica el registro de astilleros</td><td>Articulado</td><td><span class="tag v">cierra</span></td></tr>
+      <tr><td><b>MA-5</b></td><td>Evaluar PROASTILLEROS en 12 meses</td><td>Articulado</td><td><span class="tag v">cierra</span></td></tr>
+      <tr><td><b>EN-1</b></td><td>Plazo máximo al régimen tarifario y publicación de sus causas</td><td>Articulado</td><td><span class="tag c">corregida</span></td></tr>
+      <tr><td><b>PR-001</b></td><td>Vigencias del Dique blindadas</td><td>Artic. + plurianual</td><td><span class="tag c">corregida</span></td></tr>
+    </table>
+    <div>
+      <div class="caja"><h3>Por sector</h3><p>Energía <b>6</b> · Turismo <b>3</b> · Proyectos <b>4</b> · Marítimo <b>5</b></p><h3 style="margin-top:10px">Por vía</h3><p>Articulado 14 · Bases + articulado 2 · Plurianual 3 · <b>No es del Plan 1</b> (y dice a dónde sí va)</p></div>
+      <div class="caja" style="margin-top:14px"><h3>Lo que un abogado del Gobierno no puede tumbar</h3><p style="font-size:16px">Ninguna fija tarifa, arancel ni impuesto. Todas ordenan <b>publicar, evaluar, definir o cumplir</b> lo que ya existe, con plazo y con el artículo que ya lo hizo antes.</p></div>
+    </div>
+  </div>
+  <div class="pie"><span>AGENDA_Junta_de_Juntas_propuestas.md · 23-sep-2026</span><span>9</span></div>
+</section>
+
+<!-- 10 no es del plan -->
+<section class="lam">
+  <div class="ey">La otra mitad del valor</div>
+  <h2>Saber qué no va al Plan, y a dónde sí va</h2>
+  <table style="margin-top:6px"><tr><th>Pieza</th><th>Por qué no</th><th>Dónde sí</th></tr>
+    <tr><td>Hipoteca naval (rango, plazo, prescripción)</td><td>Código de Comercio: política permanente</td><td><b>Ley propia</b> · SFC/URF</td></tr>
+    <tr><td>Arancel o IVA de PROASTILLEROS</td><td>El Gobierno fija el arancel (C-026/2020)</td><td><b>Decreto</b> · Estatuto Tributario</td></tr>
+    <tr><td>Rediseño permanente del régimen tarifario · pérdidas · plazos de conexión</td><td>Reserva de la CREG; C-364/2025</td><td><b>Regulación CREG</b> · ley ordinaria</td></tr>
+    <tr><td>Reforma de la consulta previa</td><td>Ley estatutaria</td><td><b>Proyecto de ley propio</b> (desde sep-2026)</td></tr>
+    <tr><td>Opción tarifaria · deuda de Air-e · estampilla nueva</td><td>Regulación · intervención · ya hay cinco</td><td><b>CREG · SSPD</b> · PL 432/2025</td></tr>
+    <tr><td>Regular la renta corta reformando la ley de turismo</td><td>Viabilidad nula, según la propia mesa</td><td><b>POT</b> + Hacienda distrital + RNT</td></tr>
+    <tr><td>Traslado de Bazurto · Aeropuerto Rafael Núñez</td><td>POT y sentencias · contrato APP sin PGN</td><td><b>Distrito</b></td></tr>
+  </table>
+  <div class="pie"><span>Cada fila con su norma y su sentencia en el expediente correspondiente.</span><span>10</span></div>
+</section>
+
+<!-- 11 respuesta en vivo -->
+<section class="lam">
+  <div class="ey">La respuesta en vivo</div>
+  <h2 id="tit11">La agenda del asesor para la pregunta de hoy</h2>
+  <div class="resp" id="resp"><p style="color:var(--gris)">Cuando la barra llegue a «Auditoría», la respuesta aparece aquí.</p></div>
+  <div class="pie"><span>Cada frase con [n] tiene fuente en el acervo; ⚠️ marca lo que hay que verificar antes de usarlo.</span><span>11</span></div>
+</section>
+
+<!-- 12 cierre -->
+<section class="lam oscura">
+  <div class="ey">Lo que sigue</div>
+  <h1>El sistema sigue trabajando después de hoy</h1>
+  <p style="font-size:22px">Cada pregunta que llegue de una UTL, un gremio o una entidad se convierte en un expediente. Lo que se establece queda escrito, con su fuente, y lo que no se pudo confirmar queda marcado hasta que alguien lo confirme.</p>
+  <div class="dos" style="margin-top:22px">
+    <div class="caja" style="background:rgba(255,255,255,.08);box-shadow:none"><h3 style="color:var(--dor)">Pregúntele</h3><p style="color:#fff;font-size:18px">alonsorh-econ.github.io/sistema-inteligencia-territorial</p></div>
+    <div class="caja" style="background:rgba(255,255,255,.08);box-shadow:none"><h3 style="color:var(--dor)">Quién responde</h3><p style="color:#fff;font-size:18px">Departamento de Investigaciones Económicas · Cámara de Comercio de Cartagena, con el Consejo Gremial, la CRCI e Invest in Cartagena</p></div>
+  </div>
+  <div class="pie"><span>Gracias.</span><span>12</span></div>
+</section>
+
+<div class="nav">← → para pasar · L lanza la pregunta · R reinicia</div>
+
+<script>
+const BASE = localStorage.getItem('sit_base') || 'https://192-81-211-68.sslip.io';
+const LLAVE = localStorage.getItem('sit_llave') || '';
+const ET=[['entender','Entender'],['norma','1 Norma'],['dato','2 Dato'],['referentes','3 Referentes'],['voz','4 Voz'],['nivel2','Nivel 2'],['nivel3','Nivel 3'],['cierre','Agenda'],['auditoria','Auditoría']];
+const SUGS=['¿Qué debe incluir el Plan Nacional de Desarrollo 2026-2030 para resolver el problema de las tarifas de energía del Caribe, y qué no puede incluir?','¿Qué necesita la industria astillera de Cartagena del Plan Nacional de Desarrollo 2026-2030?','¿Qué le piden al Plan los diez proyectos estratégicos?','¿Qué debe incluir el Plan Nacional de Desarrollo para el turismo de Cartagena y Bolívar?'];
+const $=s=>document.querySelector(s); const lams=[...document.querySelectorAll('.lam')]; let i=0, job=null, timer=null;
+function ver(n){i=Math.max(0,Math.min(lams.length-1,n));lams.forEach((l,k)=>l.classList.toggle('on',k===i));}
+document.addEventListener('keydown',e=>{if(e.target.tagName==='INPUT')return;if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown')ver(i+1);else if(e.key==='ArrowLeft'||e.key==='PageUp')ver(i-1);else if(e.key.toLowerCase()==='l')lanzar();else if(e.key.toLowerCase()==='r')reiniciar();});
+$('#sugs').innerHTML=SUGS.map(s=>`<span class="sug">${s}</span>`).join('');document.querySelectorAll('.sug').forEach(b=>b.onclick=()=>{$('#q').value=b.textContent});
+function barra(etapas){$('#ets').innerHTML=ET.map(([k,n])=>{const e=(etapas||[]).find(x=>x.nombre===k)||{estado:'pendiente'};return `<div class="et ${e.estado==='en curso'?'encurso':e.estado==='listo'?'listo':''}">${n}</div>`}).join('');}
+function esc(s){return (s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}
+function md(t){t=(t||'').replace(/^#\s*(Texto auditado|Agenda (auditada|corregida))\s*\n?/i,'');let h=esc(t).replace(/^### (.+)$/gm,'<h3>$1</h3>').replace(/^## (.+)$/gm,'<h2>$1</h2>').replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\[(\d+)\]/g,'<span class="cita">$1</span>');
+ h=h.replace(/(^|\n)((?:[-•] .+\n?)+)/g,(m,a,b)=>a+'<ul>'+b.trim().split(/\n/).map(l=>'<li>'+l.replace(/^[-•] /,'')+'</li>').join('')+'</ul>');
+ h=h.replace(/(^|\n)((?:\d+\. .+\n?)+)/g,(m,a,b)=>a+'<ol>'+b.trim().split(/\n/).map(l=>'<li>'+l.replace(/^\d+\. /,'')+'</li>').join('')+'</ol>');
+ h=h.replace(/\n\|[^\n]*\|\n\|[-| ]+\|\n((?:\|[^\n]*\|\n?)+)/g,(m)=>{const rows=m.trim().split('\n').filter(r=>!/^\|[-| ]+\|$/.test(r));return '<table>'+rows.map((r,k)=>'<tr>'+r.split('|').slice(1,-1).map(c=>(k?'<td>':'<th>')+c.trim()+(k?'</td>':'</th>')).join('')+'</tr>').join('')+'</table>'});
+ return h.replace(/\n{2,}/g,'</p><p>').replace(/^(?!<)/,'<p>')+'</p>';}
+async function lanzar(){const q=$('#q').value.trim();if(!q)return;$('#estado2').textContent='lanzando…';
+ try{const r=await fetch(BASE+'/api/asesor',{method:'POST',headers:{'Content-Type':'application/json','X-Llave':LLAVE},body:JSON.stringify({pregunta:q})});const j=await r.json();if(!r.ok)throw new Error(j.error||r.status);
+  job=j.id;$('#bq').textContent=q;$('#barra').classList.add('on');$('#estado2').textContent=j.de_cache?'Esta pregunta ya fue trabajada: la barra reproduce el recorrido.':'Lanzada. La barra muestra el avance mientras seguimos.';barra([]);
+  clearInterval(timer);timer=setInterval(sondear,3000);sondear();
+ }catch(e){$('#estado2').textContent='No se pudo lanzar: '+e.message;}}
+async function sondear(){if(!job)return;try{const e=await (await fetch(BASE+'/api/estado/'+job)).json();barra(e.etapas);const act=(e.etapas||[]).find(x=>x.estado==='en curso');$('#bt').textContent=e.listo?'lista · '+e.segundos+' s':((act?(ET.find(x=>x[0]===act.nombre)||[])[1]:'')+' · '+e.segundos+' s');
+ if(e.listo){clearInterval(timer);const r=await (await fetch(BASE+'/api/resultado/'+job)).json();$('#resp').innerHTML=md(r.cierre||'')+(r.auditoria?`<p><span class="sello">Auditoría: ${r.auditoria.cotejadas||0} afirmaciones cotejadas · ${r.auditoria.retiradas||0} marcadas · ${r.auditoria.verificar||0} sin fuente</span> &nbsp; ${(r.fuentes||[]).length} fuentes · ${r.segundos||''} s</p>`:'');}
+ }catch(err){$('#bt').textContent='sin conexión';}}
+function reiniciar(){clearInterval(timer);job=null;$('#barra').classList.remove('on');$('#resp').innerHTML='<p style="color:var(--gris)">Cuando la barra llegue a «Auditoría», la respuesta aparece aquí.</p>';$('#estado2').textContent='';}
+$('#go').onclick=lanzar;$('#q').addEventListener('keydown',e=>{if(e.key==='Enter')lanzar()});
+</script></body></html>
