@@ -22,7 +22,13 @@ a{color:var(--teal)}
 .marca span{display:flex;flex-direction:column;border-left:3px solid var(--naranja);padding-left:14px;font-size:14px;font-weight:600;color:var(--gris);line-height:1.3}
 .marca span b{font-family:var(--display);font-size:17px;font-weight:800;color:var(--azul)}
 .cab nav a{font-weight:600;font-size:15px;text-decoration:none}
-main{max-width:1040px;margin:0 auto;padding:30px 16px 64px;display:flex;flex-direction:column;gap:20px}
+.marco{max-width:1340px;margin:0 auto;padding:30px 16px 64px;display:grid;grid-template-columns:300px minmax(0,1fr);gap:24px;align-items:start}
+.lateral{position:sticky;top:16px;background:var(--hoja);border:1px solid var(--linea);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:10px;max-height:calc(100vh - 40px);overflow:auto}
+.lateral ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+.lateral a{display:block;text-decoration:none;color:var(--tinta);font-size:14.5px;line-height:1.4;padding:9px 10px;border-radius:10px}
+.lateral a:hover,.lateral a.on{background:var(--naranja-suave);color:var(--azul);font-weight:700}
+main{min-width:0;display:flex;flex-direction:column;gap:20px}
+@media (max-width:900px){.marco{grid-template-columns:1fr}.lateral{position:static;max-height:none}}
 h1,h2,h3{font-family:var(--display);color:var(--azul);margin:0;text-wrap:balance;line-height:1.2}
 .caja{background:var(--hoja);border:1px solid var(--linea);border-radius:16px;padding:22px}
 .intro{display:flex;flex-direction:column;gap:6px}
@@ -81,14 +87,16 @@ details.pan .md p,details.pan .md li{font-size:15px}
 <header class="cab"><div class="in">
   <a class="marca" href="index.html" aria-label="VÍA, Ventanilla de Incidencia Asistida">
     <svg viewBox="0 0 250 110" role="img" aria-label="VÍA"><text x="0" y="98" font-family="Montserrat,Arial,sans-serif" font-weight="900" font-size="104" fill="currentColor" letter-spacing="-2">V</text><text x="78" y="98" font-family="Montserrat,Arial,sans-serif" font-weight="900" font-size="104" fill="currentColor">I</text><text x="118" y="98" font-family="Montserrat,Arial,sans-serif" font-weight="900" font-size="104" fill="currentColor">A</text><path d="M84 20 C94 14 102 8 114 2" stroke="#F0801A" stroke-width="9" stroke-linecap="round" fill="none"/><path d="M104 0 L117 1 L112 13" stroke="#F0801A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
-    <span><b>Ventanilla de Incidencia Asistida</b>Sistema de Inteligencia Territorial · Cámara de Comercio de Cartagena</span>
+    <span><b>Ventanilla de Incidencia Asistida</b>Sistema de Inteligencia Territorial · área con clave</span>
   </a>
   <nav><a href="index.html">Volver al sistema</a></nav>
 </div></header>
+<div class="marco">
+<aside class="lateral" aria-label="Preguntas ya trabajadas"><span class="eti" style="color:var(--gris)">Preguntas ya trabajadas</span><span class="nota">Se responden al instante.</span><ol><li><a href="?q=%C2%BFQu%C3%A9%20puede%20hacer%20el%20Plan%20Nacional%20de%20Desarrollo%20para%20bajar%20la%20tarifa%20de%20energ%C3%ADa%20del%20Caribe%2C%20y%20qu%C3%A9%20no%20puede%20hacer%3F">¿Qué puede hacer el Plan Nacional de Desarrollo para bajar la tarifa de energía del Caribe, y qué no puede hacer?</a></li><li><a href="?q=%C2%BFVence%20en%202026%20el%20r%C3%A9gimen%20tarifario%20del%20Caribe%3F">¿Vence en 2026 el régimen tarifario del Caribe?</a></li><li><a href="?q=%C2%BFQu%C3%A9%20necesita%20la%20industria%20astillera%20de%20Cartagena%20del%20Plan%20Nacional%20de%20Desarrollo%202026-2030%3F">¿Qué necesita la industria astillera de Cartagena del Plan Nacional de Desarrollo 2026-2030?</a></li><li><a href="?q=%C2%BFQu%C3%A9%20debe%20incluir%20el%20Plan%20Nacional%20de%20Desarrollo%20para%20el%20turismo%20de%20Cartagena%20y%20Bol%C3%ADvar%3F">¿Qué debe incluir el Plan Nacional de Desarrollo para el turismo de Cartagena y Bolívar?</a></li><li><a href="?q=%C2%BFCu%C3%A1nta%20gente%20en%20Cartagena%20no%20tiene%20agua%20potable%2C%20contando%20las%20islas%20y%20los%20corregimientos%3F">¿Cuánta gente en Cartagena no tiene agua potable, contando las islas y los corregimientos?</a></li><li><a href="?q=%C2%BFCu%C3%A1ntos%20negocios%20informales%20hay%20en%20Cartagena%20y%20qu%C3%A9%20debe%20pedirle%20la%20ciudad%20al%20Plan%20para%20formalizarlos%3F">¿Cuántos negocios informales hay en Cartagena y qué debe pedirle la ciudad al Plan para formalizarlos?</a></li><li><a href="?q=%C2%BFQu%C3%A9%20le%20debe%20la%20Naci%C3%B3n%20a%20Cartagena%20como%20distrito%20tur%C3%ADstico%20seg%C3%BAn%20la%20Ley%201617%20de%202013%3F">¿Qué le debe la Nación a Cartagena como distrito turístico según la Ley 1617 de 2013?</a></li><li><a href="?q=%C2%BFCu%C3%A1nto%20pagan%20los%20puertos%20de%20Cartagena%20en%20contraprestaci%C3%B3n%20portuaria%20y%20cu%C3%A1nto%20de%20esa%20plata%20vuelve%20a%20la%20ciudad%3F">¿Cuánto pagan los puertos de Cartagena en contraprestación portuaria y cuánto de esa plata vuelve a la ciudad?</a></li><li><a href="?q=%C2%BFEn%20qu%C3%A9%20va%20el%20Canal%20del%20Dique%20y%20qu%C3%A9%20debe%20hacer%20el%20Plan%20para%20que%20no%20se%20vuelva%20a%20frenar%20por%20falta%20de%20plata%3F">¿En qué va el Canal del Dique y qué debe hacer el Plan para que no se vuelva a frenar por falta de plata?</a></li><li><a href="?q=%C2%BFQu%C3%A9%20necesita%20la%20doble%20calzada%20Cartagena%E2%80%93Barranquilla%20del%20Plan%20Nacional%20de%20Desarrollo%3F">¿Qué necesita la doble calzada Cartagena–Barranquilla del Plan Nacional de Desarrollo?</a></li><li><a href="?q=%C2%BFQu%C3%A9%20debe%20incluir%20el%20Plan%20para%20frenar%20la%20extorsi%C3%B3n%20a%20los%20comerciantes%20de%20Cartagena%3F">¿Qué debe incluir el Plan para frenar la extorsión a los comerciantes de Cartagena?</a></li><li><a href="?q=%C2%BFC%C3%B3mo%20cambia%20lo%20que%20recibe%20Cartagena%20del%20Sistema%20General%20de%20Participaciones%20con%20la%20reforma%20de%20competencias%2C%20y%20qu%C3%A9%20debe%20pedir%20el%20Distrito%20en%20el%20Plan%3F">¿Cómo cambia lo que recibe Cartagena del Sistema General de Participaciones con la reforma de competencias, y qué debe pedir el Distrito en el Plan?</a></li><li><a href="?q=%C2%BFQu%C3%A9%20garant%C3%ADas%20de%20estabilidad%20jur%C3%ADdica%20puede%20darle%20el%20Plan%20a%20una%20empresa%20que%20quiera%20invertir%20en%20Mamonal%20o%20en%20una%20zona%20franca%20de%20Cartagena%3F">¿Qué garantías de estabilidad jurídica puede darle el Plan a una empresa que quiera invertir en Mamonal o en una zona franca de Cartagena?</a></li></ol></aside>
 <main>
 <section class="caja">
-  <div class="intro"><h1>¿Qué necesita Cartagena y Bolívar del Plan Nacional de Desarrollo?</h1>
-  <p>Escriba una prioridad o una pregunta. El sistema responde con lo que el Departamento de Investigaciones Económicas ya reunió y validó: normas, datos, referentes y voces de la región.</p></div>
+  <div class="intro"><h1>¿Qué necesita Cartagena y Bolívar de la política pública?</h1>
+  <p>Escriba una prioridad o una pregunta. El sistema responde con lo que el Departamento de Investigaciones Económicas ya reunió y validó (normas, datos, referentes y voces de la región) y le dice por qué instrumento avanzar: el Plan Nacional de Desarrollo, una ley, un decreto, la regulación, un CONPES o los planes territoriales.</p></div>
   <div style="margin-top:14px"><label for="q" class="eti">Su pregunta</label>
   <textarea id="q" placeholder="Por ejemplo: ¿Qué debe incluir el Plan para el turismo de Cartagena y Bolívar?"></textarea></div>
   <div class="fila"><button id="btn">Preguntar</button><span class="estado" id="estado" role="status" aria-live="polite"></span></div>
@@ -107,6 +115,7 @@ details.pan .md p,details.pan .md li{font-size:15px}
 <section class="caja fuentes" id="fu" hidden></section>
 <p class="pie">Las preguntas ya trabajadas se responden al instante. Una pregunta nueva pone a trabajar al sistema y necesita llave de acceso. Lo que no está en el acervo del sistema, lo dice.</p>
 </main>
+</div>
 <script>
 const BASE = (()=>{try{return localStorage.getItem('sit_base')}catch(e){return ''}})() || (location.hostname==='localhost'||location.hostname==='127.0.0.1' ? '' : 'https://192-81-211-68.sslip.io');
 const PASOS=[['entender','Entiende la pregunta'],['norma','Revisa la norma'],['dato','Busca los datos'],['referentes','Mira qué hicieron otros'],['voz','Escucha a los actores'],['nivel2','Cruza las fuentes'],['nivel3','Decide la puerta del Plan'],['cierre','Redacta la propuesta'],['auditoria','Valida cada afirmación']];
@@ -192,5 +201,6 @@ $('#btnCorta').onclick=async()=>{const q=$('#q').value.trim();$('#btnCorta').dis
 const irFuente=c=>{const f=document.getElementById('f'+c.dataset.n);if(f){f.scrollIntoView({behavior:'smooth',block:'center'});f.style.background='#FDF1E4';setTimeout(()=>f.style.background='',1500)}};
 document.addEventListener('click',ev=>{const c=ev.target.closest('.cita');if(c)irFuente(c)});
 document.addEventListener('keydown',ev=>{const c=ev.target.closest&&ev.target.closest('.cita');if(c&&(ev.key==='Enter'||ev.key===' ')){ev.preventDefault();irFuente(c)}});
+document.querySelectorAll('.lateral a').forEach(a=>{if(decodeURIComponent(a.getAttribute('href').slice(3))===new URLSearchParams(location.search).get('q'))a.classList.add('on')});
 const P=new URLSearchParams(location.search),qURL=P.get('q'),mURL=P.get('modo');if(mURL)$('#modo').value=mURL;if(qURL){$('#q').value=qURL;setTimeout(()=>$('#btn').click(),150)}
 </script></body></html>
