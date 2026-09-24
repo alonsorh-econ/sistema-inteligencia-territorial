@@ -1,78 +1,196 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Preguntar · Sistema de Inteligencia Territorial</title>
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>VÍA · Sistema de Inteligencia Territorial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Source+Sans+3:wght@400;600;700&display=swap">
 <style>
-:root{--pet:#0D5A60;--pet2:#083D42;--verde:#20975A;--nar:#F25100;--dor:#FFB600;--azul:#0038E3;--tinta:#10232B;--gris:#5C6B73;--fondo:#F4F7F6}
-*{box-sizing:border-box}body{margin:0;background:var(--fondo);color:var(--tinta);font-family:"Archivo","Avenir Next","Helvetica Neue",Arial,sans-serif}
-header{background:var(--pet2);color:#fff;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-header h1{font-size:18px;margin:0;font-weight:700}header small{opacity:.8}
-main{max-width:980px;margin:0 auto;padding:20px 16px 60px}
-.caja{background:#fff;border-radius:14px;padding:18px;box-shadow:0 6px 20px rgba(8,61,66,.08);margin-bottom:16px}
-textarea{width:100%;min-height:76px;border:1.5px solid #cfd8dc;border-radius:10px;padding:12px;font:inherit;font-size:16px;resize:vertical}
-.fila{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:10px}
-button{background:var(--nar);color:#fff;border:0;border-radius:10px;padding:12px 18px;font:inherit;font-weight:700;cursor:pointer}button[disabled]{opacity:.45;cursor:default}
-button.sec{background:var(--pet)}input[type=password],select{border:1.5px solid #cfd8dc;border-radius:10px;padding:10px;font:inherit}
-.barra{display:grid;grid-template-columns:repeat(9,1fr);gap:6px;margin:14px 0 6px}
-.et{background:#e6ecee;border-radius:8px;padding:8px 6px;font-size:12px;text-align:center;color:var(--gris);border-bottom:4px solid #cfd8dc;transition:all .3s}
-.et.encurso{background:#fff3e8;border-color:var(--nar);color:var(--nar);animation:p 1.2s infinite}.et.listo{background:#e6f5ec;border-color:var(--verde);color:var(--pet2)}
-@keyframes p{0%,100%{opacity:1}50%{opacity:.55}}
-.lineas{font-size:13px;color:var(--gris);min-height:40px}.lineas div{padding:3px 0;border-bottom:1px dashed #e3e8ea}.lineas b{color:var(--pet)}
-.resp h2{color:var(--pet2);font-size:18px;margin:18px 0 6px;border-bottom:2px solid var(--dor);padding-bottom:4px}.resp p,.resp li{line-height:1.5}
-.cita{display:inline-block;background:#e6f0f1;color:var(--pet);border-radius:6px;padding:0 5px;font-size:12px;font-weight:700;cursor:pointer}
-.fuentes{font-size:13px}.fuentes li{margin:6px 0}.fuentes .r{color:var(--gris)}
-.aviso{font-size:13px;color:var(--gris)}.err{color:#b00020;font-weight:700}
-.pan{margin-top:16px;border-top:1px dashed #cfd8dc;padding-top:10px}.pan h3{font-size:14px;color:var(--gris);margin:0 0 6px}.pan details{border:1px solid #e3e8ea;border-radius:8px;padding:6px 10px;margin:6px 0;background:#fafcfc}.pan summary{cursor:pointer;font-weight:700;color:var(--pet2)}.pan p{font-size:13.5px}
-.sello{display:inline-block;background:var(--verde);color:#fff;border-radius:999px;padding:4px 12px;font-size:12px;font-weight:700;margin-top:8px}
+:root{
+  --azul:#0F3B4C; --naranja:#F0801A; --naranja-osc:#C75F0C; --naranja-suave:#FDF1E4; --teal:#1A7F92; --teal-suave:#E2F1F3;
+  --tinta:#1D2B33; --gris:#5C6B73; --linea:#DCE3E7; --suave:#EEF2F4; --fondo:#F5F7F8; --hoja:#FFFFFF;
+  --ok:#2D7A4E; --ok-suave:#E3F2E9; --ojo:#94650F; --ojo-suave:#FBF1DC;
+  --display:"Montserrat","Avenir Next","Helvetica Neue",Arial,sans-serif;
+  --texto:"Source Sans 3","Segoe UI",system-ui,-apple-system,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fondo);color:var(--tinta);font:17px/1.55 var(--texto)}
+a{color:var(--teal)}
+.cab{background:var(--hoja);border-bottom:1px solid var(--linea);position:relative}
+.cab::after{content:"";position:absolute;left:0;right:0;bottom:-5px;height:5px;background:linear-gradient(90deg,var(--naranja) 0 62%,#F5A83B 62% 100%)}
+.cab .in{max-width:1040px;margin:0 auto;padding:18px 16px 16px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.marca{display:flex;align-items:center;gap:16px;color:var(--azul);text-decoration:none}
+.marca svg{height:44px;width:auto}
+.marca span{display:flex;flex-direction:column;border-left:3px solid var(--naranja);padding-left:14px;font-size:14px;font-weight:600;color:var(--gris);line-height:1.3}
+.marca span b{font-family:var(--display);font-size:17px;font-weight:800;color:var(--azul)}
+.cab nav a{font-weight:600;font-size:15px;text-decoration:none}
+main{max-width:1040px;margin:0 auto;padding:30px 16px 64px;display:flex;flex-direction:column;gap:20px}
+h1,h2,h3{font-family:var(--display);color:var(--azul);margin:0;text-wrap:balance;line-height:1.2}
+.caja{background:var(--hoja);border:1px solid var(--linea);border-radius:16px;padding:22px}
+.intro{display:flex;flex-direction:column;gap:6px}
+.intro h1{font-size:clamp(24px,3.4vw,32px);font-weight:900}
+.intro p{margin:0;color:var(--gris);max-width:68ch}
+textarea{width:100%;min-height:84px;border:1.5px solid var(--linea);border-radius:12px;padding:14px;font:inherit;font-size:18px;resize:vertical;color:var(--tinta);background:var(--fondo)}
+textarea:focus-visible,select:focus-visible,input:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--naranja);outline-offset:2px}
+.fila{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:12px}
+button{background:var(--azul);color:#fff;border:0;border-radius:10px;padding:12px 22px;font:700 16px var(--texto);cursor:pointer}
+button[disabled]{opacity:.45;cursor:default}
+button.sec{background:var(--hoja);color:var(--azul);border:1.5px solid var(--azul)}
+.estado{font-size:15px;color:var(--gris);font-weight:600}
+.err{color:#A63A2C;font-weight:700}
+details.opc{margin-top:12px;font-size:15px}
+details.opc summary{cursor:pointer;color:var(--gris);font-weight:600}
+details.opc .fila{margin-top:10px}
+select,input[type=password]{border:1.5px solid var(--linea);border-radius:10px;padding:9px 10px;font:inherit;font-size:15px;background:var(--hoja);color:var(--tinta)}
+.pasos{list-style:none;margin:16px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+.pasos li{display:flex;gap:8px;align-items:center;font-size:14px;font-weight:600;color:var(--gris);background:var(--fondo);border-radius:10px;padding:8px 10px}
+.pasos li i{flex:0 0 10px;height:10px;border-radius:50%;border:2px solid #B9C4CA}
+.pasos li.en{color:var(--naranja-osc);background:var(--naranja-suave)} .pasos li.en i{border-color:var(--naranja);animation:p 1.1s infinite}
+.pasos li.ok{color:var(--azul)} .pasos li.ok i{background:var(--naranja);border-color:var(--naranja)}
+@keyframes p{50%{transform:scale(1.35)}}
+@media (prefers-reduced-motion:reduce){.pasos li.en i{animation:none}}
+.eti{font:800 12.5px var(--display);letter-spacing:.14em;text-transform:uppercase;color:var(--naranja-osc)}
+.directa{display:flex;flex-direction:column;gap:12px}
+.lead{font-family:var(--display);font-size:clamp(21px,2.6vw,28px);font-weight:800;color:var(--azul);line-height:1.28;margin:0;max-width:40ch}
+.frase{margin:0;max-width:72ch;padding-left:16px;border-left:3px solid var(--linea)}
+.frase b,.prop b{color:var(--azul)}
+.props{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:16px}
+.prop{border:1px solid var(--linea);border-top:5px solid var(--naranja);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:10px;background:var(--hoja)}
+.prop h3{font-size:19px;font-weight:800}
+.via{align-self:flex-start;font:800 12px var(--display);letter-spacing:.08em;text-transform:uppercase;border-radius:8px;padding:5px 10px;background:var(--naranja-suave);color:var(--naranja-osc)}
+.via.otra{background:var(--teal-suave);color:#136C7C}
+.prop .k{font:700 12.5px var(--display);letter-spacing:.08em;text-transform:uppercase;color:var(--gris);margin-top:4px}
+.prop p,.prop ul{margin:0;font-size:16px}
+.prop ul{padding-left:20px;display:flex;flex-direction:column;gap:4px}
+.prop .menor{font-size:15px;color:var(--gris)}
+.cita{display:inline-block;background:var(--suave);color:var(--teal);border-radius:6px;padding:0 5px;font-size:12px;font-weight:700;cursor:pointer;vertical-align:1px;margin-left:1px}
+.md h2{font-size:19px;margin:18px 0 8px} .md h3{font-size:17px;margin:14px 0 6px} .md p,.md li{max-width:72ch}
+.sello{display:inline-flex;gap:8px;align-items:center;background:var(--ok-suave);color:var(--ok);border-radius:999px;padding:6px 14px;font-size:14px;font-weight:700}
+.nota{font-size:14px;color:var(--gris)}
+details.pan{border-top:1px solid var(--linea);padding-top:12px}
+details.pan>summary{cursor:pointer;font-weight:700;color:var(--azul)}
+details.pan details{border:1px solid var(--linea);border-radius:10px;padding:8px 12px;margin:8px 0;background:var(--fondo)}
+details.pan details summary{cursor:pointer;font-weight:700;color:var(--azul);font-size:15px}
+details.pan .md p,details.pan .md li{font-size:15px}
+.fuentes ol{margin:10px 0 0;padding-left:22px;display:flex;flex-direction:column;gap:10px}
+.fuentes li{font-size:15px}
+.fuentes li b{color:var(--azul)}
+.fuentes .enl{display:flex;flex-wrap:wrap;gap:6px 12px;margin-top:3px;font-size:14px}
+.fuentes .ext{color:var(--gris);font-size:14px;margin-top:2px}
+.pie{font-size:14px;color:var(--gris);max-width:72ch}
+@media (max-width:560px){.marca span{display:none}}
 </style></head><body>
-<header><div><h1>Preguntar al sistema</h1><small>Sistema de Inteligencia Territorial · DIE, Cámara de Comercio de Cartagena</small></div><div><a href="index.html" style="color:#fff">← Volver al sistema</a></div></header>
+<header class="cab"><div class="in">
+  <a class="marca" href="index.html" aria-label="VÍA, Ventanilla de Incidencia Asistida">
+    <svg viewBox="0 0 250 110" role="img" aria-label="VÍA"><text x="0" y="98" font-family="Montserrat,Arial,sans-serif" font-weight="900" font-size="104" fill="currentColor" letter-spacing="-2">V</text><text x="78" y="98" font-family="Montserrat,Arial,sans-serif" font-weight="900" font-size="104" fill="currentColor">I</text><text x="118" y="98" font-family="Montserrat,Arial,sans-serif" font-weight="900" font-size="104" fill="currentColor">A</text><path d="M84 20 C94 14 102 8 114 2" stroke="#F0801A" stroke-width="9" stroke-linecap="round" fill="none"/><path d="M104 0 L117 1 L112 13" stroke="#F0801A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+    <span><b>Ventanilla de Incidencia Asistida</b>Sistema de Inteligencia Territorial · Cámara de Comercio de Cartagena</span>
+  </a>
+  <nav><a href="index.html">Volver al sistema</a></nav>
+</div></header>
 <main>
-<div class="caja">
- <textarea id="q" placeholder="Escribe una pregunta sobre Cartagena y Bolívar frente al Plan Nacional de Desarrollo…"></textarea>
- <div class="fila">
-  <select id="modo"><option value="asesor">Agenda del asesor (capas · nivel 2 · nivel 3 · agenda con evidencia marcada · auditoría)</option><option value="expres">Cierre de expediente (solo lo que el acervo sostiene)</option><option value="simple">Respuesta simple con citas</option></select>
-  <input type="password" id="llave" placeholder="Llave de acceso" size="18">
-  <button id="btn">Preguntar</button>
-  <label class="aviso" style="display:flex;align-items:center;gap:5px"><input type="checkbox" id="fresco"> Volver a trabajarla aunque ya exista (necesita llave)</label>
-  <span class="aviso" id="estado"></span>
- </div>
- <div class="barra" id="barra"></div>
- <div class="lineas" id="lineas"></div>
-</div>
-<div class="caja resp" id="resp" hidden></div>
-<div class="caja" id="cortaCaja" hidden><button class="sec" id="btnCorta">Versión de una página para el congresista</button> <span class="aviso" id="estadoCorta"></span><div class="resp" id="corta"></div></div>
-<div class="caja fuentes" id="fu" hidden></div>
-<p class="aviso">Responde solo con el acervo auditado del sistema, con citas. Lo que no está en el acervo lo dice. Las preguntas ya trabajadas se responden al instante; una pregunta nueva pone a trabajar al sistema y necesita llave de acceso.</p>
+<section class="caja">
+  <div class="intro"><h1>¿Qué necesita Cartagena y Bolívar del Plan Nacional de Desarrollo?</h1>
+  <p>Escriba una prioridad o una pregunta. El sistema responde con lo que el Departamento de Investigaciones Económicas ya reunió y validó: normas, datos, referentes y voces de la región.</p></div>
+  <div style="margin-top:14px"><label for="q" class="eti">Su pregunta</label>
+  <textarea id="q" placeholder="Por ejemplo: ¿Qué debe incluir el Plan para el turismo de Cartagena y Bolívar?"></textarea></div>
+  <div class="fila"><button id="btn">Preguntar</button><span class="estado" id="estado" role="status" aria-live="polite"></span></div>
+  <details class="opc"><summary>Opciones</summary>
+    <div class="fila">
+      <label for="modo" class="nota">Tipo de respuesta</label>
+      <select id="modo"><option value="asesor">Propuesta con evidencia (recomendada)</option><option value="expres">Cierre de expediente: solo lo que el acervo sostiene</option><option value="simple">Respuesta breve con citas</option></select>
+      <input type="password" id="llave" placeholder="Llave de acceso" size="18" aria-label="Llave de acceso">
+      <label class="nota" style="display:flex;align-items:center;gap:6px"><input type="checkbox" id="fresco"> Volver a trabajarla aunque ya exista (necesita llave)</label>
+    </div>
+  </details>
+  <ol class="pasos" id="pasos" hidden></ol>
+</section>
+<section class="caja" id="resp" hidden></section>
+<section class="caja" id="cortaCaja" hidden><button class="sec" id="btnCorta">Versión de una página para el congresista</button> <span class="estado" id="estadoCorta"></span><div class="md" id="corta"></div></section>
+<section class="caja fuentes" id="fu" hidden></section>
+<p class="pie">Las preguntas ya trabajadas se responden al instante. Una pregunta nueva pone a trabajar al sistema y necesita llave de acceso. Lo que no está en el acervo del sistema, lo dice.</p>
 </main>
 <script>
-const BASE = localStorage.getItem('sit_base') || (location.hostname==='localhost'||location.hostname==='127.0.0.1' ? '' : 'https://192-81-211-68.sslip.io');
-const ET=[['entender','Entender'],['norma','1 Norma'],['dato','2 Dato'],['referentes','3 Referentes'],['voz','4 Voz'],['nivel2','Nivel 2'],['nivel3','Nivel 3'],['cierre','Cierre'],['auditoria','Auditoría']];
-const $=s=>document.querySelector(s); const llaveG=$('#llave'); llaveG.value=localStorage.getItem('sit_llave')||''; llaveG.onchange=()=>localStorage.setItem('sit_llave',llaveG.value);
-function barra(etapas,sinLineas){$('#barra').innerHTML=ET.map(([k,n])=>{const e=(etapas||[]).find(x=>x.nombre===k)||{estado:'pendiente'};return `<div class="et ${e.estado==='en curso'?'encurso':e.estado==='listo'?'listo':''}">${n}</div>`}).join('');
- $('#lineas').innerHTML=sinLineas?'':(etapas||[]).filter(e=>e.linea&&e.estado==='listo').map(e=>`<div><b>${(ET.find(x=>x[0]===e.nombre)||[])[1]||e.nombre}</b> · ${e.t}s · ${esc(e.linea)}</div>`).join('');}
-function esc(s){return (s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}
-function md(t){ // markdown mínimo: títulos, viñetas, negritas, citas [n]
- t=(t||'').replace(/^#\s*(Texto auditado|Texto corregido|Auditor[ií]a del texto|Agenda (auditada|corregida))\s*\n?/i,'');
- let h=esc(t).replace(/^## (.+)$/gm,'<h2>$1</h2>').replace(/^### (.+)$/gm,'<h3>$1</h3>').replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\[(\d+)\]/g,'<span class="cita" data-n="$1">$1</span>');
- h=h.replace(/(^|\n)((?:[-•] .+\n?)+)/g,(m,a,b)=>a+'<ul>'+b.trim().split(/\n/).map(l=>'<li>'+l.replace(/^[-•] /,'')+'</li>').join('')+'</ul>');
- return h.replace(/\n{2,}/g,'</p><p>').replace(/^(?!<)/,'<p>')+'</p>';}
-const CAPAS=[['norma','Capa 1 · Norma'],['dato','Capa 2 · Dato'],['referentes','Capa 3 · Referentes'],['voz','Capa 4 · Voz']];
-function panorama(r){const c=r.capas||{};let h='';CAPAS.forEach(([k,t])=>{if(c[k])h+=`<details><summary>${t}</summary>${md(c[k])}</details>`});
- if(r.nivel2)h+=`<details><summary>Nivel 2 · contradicciones, cifras y estado</summary>${md(r.nivel2)}</details>`;if(r.nivel3)h+=`<details><summary>Nivel 3 · puerta y propuesta</summary>${md(r.nivel3)}</details>`;
- return h?`<div class="pan"><h3>El panorama por capas: lo que el sistema recorrió antes de cerrar</h3>${h}</div>`:''}
-function fuentes(fs){if(!fs||!fs.length){$('#fu').hidden=true;return}$('#fu').hidden=false;$('#fu').innerHTML='<h3>Fuentes citadas</h3><ol>'+fs.map(f=>`<li id="f${f.n||''}"><b>${esc(f.titulo)}</b>${f.seccion?' › '+esc(f.seccion):''}<div class="r">${esc(f.ruta)}</div><div>${esc(f.extracto||'')}…</div></li>`).join('')+'</ol>';}
-async function pedir(ruta,cuerpo){if($('#fresco')&&$('#fresco').checked)cuerpo={...cuerpo,sin_cache:true};const r=await fetch(BASE+ruta,{method:'POST',headers:{'Content-Type':'application/json','X-Llave':llaveG.value},body:JSON.stringify(cuerpo)});const j=await r.json();if(!r.ok)throw new Error(j.error||r.status);return j;}
-const YA='ya trabajada por el sistema · respuesta inmediata';
-function amable(m){return /llave/i.test(m)?'Esta pregunta es nueva: para ponerla a trabajar hace falta la llave de acceso. Las preguntas ya trabajadas se responden sin llave.':m}
-$('#btn').onclick=async()=>{const q=$('#q').value.trim();if(!q)return;$('#btn').disabled=true;$('#resp').hidden=true;$('#fu').hidden=true;$('#cortaCaja').hidden=true;$('#estado').textContent='enviando…';barra([]);
- try{ if($('#modo').value==='simple'){const j=await pedir('/api/preguntar',{pregunta:q});$('#estado').textContent=j.de_cache?YA:'listo';$('#resp').hidden=false;$('#resp').innerHTML=md(j.respuesta||'(sin redacción: falta la llave del API en el servidor)');fuentes((j.fuentes||[]).map((f,i)=>({...f,n:i+1})));}
- else{const j=await pedir($('#modo').value==='asesor'?'/api/asesor':'/api/expres',{pregunta:q});const cache=!!j.de_cache;$('#estado').textContent=cache?YA:'el sistema está trabajando…';let listo=false;
-  while(!listo){await new Promise(r=>setTimeout(r,cache?300:2500));const e=await (await fetch(BASE+'/api/estado/'+j.id)).json();barra(e.etapas,cache);$('#estado').textContent=cache?YA:((e.listo?'listo':'el sistema está trabajando… ')+' '+e.segundos+' s');listo=e.listo;if(e.error)throw new Error(e.error);}
+const BASE = (()=>{try{return localStorage.getItem('sit_base')}catch(e){return ''}})() || (location.hostname==='localhost'||location.hostname==='127.0.0.1' ? '' : 'https://192-81-211-68.sslip.io');
+const PASOS=[['entender','Entiende la pregunta'],['norma','Revisa la norma'],['dato','Busca los datos'],['referentes','Mira qué hicieron otros'],['voz','Escucha a los actores'],['nivel2','Cruza las fuentes'],['nivel3','Decide la puerta del Plan'],['cierre','Redacta la propuesta'],['auditoria','Valida cada afirmación']];
+const $=s=>document.querySelector(s);
+const leer=k=>{try{return localStorage.getItem(k)||''}catch(e){return ''}}, guardar=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
+const llaveG=$('#llave'); llaveG.value=leer('sit_llave'); llaveG.onchange=()=>guardar('sit_llave',llaveG.value);
+const esc=s=>String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+// Voz pública: sin jerga interna.
+const voz=t=>String(t||'').replace(/\[VERIFICAR\]/g,'(por confirmar)').replace(/⚠️\s*sin fuente verificada/g,'(por confirmar)').replace(/\bDIE\b/g,'Departamento')
+  .replace(/\bdoliente\b/gi,'responsable').replace(/\b([Aa])udit(orías|oría|ó|a)\b/g,(m,A,x)=>(A==='A'?'V':'v')+({'orías':'alidaciones','oría':'alidación','ó':'alidó','a':'alida'})[x]);
+// En línea: negritas y citas [n] como marcas que llevan a la fuente.
+const enLinea=t=>esc(voz(t)).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\*\*/g,'').replace(/\[(\d+)\]/g,'<span class="cita" data-n="$1" role="link" tabindex="0" title="Ver la fuente $1">$1</span>');
+function md(t){
+  t=String(t||'').replace(/^#\s*(Texto auditado|Texto corregido|Auditor[ií]a del texto|Agenda (auditada|corregida))\s*\n?/i,'');
+  let h=enLinea(t).replace(/^#{1,2} (.+)$/gm,'<h2>$1</h2>').replace(/^### (.+)$/gm,'<h3>$1</h3>');
+  h=h.replace(/(^|\n)((?:\s*[-•] .+\n?)+)/g,(m,a,b)=>a+'<ul>'+b.trim().split(/\n/).map(l=>'<li>'+l.replace(/^\s*[-•] /,'')+'</li>').join('')+'</ul>');
+  return '<div class="md">'+h.split(/\n{2,}/).map(b=>/^\s*<(h2|h3|ul)/.test(b)?b:'<p>'+b.replace(/\n/g,'<br>')+'</p>').join('')+'</div>';
+}
+function frases(t){const out=[];let prof=0,ini=0;t=String(t||'').replace(/\n+/g,' ');
+  for(let i=0;i<t.length;i++){const c=t[i];if(c==='(')prof++;else if(c===')')prof=Math.max(0,prof-1);
+    if(prof===0&&(c==='.'||c===';')&&t[i+1]===' '&&i-ini>40&&!/\b(art|arts|núm|lit|lits|No|inc|par|C)$/i.test(t.slice(Math.max(ini,i-5),i))){out.push(t.slice(ini,i+(c==='.'?1:0)).trim());ini=i+1;}}
+  const f=t.slice(ini).trim();if(f)out.push(f);return out.filter(Boolean);}
+function secciones(md){const out=[];md=String(md||'').replace(/^#\s[^\n]*\n/,'');const partes=md.split(/^##\s+/m);
+  if(partes[0].trim())out.push({t:'',c:partes[0].trim()});partes.slice(1).forEach(p=>{const i=p.indexOf('\n');out.push({t:(i<0?p:p.slice(0,i)).trim(),c:(i<0?'':p.slice(i+1)).trim()})});return out;}
+const ROT=['Qué pedir','Argumento','Vehículo','Precedente','Evidencia'];
+function tarjetas(c){
+  const bloques=c.split(/\n(?=\s*\*\*\d+\.)/).filter(b=>/^\s*\*\*\d+\./.test(b));
+  if(!bloques.length)return '';
+  return '<div class="props">'+bloques.map(b=>{
+    const tit=(b.match(/^\s*\*\*\d+\.\s*([^*\n]+)\*\*/)||['',''])[1].trim();
+    let resto=b.replace(/^\s*\*\*\d+\.[^\n]*\n?/,'');
+    resto=resto.replace(new RegExp('\\s*[-*]?\\s*\\*\\*('+ROT.join('|')+')\\s*:?\\s*\\*\\*\\s*:?','g'),'\n@@$1@@');
+    const campos={};resto.split(/\n@@/).forEach(p=>{const m=p.match(/^([^@]+)@@([\s\S]*)$/);if(m)campos[m[1]]=m[2].trim();});
+    if(!Object.keys(campos).length)return `<article class="prop"><h3>${enLinea(tit)}</h3>${md(resto)}</article>`;
+    const lista=t=>/^\s*[-•]\s/m.test(t)?'<ul>'+t.split('\n').filter(l=>l.trim()).map(l=>'<li>'+enLinea(l.replace(/^\s*[-•]\s*/,''))+'</li>').join('')+'</ul>':'<p>'+enLinea(t.replace(/\n+/g,' '))+'</p>';
+    const veh=campos['Vehículo']||'', otra=/otra v[ií]a/i.test(veh)&&!/^\s*PLAN/i.test(veh);
+    return `<article class="prop"><h3>${enLinea(tit)}</h3>${veh?`<span class="via${otra?' otra':''}">${enLinea(veh.split(/\s[—–-]\s/)[0].replace(/[.\s]+$/,''))}</span>`:''}
+      ${campos['Qué pedir']?'<span class="k">Qué pedir</span>'+lista(campos['Qué pedir']):''}
+      ${campos['Argumento']?'<span class="k">Por qué</span><p>'+enLinea(campos['Argumento'].replace(/\n+/g,' '))+'</p>':''}
+      ${veh&&/\s[—–-]\s/.test(veh)?'<p class="menor">'+enLinea(veh.split(/\s[—–-]\s/).slice(1).join(' — '))+'</p>':''}
+      ${campos['Precedente']?'<p class="menor"><b>Precedente:</b> '+enLinea(campos['Precedente'].replace(/\n+/g,' '))+'</p>':''}
+      ${campos['Evidencia']?'<p class="menor"><b>Evidencia:</b> '+enLinea(campos['Evidencia'].replace(/\n+/g,' '))+'</p>':''}</article>`;
+  }).join('')+'</div>';
+}
+function respuesta(r){
+  let h='';
+  secciones(r.cierre||'').forEach(s=>{
+    if(/^Respuesta directa/i.test(s.t)){const fs=frases(s.c);
+      if(fs.length&&fs[0].length>150){const i=fs[0].indexOf(': ');if(i>40&&i<150){const r=fs[0].slice(i+2);fs.splice(0,1,fs[0].slice(0,i)+'.',r.charAt(0).toUpperCase()+r.slice(1));}}
+      h+=`<div class="directa"><span class="eti">Respuesta directa</span>${fs.length?`<p class="lead">${enLinea(fs[0])}</p>`:''}${fs.slice(1).map(f=>{f=f.charAt(0).toUpperCase()+f.slice(1);const m=f.match(/^([^:()\[\]]{3,34}):\s+([\s\S]*)$/);return `<p class="frase">${m?'<b>'+enLinea(m[1])+':</b> '+enLinea(m[2]):enLinea(f)}</p>`}).join('')}</div>`;}
+    else if(/propuestas/i.test(s.t)){const t=tarjetas(s.c);h+=`<div style="margin-top:22px;display:flex;flex-direction:column;gap:12px"><span class="eti">${esc(voz(s.t))}</span>${t||md(s.c)}</div>`;}
+    else if(s.t){h+=`<div style="margin-top:18px">${md('## '+s.t+'\n\n'+s.c)}</div>`;}
+    else if(s.c.trim()){h+=md(s.c);}
+  });
+  return h;
+}
+function pintarPasos(etapas){const el=$('#pasos');el.hidden=false;
+  el.innerHTML=PASOS.map(([k,n])=>{const e=(etapas||[]).find(x=>x.nombre===k)||{};return `<li class="${e.estado==='en curso'?'en':e.estado==='listo'?'ok':''}"><i></i>${n}</li>`}).join('');}
+function panorama(r){const C=[['norma','Norma'],['dato','Datos'],['referentes','Referentes'],['voz','Voces de los actores']],c=r.capas||{};let h='';
+  C.forEach(([k,t])=>{if(c[k])h+=`<details><summary>${t}</summary>${md(c[k])}</details>`});
+  if(r.nivel2)h+=`<details><summary>Cruce de fuentes: contradicciones, cifras y estado</summary>${md(r.nivel2)}</details>`;
+  if(r.nivel3)h+=`<details><summary>La puerta del Plan y la propuesta</summary>${md(r.nivel3)}</details>`;
+  return h?`<details class="pan" style="margin-top:20px"><summary>Cómo llegó el sistema a esta respuesta</summary>${h}</details>`:'';}
+function fuentes(fs){if(!fs||!fs.length){$('#fu').hidden=true;return}$('#fu').hidden=false;
+  $('#fu').innerHTML='<h2 style="font-size:19px">Fuentes citadas</h2><ol>'+fs.map((f,i)=>{const n=f.n||i+1;const links=[].concat(f.enlaces||f.url||[]).filter(Boolean).slice(0,3);
+    return `<li id="f${n}"><b>${esc(voz(f.titulo_lector||f.titulo||'Documento del Departamento'))}</b>${f.seccion?' · '+esc(voz(f.seccion)):''}${links.length?'<div class="enl">'+links.map(u=>{let h=u;try{h=new URL(u).hostname.replace(/^www\./,'')}catch(e){}return `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(h)}</a>`}).join('')+'</div>':''}${f.extracto?`<div class="ext">${esc(voz(f.extracto)).slice(0,220)}…</div>`:''}</li>`}).join('')+'</ol>';}
+async function pedir(ruta,cuerpo){if($('#fresco').checked)cuerpo={...cuerpo,sin_cache:true};const r=await fetch(BASE+ruta,{method:'POST',headers:{'Content-Type':'application/json','X-Llave':llaveG.value},body:JSON.stringify(cuerpo)});const j=await r.json();if(!r.ok)throw new Error(j.error||r.status);return j;}
+const YA='Ya trabajada por el sistema · respuesta inmediata';
+const amable=m=>/llave/i.test(m)?'Esta pregunta es nueva: para ponerla a trabajar hace falta la llave de acceso. Las preguntas ya trabajadas se responden sin llave.':m;
+$('#btn').onclick=async()=>{const q=$('#q').value.trim();if(!q)return;$('#btn').disabled=true;$('#resp').hidden=true;$('#fu').hidden=true;$('#cortaCaja').hidden=true;$('#estado').textContent='Enviando…';
+ try{ if($('#modo').value==='simple'){const j=await pedir('/api/preguntar',{pregunta:q});$('#estado').textContent=j.de_cache?YA:'Lista';$('#resp').hidden=false;$('#resp').innerHTML=md(j.respuesta||'(sin redacción)');fuentes((j.fuentes||[]).map((f,i)=>({...f,n:i+1})));}
+ else{const j=await pedir($('#modo').value==='asesor'?'/api/asesor':'/api/expres',{pregunta:q});const cache=!!j.de_cache;$('#estado').textContent=cache?YA:'El sistema está trabajando…';let listo=false;
+  if(!cache)pintarPasos([]);
+  while(!listo){await new Promise(r=>setTimeout(r,cache?300:2500));const e=await (await fetch(BASE+'/api/estado/'+j.id)).json();if(!cache)pintarPasos(e.etapas);$('#estado').textContent=cache?YA:((e.listo?'Lista':'El sistema está trabajando…')+' · '+e.segundos+' s');listo=e.listo;if(e.error)throw new Error(e.error);}
   const r=await (await fetch(BASE+'/api/resultado/'+j.id)).json();if(r.error)throw new Error(r.error);
-  $('#resp').hidden=false;$('#resp').innerHTML=md(r.cierre||'')+(r.auditoria?`<div class="sello">Auditoría: ${r.auditoria.cotejadas||0} afirmaciones cotejadas · ${r.auditoria.retiradas||0} retiradas · ${r.auditoria.verificar||0} por verificar</div>`:'')+`<p class="aviso">${cache?'Expediente producido en '+(r.segundos||'')+' s':(r.segundos||'')+' s'} · ${(r.fuentes||[]).length} fuentes</p>`+panorama(r);fuentes(r.fuentes);$('#corta').innerHTML='';$('#estadoCorta').textContent='';$('#cortaCaja').hidden=false;}
+  const a=r.auditoria;
+  $('#resp').hidden=false;$('#resp').innerHTML=respuesta(r)+(a?`<p style="margin-top:20px"><span class="sello">✓ Validación técnica: ${a.cotejadas||0} afirmaciones cotejadas · ${a.retiradas||0} retiradas · ${a.verificar||0} por confirmar</span></p>`:'')+`<p class="nota">${(r.fuentes||[]).length} documentos consultados</p>`+panorama(r);
+  fuentes(r.fuentes);$('#corta').innerHTML='';$('#estadoCorta').textContent='';$('#cortaCaja').hidden=false;}
  }catch(e){$('#estado').innerHTML='<span class="err">'+esc(amable(e.message))+'</span>'}finally{$('#btn').disabled=false}};
-$('#btnCorta').onclick=async()=>{const q=$('#q').value.trim();$('#btnCorta').disabled=true;$('#estadoCorta').textContent='redactando…';
- try{const j=await pedir('/api/corta',{pregunta:q});$('#estadoCorta').textContent=j.de_cache?YA:('lista en '+(j.segundos||'')+' s');$('#corta').innerHTML=md(j.corta||'');}
+$('#btnCorta').onclick=async()=>{const q=$('#q').value.trim();$('#btnCorta').disabled=true;$('#estadoCorta').textContent='Redactando…';
+ try{const j=await pedir('/api/corta',{pregunta:q});$('#estadoCorta').textContent=j.de_cache?YA:('Lista en '+(j.segundos||'')+' s');$('#corta').innerHTML=md(j.corta||'');}
  catch(e){$('#estadoCorta').innerHTML='<span class="err">'+esc(amable(e.message))+'</span>'}finally{$('#btnCorta').disabled=false}};
-// Llega desde la portada con ?q=… : se carga y se lanza sola
-const qURL=new URLSearchParams(location.search).get('q');const mURL=new URLSearchParams(location.search).get('modo');if(mURL)$('#modo').value=mURL;if(qURL){$('#q').value=qURL;setTimeout(()=>$('#btn').click(),150)}
-document.addEventListener('click',ev=>{const c=ev.target.closest('.cita');if(c){const f=document.getElementById('f'+c.dataset.n);if(f){f.scrollIntoView({behavior:'smooth',block:'center'});f.style.background='#fff3e8';setTimeout(()=>f.style.background='',1500)}}});
-barra([]);
+const irFuente=c=>{const f=document.getElementById('f'+c.dataset.n);if(f){f.scrollIntoView({behavior:'smooth',block:'center'});f.style.background='#FDF1E4';setTimeout(()=>f.style.background='',1500)}};
+document.addEventListener('click',ev=>{const c=ev.target.closest('.cita');if(c)irFuente(c)});
+document.addEventListener('keydown',ev=>{const c=ev.target.closest&&ev.target.closest('.cita');if(c&&(ev.key==='Enter'||ev.key===' ')){ev.preventDefault();irFuente(c)}});
+const P=new URLSearchParams(location.search),qURL=P.get('q'),mURL=P.get('modo');if(mURL)$('#modo').value=mURL;if(qURL){$('#q').value=qURL;setTimeout(()=>$('#btn').click(),150)}
 </script></body></html>
