@@ -1,244 +1,453 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Sistema de inteligencia territorial · Junta de Juntas</title>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De la técnica a la incidencia · Junta de Juntas 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=swap">
 <style>
-:root{--pet:#0D5A60;--pet2:#083D42;--verde:#20975A;--nar:#F25100;--dor:#FFB600;--azul:#0038E3;--tinta:#10232B;--gris:#5C6B73;--fondo:#F4F7F6;--blanco:#fff}
-*{box-sizing:border-box}html,body{height:100%;margin:0}
-body{background:var(--pet2);color:var(--tinta);font-family:"Source Serif 4",Georgia,serif;overflow:hidden}
-h1,h2,h3,.ey,.et,.k,.num,.tag,th,.btn,.pie,.nav{font-family:Archivo,"Avenir Next","Helvetica Neue",Arial,sans-serif}
-/* barra viva */
-#barra{position:fixed;top:0;left:0;right:0;height:52px;background:var(--pet2);color:#fff;display:none;align-items:center;gap:8px;padding:0 18px;z-index:9;border-bottom:3px solid var(--nar)}
-#barra.on{display:flex}
-#barra .q{font-family:Archivo;font-size:13px;opacity:.85;max-width:34vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-#barra .ets{display:flex;gap:5px;flex:1}
-.et{flex:1;font-size:11px;letter-spacing:.03em;text-transform:uppercase;text-align:center;padding:6px 4px;border-radius:6px;background:rgba(255,255,255,.08);border-bottom:3px solid rgba(255,255,255,.15);color:rgba(255,255,255,.6)}
-.et.encurso{background:rgba(242,81,0,.25);border-color:var(--nar);color:#fff;animation:p 1.2s infinite}.et.listo{background:rgba(32,151,90,.3);border-color:var(--verde);color:#fff}
-@keyframes p{0%,100%{opacity:1}50%{opacity:.55}}
-#barra .t{font-family:Archivo;font-size:13px;min-width:120px;text-align:right}
-/* láminas */
-.lam{position:absolute;inset:0;display:none;padding:64px 72px 56px;background:var(--fondo)}
-.lam.on{display:block}
-.lam.oscura{background:var(--pet2);color:#fff}.lam.oscura .ey{color:var(--dor)}.lam.oscura h1{color:#fff}.lam.oscura p{color:#dfe9ea}
-.ey{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--pet);font-weight:700;margin-bottom:10px}
-h1{font-size:44px;line-height:1.08;margin:0 0 16px;color:var(--pet2);font-weight:800;letter-spacing:-.01em}
-h2{font-size:30px;margin:0 0 14px;color:var(--pet2);font-weight:800}
-h3{font-size:16px;margin:0 0 6px;color:var(--pet)}
-p{font-size:20px;line-height:1.45;margin:0 0 10px;max-width:1100px}
-.dos{display:grid;grid-template-columns:1fr 1fr;gap:28px}.tres{display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px}
-.caja{background:var(--blanco);border-radius:14px;padding:18px 20px;box-shadow:0 6px 20px rgba(8,61,66,.08)}
-.caja.pide{border-top:5px solid var(--verde)}.caja.no{border-top:5px solid var(--nar)}.caja.falta{border-top:5px solid var(--dor)}
-.caja p,.caja li{font-size:17px;line-height:1.4}.caja ol,.caja ul{margin:4px 0 0 20px;padding:0}
-.num{font-size:64px;font-weight:800;color:var(--pet);line-height:1}.lab{font-size:15px;color:var(--gris);font-family:Archivo}
-table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;font-size:15px}
-th{background:#e6f0f1;color:var(--pet2);text-align:left;padding:8px 10px;font-size:12px;letter-spacing:.05em;text-transform:uppercase}
-td{padding:7px 10px;border-top:1px solid #e3e8ea;vertical-align:top;line-height:1.35}
-.tag{display:inline-block;font-size:11px;font-weight:700;padding:2px 7px;border-radius:5px;color:#fff}
-.tag.v{background:var(--verde)}.tag.c{background:var(--dor);color:#10232B}.tag.n{background:var(--gris)}
-.pie{position:absolute;left:72px;right:72px;bottom:18px;font-size:12px;color:var(--gris);display:flex;justify-content:space-between}
-.oscura .pie{color:#9fb8ba}
-.paso{display:flex;gap:14px;align-items:stretch;margin-top:18px}.paso>div{flex:1;background:#fff;border-radius:12px;padding:14px;border-top:5px solid var(--pet)}
-.paso b{display:block;font-family:Archivo;color:var(--pet2);font-size:15px;margin-bottom:4px}.paso small{font-size:14px;color:var(--gris);line-height:1.35;display:block}
-.flecha{align-self:center;color:var(--nar);font-size:28px;font-weight:800}
-.ask{display:flex;gap:10px;margin-top:22px}.ask input{flex:1;font:inherit;font-size:22px;padding:14px 16px;border:2px solid #cfd8dc;border-radius:12px}
-.btn{background:var(--nar);color:#fff;border:0;border-radius:12px;padding:14px 26px;font-size:18px;font-weight:700;cursor:pointer}
-.sug{display:inline-block;margin:10px 8px 0 0;padding:8px 14px;background:#fff;border:1.5px solid #cfd8dc;border-radius:999px;font-size:15px;cursor:pointer;font-family:Archivo}
-.resp{background:#fff;border-radius:14px;padding:18px 24px;max-height:calc(100vh - 220px);overflow:auto;font-size:16px}
-.resp h2{font-size:20px;border-bottom:2px solid var(--dor);padding-bottom:4px;margin:14px 0 6px}.resp h3{font-size:17px;margin:10px 0 4px}.resp p,.resp li{font-size:16px;line-height:1.45}
-.cita{display:inline-block;background:#e6f0f1;color:var(--pet);border-radius:5px;padding:0 5px;font-size:12px;font-weight:700}
-.sello{display:inline-block;background:var(--verde);color:#fff;border-radius:999px;padding:5px 14px;font-size:14px;font-weight:700;font-family:Archivo}
-.nav{position:fixed;right:18px;bottom:14px;font-size:12px;color:#9fb8ba;font-family:Archivo}
-</style></head><body>
+:root{
+  --azul:#0F3B4C; --azul-hondo:#082637; --teal:#1A7F92; --naranja:#F0801A; --naranja-osc:#E0650F; --amarillo:#F5A83B;
+  --tinta:#1D2B33; --gris:#5C6B73; --suave:#EEF2F4; --linea:#DCE3E7; --blanco:#FFFFFF;
+  --fuente:"Montserrat","Avenir Next","Helvetica Neue",Arial,sans-serif;
+  --demo-acento:#F5A83B; --demo-fondo:rgba(8,38,55,.96); --demo-texto:#FFFFFF; --demo-suave:#B9CCD6; --demo-fuente:var(--fuente); --demo-fondo-resp:#0F3B4C;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#E9EDEF;overflow:hidden;font-family:var(--fuente)}
+#escenario{position:absolute;left:50%;top:50%;width:1600px;height:900px;transform-origin:center center;box-shadow:0 10px 60px rgba(0,0,0,.15)}
+.l{position:absolute;inset:0;display:none;overflow:hidden;background:var(--blanco);color:var(--tinta);padding:74px 110px 0}
+.l.on{display:block}
+/* franja inferior con la identidad del evento */
+.franja{position:absolute;left:0;right:0;bottom:0;height:64px;background:var(--azul);display:flex;align-items:center;justify-content:space-between;padding:0 48px 0 110px}
+.franja::before{content:"";position:absolute;left:0;right:0;top:-6px;height:6px;background:linear-gradient(90deg,var(--naranja) 0 62%,var(--amarillo) 62% 100%)}
+.franja .t{color:#CFE0E8;font-size:15px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.franja .logos{display:flex;align-items:center;gap:18px;height:38px}
+.franja .logos img{height:100%;filter:brightness(0) invert(1)}
+.franja .logos i{width:2px;height:70%;background:rgba(255,255,255,.45)}
+.franja .n{color:var(--amarillo);font-weight:800;font-size:16px;margin-left:26px}
+.ceja{font-weight:800;font-size:20px;letter-spacing:.16em;text-transform:uppercase;color:var(--naranja-osc)}
+h1,h2{margin:0;color:var(--azul);font-weight:900;line-height:1.04;letter-spacing:-.01em;text-wrap:balance}
+h1{font-size:92px}
+h2{font-size:58px;max-width:1380px;margin-top:10px}
+.pastilla{display:inline-block;background:var(--naranja);color:var(--blanco);border-radius:20px;padding:2px 26px 8px}
+.sub{font-size:28px;font-weight:600;line-height:1.4;color:var(--gris);max-width:1200px;margin:22px 0 0}
+em.o{font-style:normal;color:var(--naranja-osc)}
+/* animación de entrada: cada .a sube un poco, en cascada */
+.l.on .a{animation:sube .7s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--d,0) * 140ms)}
+@keyframes sube{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.l.on .a{animation:none}}
+/* portada */
+.portada{padding-top:170px}
+.portada .estela{position:absolute;right:-120px;top:-150px;width:760px;height:420px}
+.portada .quien{margin-top:60px;font-size:22px;font-weight:700;color:var(--azul)}
+.portada .quien span{display:block;font-weight:600;color:var(--gris);margin-top:4px}
+/* rompehielos */
+.rompe .gancho{font-size:44px;font-weight:800;color:var(--azul);line-height:1.2;max-width:1250px;margin-top:36px}
+.rompe .preg{margin-top:44px;border-left:10px solid var(--naranja);background:var(--suave);border-radius:0 22px 22px 0;padding:34px 44px;font-size:46px;font-weight:800;line-height:1.2;color:var(--azul);max-width:1330px}
+.rompe .aviso{margin-top:30px;font-size:26px;font-weight:700;color:var(--naranja-osc)}
+/* nube */
+.nube{position:absolute;left:110px;right:110px;top:250px;bottom:120px}
+.nube span{position:absolute;font-weight:800;color:var(--azul);white-space:nowrap;opacity:.9}
+.l.on .nube span{animation:flota 6s ease-in-out infinite alternate;animation-delay:calc(var(--d,0) * -700ms)}
+@keyframes flota{from{transform:translateY(-6px) rotate(-1deg)}to{transform:translateY(6px) rotate(1deg)}}
+@media (prefers-reduced-motion:reduce){.l.on .nube span{animation:none}}
+/* tres casos: obra, problema, industria */
+.tres{margin-top:40px;display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.caso{border:2px solid var(--linea);border-radius:22px;padding:26px 28px}
+.caso .k{font-size:16px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--naranja-osc)}
+.caso h3{margin:6px 0 16px;font-size:34px;font-weight:900;color:var(--azul)}
+.caso ol{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+.caso li{display:flex;gap:12px;align-items:flex-start;font-size:21px;font-weight:600;line-height:1.3}
+.caso li b{flex:0 0 30px;height:30px;border-radius:50%;background:var(--suave);color:var(--azul);font-size:15px;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.remate{margin-top:30px;font-size:27px;font-weight:800;color:var(--azul)}
+.remate em{font-style:normal;color:var(--naranja-osc)}
+/* cómo se hace el Plan */
+.linea-t{margin-top:44px;display:grid;grid-template-columns:repeat(5,1fr);position:relative}
+.linea-t::before{content:"";position:absolute;left:0;right:0;top:15px;height:4px;background:var(--linea)}
+.hito{position:relative;padding-top:44px;padding-right:18px}
+.hito::before{content:"";position:absolute;left:0;top:4px;width:26px;height:26px;border-radius:50%;background:var(--blanco);border:5px solid var(--naranja)}
+.hito b{display:block;font-size:22px;font-weight:900;color:var(--azul)}
+.hito span{display:block;font-size:18px;font-weight:600;color:var(--gris);margin-top:6px;line-height:1.3}
+.puertas{margin-top:44px;display:grid;grid-template-columns:repeat(3,1fr) 1.15fr;gap:18px}
+.puerta{border-radius:18px;padding:22px 24px;background:var(--suave)}
+.puerta.otra{background:var(--blanco);border:2px dashed var(--teal)}
+.puerta h3{margin:0 0 8px;font-size:26px;font-weight:900;color:var(--azul)}
+.puerta.otra h3{color:var(--teal)}
+.puerta p{margin:0;font-size:19px;font-weight:600;line-height:1.35;color:var(--tinta)}
+.nota{margin-top:24px;font-size:20px;font-weight:600;color:var(--gris);max-width:1350px}
+/* palancas */
+.palancas{margin-top:36px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.palanca{border-radius:18px;padding:18px 22px;border:2px solid var(--linea);background:var(--blanco)}
+.palanca h3{margin:0 0 10px;font-size:25px;font-weight:900;color:var(--azul);display:flex;gap:10px;align-items:center}
+.palanca h3 i{font-style:normal;background:var(--naranja);color:var(--blanco);border-radius:10px;font-size:16px;padding:2px 9px}
+.palanca .ch{display:flex;flex-wrap:wrap;gap:8px}
+.palanca .ch span{background:var(--suave);border-radius:20px;padding:5px 12px;font-size:16px;font-weight:700;color:var(--tinta)}
+/* diagrama por niveles */
+.diagrama{margin-top:34px;display:grid;grid-template-columns:1fr 1.25fr 1.3fr 1.2fr 1fr;gap:14px;align-items:stretch}
+.nivel{border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:10px;position:relative}
+.nivel .k{font-size:14px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+.nivel h3{margin:0;font-size:24px;font-weight:900;line-height:1.15}
+.nivel p,.nivel li{margin:0;font-size:17px;font-weight:600;line-height:1.35}
+.nivel ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px}
+.nivel.entrada{background:var(--suave)} .nivel.entrada .k{color:var(--teal)}
+.nivel.n1{background:#FDF1E4} .nivel.n1 .k{color:var(--naranja-osc)}
+.nivel.n2{background:var(--azul);color:var(--blanco)} .nivel.n2 .k{color:var(--amarillo)}
+.nivel.n3{background:#FDF1E4} .nivel.n3 .k{color:var(--naranja-osc)}
+.nivel.salida{background:var(--naranja);color:var(--blanco)} .nivel.salida .k{color:var(--blanco)}
+.nivel:not(:last-child)::after{content:"→";position:absolute;right:-14px;top:50%;transform:translate(50%,-50%);font-size:26px;font-weight:900;color:var(--naranja);z-index:2}
+.capas4{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.capas4 span{background:var(--blanco);border-radius:10px;padding:8px;font-size:16px;font-weight:800;color:var(--azul);text-align:center}
+.roles{margin-top:26px;display:flex;gap:16px;flex-wrap:wrap}
+.roles span{border-radius:30px;padding:10px 20px;font-size:20px;font-weight:800;background:var(--suave);color:var(--azul)}
+.roles span b{color:var(--naranja-osc)}
+/* cómo llegamos */
+.cifras{margin-top:30px;display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.cifra{border-top:6px solid var(--naranja);padding-top:16px}
+.cifra b{display:block;font-size:76px;font-weight:900;line-height:1;color:var(--azul)}
+.cifra span{display:block;margin-top:8px;font-size:19px;font-weight:600;color:var(--gris);line-height:1.3}
+.fotos{margin-top:28px;display:grid;grid-template-columns:1.25fr 1fr 1.1fr 1fr;gap:14px;height:250px}
+.fotos img{width:100%;height:100%;object-fit:cover;border-radius:16px;display:block}
+.hitos-c{margin-top:22px;display:flex;gap:12px;flex-wrap:wrap;font-size:18px;font-weight:700;color:var(--azul)}
+.hitos-c span{border:2px solid var(--linea);border-radius:30px;padding:6px 16px}
+.hitos-c span b{color:var(--naranja-osc)}
+/* el caso por dentro */
+.dique{margin-top:20px;display:grid;grid-template-columns:1.05fr 1fr;gap:30px}
+.hallazgo{background:var(--suave);border-radius:24px;padding:20px 26px}
+.hallazgo .k{font-size:16px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--naranja-osc)}
+.hallazgo h3{margin:6px 0 8px;font-size:29px;font-weight:900;color:var(--azul);line-height:1.12}
+.gauge{display:flex;align-items:flex-end;gap:22px;margin-top:6px}
+.gauge .n{font-size:60px;font-weight:900;line-height:1;color:var(--naranja);white-space:nowrap}
+.gauge p{margin:0 0 6px;font-size:21px;font-weight:600;color:var(--tinta);line-height:1.35}
+.barra-d{margin-top:16px;height:22px;border-radius:12px;background:#D7E1E6;overflow:hidden}
+.barra-d i{display:block;height:100%;width:9.6%;background:var(--naranja);border-radius:12px}
+.hallazgo .porque{margin-top:10px;font-size:18px;font-weight:600;line-height:1.38;color:var(--tinta)}
+.pasos-d{display:flex;flex-direction:column;gap:10px}
+.paso-d{display:grid;grid-template-columns:130px 1fr;gap:14px;align-items:start;border-bottom:2px solid var(--linea);padding-bottom:9px}
+.paso-d .k{font-size:15px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);padding-top:4px}
+.paso-d p{margin:0;font-size:18.5px;font-weight:600;line-height:1.33}
+.cita{margin-top:14px;font-size:23px;font-weight:900;color:var(--azul);line-height:1.25;max-width:1380px}
+.cita em{font-style:normal;color:var(--naranja-osc)}
+.fuente-d{position:absolute;left:110px;bottom:78px;font-size:13px;font-weight:600;color:var(--gris);max-width:1380px}
+/* propuestas */
+.props{margin-top:34px;display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+.prop{border:2px solid var(--linea);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:10px}
+.prop .p{font-size:14px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--naranja-osc)}
+.prop p{margin:0;font-size:19px;line-height:1.35;font-weight:700;flex:1;color:var(--tinta)}
+.prop .v{font-size:14px;font-weight:800;color:var(--teal);text-transform:uppercase;letter-spacing:.06em;border-top:2px solid var(--linea);padding-top:8px}
+.otra-via{margin-top:24px;border-radius:18px;padding:18px 26px;background:var(--suave);font-size:21px;font-weight:600;line-height:1.45}
+.otra-via b{color:var(--azul)}
+/* ventanilla */
+.ventanilla{margin-top:40px;display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.vpaso{border-radius:20px;padding:24px;background:var(--suave);position:relative}
+.vpaso .num{font-size:44px;font-weight:900;color:var(--naranja)}
+.vpaso h3{margin:4px 0 8px;font-size:25px;font-weight:900;color:var(--azul)}
+.vpaso p{margin:0;font-size:19px;font-weight:600;line-height:1.38;color:var(--tinta)}
+.invita{margin-top:40px;font-size:40px;font-weight:900;color:var(--azul)}
+/* revelación y cierre */
+.centro{display:flex!important;flex-direction:column;justify-content:center;padding-bottom:90px}
+.l:not(.on).centro{display:none!important}
+.tecla{margin-top:34px;font-size:24px;font-weight:700;color:var(--gris)}
+.tecla kbd{font-family:var(--fuente);background:var(--naranja);color:var(--blanco);border-radius:10px;padding:4px 16px;font-weight:900}
+#notas{position:fixed;left:16px;right:16px;bottom:16px;max-height:34vh;overflow:auto;background:#fff;color:#122;border-radius:12px;padding:16px 20px;font:16px/1.5 system-ui,sans-serif;box-shadow:0 10px 40px rgba(0,0,0,.35);z-index:2147482000}
+#notas[hidden]{display:none}
+#ayuda{position:fixed;left:16px;top:10px;color:#789;font:12px system-ui,sans-serif;opacity:0;transition:opacity .3s;z-index:5}
+body:hover #ayuda{opacity:.8}
 
-<div id="barra"><div class="q" id="bq"></div><div class="ets" id="ets"></div><div class="t" id="bt">sin lanzar</div></div>
+/* identidad: arcos del evento en la esquina superior de las láminas de contenido */
+.l:not(.portada)::before{content:"";position:absolute;right:-70px;top:-70px;width:300px;height:170px;pointer-events:none;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 170'%3E%3Cpath d='M20 10 C120 40 200 90 290 160' stroke='%23F0801A' stroke-width='16' fill='none' stroke-linecap='round'/%3E%3Cpath d='M80 4 C170 30 240 70 300 120' stroke='%23F5A83B' stroke-width='9' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat;opacity:.9}
+/* ciclo y palancas */
+.marco{margin-top:18px;display:grid;grid-template-columns:600px 1fr;gap:34px;align-items:center}
+.ciclo svg{width:600px;height:560px;display:block}
+.ciclo .nodo-c rect{fill:#fff;stroke:#0F3B4C;stroke-width:3}
+.ciclo .nodo-c.mueve rect{fill:#FDF1E4;stroke:#F0801A}
+.ciclo .nodo-c text{fill:#0F3B4C;font:800 19px var(--fuente)}
+.ciclo .verbo{fill:#E0650F;font:700 16px var(--fuente);font-style:italic}
+.ciclo .centro-c{fill:#0F3B4C;font:900 24px var(--fuente)}
+.ciclo .giro{transform-origin:300px 280px}
+.l.on .ciclo .giro{animation:gira 40s linear infinite}
+@keyframes gira{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.l.on .ciclo .giro{animation:none}}
+.l.on .ciclo .nodo-c.mueve rect{animation:late 2.4s ease-in-out infinite}
+@keyframes late{50%{stroke-width:6}}
+.familias{display:flex;flex-direction:column;gap:14px}
+.familia{border-radius:18px;padding:14px 18px;background:var(--suave)}
+.familia .k{font-size:14px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--naranja-osc)}
+.familia ul{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:6px}
+.familia li{display:flex;gap:10px;align-items:center;font-size:19px;font-weight:700;color:var(--azul);line-height:1.25}
+.familia li svg{flex:0 0 30px;height:22px}
+.marco-pie{margin-top:6px;font-size:21px;font-weight:700;color:var(--gris)}
+/* la nube, ordenada */
+.orden{margin-top:26px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.col-f .k{font-size:14px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--naranja-osc);margin-bottom:8px;display:block}
+.caja-p{border:2px solid var(--linea);border-radius:16px;padding:12px 16px;margin-bottom:12px}
+.caja-p h3{margin:0 0 8px;font-size:18px;font-weight:800;color:var(--azul);line-height:1.25}
+.caja-p .ch{display:flex;flex-wrap:wrap;gap:8px}
+.caja-p .ch span{background:#FDF1E4;border-radius:20px;padding:5px 12px;font-size:17px;font-weight:800;color:var(--azul)}
+.l.on .vuela{animation:vuela 1s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(400ms + var(--d,0) * 90ms)}
+@keyframes vuela{from{opacity:0;transform:translate(var(--x,0),var(--y,0)) scale(1.35)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.l.on .vuela{animation:none}}
+/* voces de la sala */
+.sala{margin-top:30px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.voz-p{border-radius:16px;padding:16px 20px;background:var(--suave);display:flex;justify-content:space-between;align-items:center;font-size:19px;font-weight:800;color:var(--azul)}
+.voz-p b{font-size:30px;color:var(--naranja)}
+.envivo{display:inline-flex;align-items:center;gap:10px;font-size:18px;font-weight:800;color:var(--naranja-osc);letter-spacing:.1em;text-transform:uppercase}
+.envivo i{width:12px;height:12px;border-radius:50%;background:var(--naranja)}
+.l.on .envivo i{animation:late2 1.4s ease-in-out infinite}
+@keyframes late2{50%{opacity:.25}}
+.qr-lema{margin-top:26px;border-left:8px solid var(--naranja);padding:10px 22px;font-size:24px;font-weight:800;color:var(--azul)}
+/* energía */
+.energia{margin-top:20px;display:grid;grid-template-columns:.9fr 1.35fr;gap:26px}
+.reune{background:var(--suave);border-radius:22px;padding:20px 24px}
+.reune .k,.ordena .k{font-size:15px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--naranja-osc)}
+.reune ul{margin:10px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:8px;font-size:19px;font-weight:600;line-height:1.3}
+.ordena table{width:100%;border-collapse:collapse;margin-top:8px}
+.ordena td{padding:8px 10px;border-bottom:2px solid var(--linea);font-size:17.5px;font-weight:600;line-height:1.3;vertical-align:top}
+.ordena td:first-child{width:190px;font-weight:800;color:var(--teal);font-size:15px;text-transform:uppercase;letter-spacing:.05em}
+.hallado{margin-top:14px;border-radius:16px;padding:12px 20px;background:#FDF1E4;font-size:19px;font-weight:600;line-height:1.35}
+.hallado b{color:var(--azul)}
+.bancada{margin-top:18px;display:inline-block;border-radius:30px;padding:10px 22px;background:var(--azul);color:#fff;font-size:20px;font-weight:700}
+.bancada b{color:var(--amarillo)}
+</style>
+</head>
+<body>
+<div id="ayuda">← → avanzar · L lanzar pregunta · P ventana · R respuesta · N notas · F pantalla completa · K llave</div>
+<div id="escenario">
 
-<!-- 1 -->
-<section class="lam oscura on">
-  <div class="ey">Cámara de Comercio de Cartagena · Consejo Gremial de Bolívar · CRCI · Invest in Cartagena</div>
-  <h1 style="font-size:58px;max-width:1000px">Pregúntele a la evidencia antes de pedirle algo al Plan</h1>
-  <p style="font-size:24px;max-width:900px">Un sistema que arma expedientes de norma, dato, referentes y voz sobre Cartagena y Bolívar, los audita, y dice por qué puerta puede entrar cada cosa al Plan Nacional de Desarrollo 2026-2030.</p>
-  <p style="font-size:18px;opacity:.8;margin-top:26px">Junta de Juntas · viernes 25 de septiembre de 2026 · Departamento de Investigaciones Económicas</p>
-  <div class="pie"><span>Sistema de inteligencia territorial</span><span>1</span></div>
+<!-- 1 · Portada -->
+<section class="l on portada" data-notas="Saludo breve y agradecimiento. Enlazar con Andrea («trabajemos juntos») y con Juan Camilo («la lista de deseos y el momento político»): «Ellos nos mostraron el qué y el para qué. Yo les quiero mostrar el cómo.»">
+  <svg class="estela" viewBox="0 0 760 420" aria-hidden="true"><path d="M40 380 C300 330 520 170 740 30" stroke="#F0801A" stroke-width="34" fill="none" stroke-linecap="round"/><path d="M150 420 C380 380 560 250 760 130" stroke="#F5A83B" stroke-width="20" fill="none" stroke-linecap="round"/></svg>
+  <div class="ceja a" style="--d:0">Junta de Juntas 2026</div>
+  <h1 class="a" style="--d:1">De la técnica<br><span class="pastilla">a la incidencia</span></h1>
+  <p class="sub a" style="--d:2">Un sistema para que las prioridades de Cartagena y Bolívar lleguen al Plan Nacional de Desarrollo 2026-2030 con su vehículo, su precedente y su evidencia.</p>
+  <p class="quien a" style="--d:3">Alonso Ramírez Hernández<span>Jefe del Departamento de Investigaciones Económicas · Cámara de Comercio de Cartagena</span></p>
+  <div class="franja"><span class="t">Departamento de Investigaciones Económicas</span><span class="logos"><img src="img/logo-cg.png" alt="Consejo Gremial de Bolívar"><i></i><img src="img/logo-dual.png" alt="Cámara de Comercio de Cartagena y Tejiendo Progreso en Bolívar"></span></div>
 </section>
 
-<!-- 2 -->
-<section class="lam">
-  <div class="ey">La pregunta de hoy</div>
-  <h1>Empecemos por la pregunta de un congresista</h1>
-  <p>Mientras hablamos, el sistema la trabaja: cuatro capas de evidencia, dos niveles de contraste, una agenda con evidencia marcada y una auditoría independiente. La barra de arriba muestra por dónde va.</p>
-  <div class="ask"><input id="q" placeholder="Escriba la pregunta…"><button class="btn" id="go">Lanzar</button></div>
-  <div id="sugs"></div>
-  <p style="font-size:14px;color:var(--gris);margin-top:16px" id="estado2"></p>
-  <div class="pie"><span>La máquina busca, lee y ordena; las personas verifican, miden y deciden.</span><span>2</span></div>
+<!-- 2 · Rompehielos y pregunta -->
+<section class="l rompe" data-notas="Rompehielos. «Hay un tema que en el Caribe sentimos todos los meses, cuando llega el recibo. Todos tenemos una opinión; pocas veces sabemos qué le toca al Plan y qué no. Le vamos a hacer la pregunta al sistema ahora mismo. Mientras les cuento cómo trabajamos, él va a hacer ese trabajo. Al final vemos qué encontró.» Presionar L.">
+  <div class="ceja a" style="--d:0">Antes de empezar</div>
+  <p class="gancho a" style="--d:1">Hay un tema que en el Caribe sentimos todos los meses, cuando llega el recibo.</p>
+  <div class="preg a" style="--d:2">¿Qué puede hacer el Plan Nacional de Desarrollo para bajar la tarifa de energía del Caribe, y qué no puede hacer?</div>
+  <p class="aviso a" style="--d:3">Se la estamos preguntando al sistema ahora. Al final vemos qué encontró.</p>
+  <div class="franja"><span class="t">De la técnica a la incidencia</span><span class="logos"><img src="img/logo-cg.png" alt=""><i></i><img src="img/logo-dual.png" alt=""></span><span class="n">2</span></div>
 </section>
 
-<!-- 3 -->
-<section class="lam">
-  <div class="ey">El método</div>
-  <h1>Un expediente por pregunta, cuatro capas encadenadas, una auditoría que no participó</h1>
-  <div class="paso">
-    <div><b>Pregunta con verbo</b><small>«¿Vence en 2026 el régimen tarifario del Caribe?», no «energía».</small></div><div class="flecha">→</div>
-    <div><b>1 · Norma</b><small>Leída acto por acto: número, artículo, fecha, y dónde se rompe la cadena.</small></div><div class="flecha">→</div>
-    <div><b>2 · Dato</b><small>Oficial o propio (censo, registro, GEIH): cifra, unidad, año, fuente.</small></div><div class="flecha">→</div>
-    <div><b>3 · Referentes</b><small>Qué hicieron los planes anteriores y otras regiones; qué tumbó la Corte.</small></div><div class="flecha">→</div>
-    <div><b>4 · Voz</b><small>Lo que el sector afirma, contrastado con las tres capas.</small></div>
+<!-- 3 · Lo que la región quiere -->
+<section class="l" data-notas="Puente con Juan Camilo: esta es la lista que la región tiene clara, y es valiosa. Reconocer que mucho ya se está trabajando: no llegamos a refundar nada. Nada de esto está mal pedido; la pregunta es qué tiene que pasar para que cada cosa ocurra. No nombrar personas: son temas y proyectos de todos.">
+  <div class="ceja a" style="--d:0">Del qué al cómo</div>
+  <h2 class="a" style="--d:1">La región sabe lo que quiere</h2>
+  <p class="sub a" style="--d:2;margin-top:10px">Y mucho de esto ya se está trabajando: los gremios, la bancada, los gobiernos locales y la academia.</p>
+  <div class="nube a" style="--d:3;top:290px" aria-label="Temas y proyectos de la región">
+    <span style="left:2%;top:4%;font-size:44px;--d:1">Canal del Dique</span>
+    <span style="left:36%;top:0%;font-size:30px;--d:2;color:#1A7F92">tarifa de energía</span>
+    <span style="left:66%;top:6%;font-size:38px;--d:3">astilleros</span>
+    <span style="left:12%;top:28%;font-size:28px;--d:4;color:#E0650F">corredor de carga</span>
+    <span style="left:44%;top:22%;font-size:48px;--d:5">tren regional</span>
+    <span style="left:76%;top:30%;font-size:26px;--d:6;color:#1A7F92">formalización</span>
+    <span style="left:0%;top:52%;font-size:32px;--d:7">protección costera</span>
+    <span style="left:30%;top:48%;font-size:26px;--d:8;color:#E0650F">agua en los corregimientos</span>
+    <span style="left:64%;top:52%;font-size:36px;--d:9">doble calzada</span>
+    <span style="left:18%;top:74%;font-size:30px;--d:10;color:#1A7F92">crédito para la pequeña empresa</span>
+    <span style="left:58%;top:76%;font-size:28px;--d:11">gobernanza regional</span>
+    <span style="left:82%;top:72%;font-size:24px;--d:12;color:#E0650F">talento bilingüe</span>
+    <span style="left:84%;top:14%;font-size:22px;--d:13;color:#E0650F">solares represados</span>
+    <span style="left:50%;top:92%;font-size:22px;--d:14;color:#1A7F92">competencias turísticas</span>
+    <span style="left:4%;top:92%;font-size:24px;--d:15;color:#E0650F">brecha rural</span>
   </div>
-  <div class="paso" style="margin-top:14px">
-    <div style="border-top-color:var(--dor)"><b>Nivel 2 · contradicciones</b><small>Estado de cada afirmación: confirmada · contradicha · huérfana · sin medir · sin doliente.</small></div><div class="flecha">→</div>
-    <div style="border-top-color:var(--dor)"><b>Nivel 3 · la puerta</b><small>El PND lo cambia · lo ordena · no es del PND · primero se mide.</small></div><div class="flecha">→</div>
-    <div style="border-top-color:var(--nar)"><b>Auditoría independiente</b><small>Otra sesión coteja cada cita con su fuente; retira o marca. Después, una persona.</small></div>
-  </div>
-  <div class="pie"><span>Cada capa escribe la pregunta de la siguiente. Si una desmiente a la anterior, se vuelve atrás.</span><span>3</span></div>
+  <div class="franja"><span class="t">De la técnica a la incidencia</span><span class="logos"><img src="img/logo-cg.png" alt=""><i></i><img src="img/logo-dual.png" alt=""></span><span class="n">3</span></div>
 </section>
 
-<!-- 4 -->
-<section class="lam">
-  <div class="ey">Lo recorrido</div>
-  <h1>Ocho días de trabajo continuo, cuatro sectores, un equipo</h1>
-  <div class="tres" style="margin-top:20px">
-    <div class="caja"><div class="num">30</div><div class="lab">expedientes: energía, marítimo, turismo, proyectos estratégicos y vivienda</div></div>
-    <div class="caja"><div class="num">18</div><div class="lab">propuestas con texto de artículo, vía y precedente, auditadas</div></div>
-    <div class="caja"><div class="num">96</div><div class="lab">afirmaciones marítimas cotejadas en una noche: 90 confirmadas, 6 corregidas antes de salir</div></div>
-  </div>
-  <div class="tres" style="margin-top:18px">
-    <div class="caja"><div class="num">5.245</div><div class="lab">ocupados del sector marítimo en Cartagena, calculados con microdatos de la GEIH (2024-25)</div></div>
-    <div class="caja"><div class="num">64</div><div class="lab">fuentes oficiales que un asistente está bajando a mano porque los portales bloquean robots</div></div>
-    <div class="caja"><div class="num">3</div><div class="lab">investigadoras y un asistente auditando frase por frase lo que la máquina dejó marcado</div></div>
-  </div>
-  <div class="pie"><span>Cifras a 23-sep-2026, con fuente en cada expediente.</span><span>4</span></div>
-</section>
-
-<!-- 5 energía -->
-<section class="lam">
-  <div class="ey">Energía</div>
-  <h2>El Caribe no paga la energía más cara: paga las pérdidas más altas. Y el régimen tarifario no vence en una fecha.</h2>
+<!-- 4 · Para que algo pase -->
+<section class="l" data-notas="Aquí se sube el tono técnico. Tres tipos de necesidad: una obra, un problema, una industria. Cada una necesita varias condiciones técnicas, y cada condición tiene un vehículo distinto. Decirlo como oportunidad: saber esto es lo que convierte la voluntad en resultado.">
+  <div class="ceja a" style="--d:0">Del qué al cómo</div>
+  <h2 class="a" style="--d:1">Para que algo pase, <span class="pastilla">tienen que pasar muchas cosas técnicas</span></h2>
   <div class="tres">
-    <div class="caja pide"><h3>Lo que puede pedir en el Plan</h3><ol><li>Que la UPME publique cada semestre, por operador y departamento, las solicitudes de conexión que ya recibe.</li><li>Licencia ambiental y consulta previa <b>antes</b> de licitar transmisión.</li><li>Publicar si subsisten las causas del régimen tarifario especial, con plazo máximo.</li><li>Meta cuatrienal de normalización eléctrica, con los fondos blindados.</li></ol></div>
-    <div class="caja no"><h3>Lo que no resiste</h3><ul><li>«El Estado debe $10 billones».</li><li>«El Caribe paga la energía más cara».</li><li>«14.000 solicitudes solares represadas».</li><li>Fijar tarifas en la ley: es de la CREG (C-364/2025).</li></ul></div>
-    <div class="caja falta"><h3>Lo que falta confirmar</h3><ul><li>Si ya opera el decreto de los nuevos fondos (375/2026).</li><li>La fecha de firmeza de las resoluciones de 2021.</li><li>Si la recusación ante la CREG sigue vigente.</li></ul></div>
+    <div class="caso a" style="--d:2"><span class="k">Una obra</span><h3>Canal del Dique</h3><ol><li><b>1</b>Vigencias futuras autorizadas</li><li><b>2</b>La plata de cada año, apropiada y girada</li><li><b>3</b>El trámite ambiental resuelto</li><li><b>4</b>Un responsable que reporte el avance</li></ol></div>
+    <div class="caso a" style="--d:3"><span class="k">Un problema</span><h3>La tarifa de energía</h3><ol><li><b>1</b>La metodología, que es de la CREG</li><li><b>2</b>Subsidios con presupuesto</li><li><b>3</b>Inversión en redes y pérdidas</li><li><b>4</b>Medición pública de la transición</li></ol></div>
+    <div class="caso a" style="--d:4"><span class="k">Una industria</span><h3>Los astilleros</h3><ol><li><b>1</b>Crédito con el barco como garantía</li><li><b>2</b>Incentivos que cubran la reparación</li><li><b>3</b>Un registro público del sector</li><li><b>4</b>Compras públicas que los prioricen</li></ol></div>
   </div>
-  <div class="pie"><span>6 propuestas con texto · 2 cerraron sin arreglos · fuente: CIFRAS_canonicas_energia, expedientes E1–E16</span><span>5</span></div>
+  <p class="remate a" style="--d:5">Cada condición tiene un vehículo distinto. <em>Unas van al Plan; otras, por otra vía.</em></p>
+  <div class="franja"><span class="t">De la técnica a la incidencia</span><span class="logos"><img src="img/logo-cg.png" alt=""><i></i><img src="img/logo-dual.png" alt=""></span><span class="n">4</span></div>
 </section>
 
-<!-- 6 marítimo -->
-<section class="lam">
-  <div class="ey">Marítimo y astilleros</div>
-  <h2>Los instrumentos existen en el papel y no operan: el offset industrial no nombra a los astilleros y PROASTILLEROS tiene un solo beneficiario.</h2>
-  <div class="tres">
-    <div class="caja pide"><h3>Lo que puede pedir en el Plan</h3><ol><li>Que DIMAR publique el registro de astilleros y talleres con licencia, construcción aparte de reparación.</li><li>Que el Gobierno evalúe PROASTILLEROS con plazo, incluido el costo fiscal de extenderlo a reparación.</li><li>Que MinCIT y MinDefensa definan con plazo las Áreas de Interés del offset (art. 257).</li></ol></div>
-    <div class="caja no"><h3>Lo que no resiste</h3><ul><li>«La ley pro-astilleros de 2019»: no existe; es un decreto de 2018 ya reglamentado.</li><li>Tocar el arancel o el IVA en el Plan: se cae (C-026/2020).</li><li>La hipoteca naval en el articulado: es ley propia y regulación financiera.</li></ul></div>
-    <div class="caja falta"><h3>Lo que se midió y lo que falta</h3><ul><li><b>5.245</b> ocupados marítimos, 1.748 navales (GEIH): el «150.000» no existía.</li><li>Falta: cuántos astilleros fabrican y cuántos reparan (único conteo: 2019).</li></ul></div>
+<!-- 5 · Cómo se hace el Plan -->
+<section class="l" data-notas="Minuto técnico sobre el Plan. Calendario de la Ley 152 de 1994 aplicado a este gobierno. Tres puertas dentro del Plan y una afuera. La regla que evita pedir mal: el Plan puede ordenar, fijar plazos y asignar recursos, pero lo que no guarda relación con sus objetivos se cae; la Corte lo ha hecho, por ejemplo, en la C-464 de 2020. Confirmar las fechas exactas del calendario antes de proyectar.">
+  <div class="ceja a" style="--d:0">Cómo se hace el Plan</div>
+  <h2 class="a" style="--d:1">Cómo se hace el Plan, <span class="pastilla">y por dónde se entra</span></h2>
+  <div class="linea-t a" style="--d:2">
+    <div class="hito"><b>7 ago 2026</b><span>Se posesiona el nuevo gobierno</span></div>
+    <div class="hito"><b>15 nov 2026</b><span>Las bases llegan al Consejo Nacional de Planeación</span></div>
+    <div class="hito"><b>10 ene 2027</b><span>El Consejo rinde su concepto</span></div>
+    <div class="hito"><b>7 feb 2027</b><span>El proyecto de ley llega al Congreso</span></div>
+    <div class="hito"><b>feb–may 2027</b><span>Trámite y aprobación</span></div>
   </div>
-  <div class="pie"><span>5 propuestas con texto · 2 cerraron sin arreglos · fuente: CIFRAS_canonicas_maritimo, MARITIMO_diagnostico_integrado, GEIH</span><span>6</span></div>
-</section>
-
-<!-- 7 turismo -->
-<section class="lam">
-  <div class="ey">Turismo</div>
-  <h2>La ley le dio a Cartagena instrumentos en 2013 que nadie ha reglamentado, y el alojamiento cambió de forma sin que nadie midiera las camas.</h2>
-  <div class="tres">
-    <div class="caja pide"><h3>Lo que puede pedir en el Plan</h3><ol><li>Que el Gobierno expida en seis meses los decretos de financiación de la Ley 1617 (arts. 92 y 102) y presente el proyecto de ley del art. 133.</li><li>Que las Bases nombren el turismo de reuniones y la red de recintos del Caribe.</li><li>Un asiento para los distritos turísticos en la línea de FONTUR.</li></ol></div>
-    <div class="caja no"><h3>Lo que no resiste</h3><ul><li>«Ya está ordenada la compensación»: se ordenó un proyecto de ley.</li><li>Cifras de Airbnb, o el «94,8 % de informalidad».</li><li>Regular la renta corta reformando la ley de turismo: es el POT y la Hacienda distrital.</li></ul></div>
-    <div class="caja falta"><h3>Lo que se sabe y lo que falta</h3><ul><li>12.123 inscripciones en el RNT; 8.573 viviendas turísticas (70,7 %); 825 alojamientos formales.</li><li>Falta: cuánta parafiscalidad genera Cartagena y cuánto le vuelve (nadie lo ha medido).</li></ul></div>
+  <div class="puertas">
+    <div class="puerta a" style="--d:3"><h3>Las Bases</h3><p>El diagnóstico y las estrategias: dónde la región queda nombrada.</p></div>
+    <div class="puerta a" style="--d:4"><h3>El articulado</h3><p>Lo que obliga: ordena, fija plazos, cambia reglas.</p></div>
+    <div class="puerta a" style="--d:5"><h3>El plan de inversiones</h3><p>Los proyectos y la plata, año por año.</p></div>
+    <div class="puerta otra a" style="--d:6"><h3>Otra vía</h3><p>La CREG, un decreto, una ley propia, un CONPES o una gestión. No es descarte: a veces es la ruta más rápida.</p></div>
   </div>
-  <div class="pie"><span>3 propuestas con texto · expedientes T1–T5 · fuente: RNT (recontado), Ley 1617, CIFRAS_canonicas_turismo</span><span>7</span></div>
+  <p class="nota a" style="--d:7">Lo que no guarda relación con los objetivos del Plan se cae en la Corte. Saber qué va por cada puerta es la mitad del trabajo.</p>
+  <div class="franja"><span class="t">De la técnica a la incidencia</span><span class="logos"><img src="img/logo-cg.png" alt=""><i></i><img src="img/logo-dual.png" alt=""></span><span class="n">5</span></div>
 </section>
 
-<!-- 8 proyectos -->
-<section class="lam">
-  <div class="ey">Proyectos estratégicos</div>
-  <h2>En seis de los diez proyectos lo que traba no es plata: es una licencia, un pleito o un doliente.</h2>
-  <div class="tres">
-    <div class="caja pide"><h3>Lo que puede pedir en el Plan</h3><ol><li>Blindar las vigencias futuras del Canal del Dique contra aplazamientos.</li><li>Designar en seis meses quién responde por el Tren Regional y financiar su factibilidad.</li><li>Que los accesos portuarios urbanos (Mamonal) puedan volverse red nacional o cofinanciarse (Ley 105, art. 15).</li><li>Publicidad trimestral de la evaluación de iniciativas privadas (Bayunca).</li></ol></div>
-    <div class="caja no"><h3>Lo que no resiste</h3><ul><li>Que el Plan «declare» el Dique: eso lo hace el CONPES.</li><li>«Celeridad» en Bayunca: la Corte no le fijó plazo a la ANI.</li><li>Ninguna cifra aplazada al Dique sin el decreto en la mano.</li></ul></div>
-    <div class="caja falta"><h3>Lo que falta confirmar</h3><ul><li>El estado contractual real de Bayunca (dos versiones incompatibles).</li><li>El costo de obra del Tren Regional.</li></ul></div>
+<!-- 6 · El ciclo y las palancas -->
+<section class="l" data-notas="El marco conceptual, dicho en llano. Lo social y lo productivo no son dos agendas: son un solo ciclo. Las condiciones del territorio habilitan la capacidad de producir, que atrae inversión, que genera empleo formal, que mejora ingresos y da capacidad para cerrar brechas, que a su vez fortalece las condiciones. Las nueve palancas son las condiciones que, al moverse, hacen girar el ciclo; se agrupan en tres familias y mueven sobre todo los dos primeros eslabones.">
+  <div class="ceja a" style="--d:0">Cómo lo pensamos</div>
+  <h2 class="a" style="--d:1;font-size:50px">Lo social y lo productivo <span class="pastilla">son un solo ciclo</span></h2>
+  <div class="marco">
+    <div class="ciclo a" style="--d:2"><svg viewBox="0 0 600 560" role="img" aria-label="Ciclo del desarrollo productivo del Caribe"><circle cx="300" cy="280" r="205" fill="none" stroke="#DCE3E7" stroke-width="4"/><g class="giro"><circle cx="300" cy="280" r="205" fill="none" stroke="#F0801A" stroke-width="4" stroke-dasharray="8 22" stroke-linecap="round"/></g><g class="nodo-c mueve"><rect x="200" y="43" width="200" height="64" rx="14"/><text x="300" y="70" text-anchor="middle">Condiciones sociales</text><text x="300" y="94" text-anchor="middle">y territoriales</text></g><g class="nodo-c mueve"><rect x="395" y="185" width="200" height="64" rx="14"/><text x="495" y="212" text-anchor="middle">Capacidad</text><text x="495" y="236" text-anchor="middle">para producir</text></g><g class="nodo-c"><rect x="320" y="414" width="200" height="64" rx="14"/><text x="420" y="441" text-anchor="middle">Inversión</text><text x="420" y="465" text-anchor="middle">y crecimiento</text></g><g class="nodo-c"><rect x="80" y="414" width="200" height="64" rx="14"/><text x="180" y="441" text-anchor="middle">Empleo formal</text><text x="180" y="465" text-anchor="middle">y productivo</text></g><g class="nodo-c"><rect x="5" y="185" width="200" height="64" rx="14"/><text x="105" y="212" text-anchor="middle">Mayor capacidad</text><text x="105" y="236" text-anchor="middle">para cerrar brechas</text></g><text class="verbo" x="382" y="167" text-anchor="middle">habilitan →</text><text class="verbo" x="433" y="323" text-anchor="middle">atrae →</text><text class="verbo" x="300" y="420" text-anchor="middle">genera →</text><text class="verbo" x="167" y="323" text-anchor="middle">mejora ingresos →</text><text class="verbo" x="218" y="167" text-anchor="middle">fortalece →</text><text class="centro-c" x="300" y="274" text-anchor="middle">Desarrollo</text><text class="centro-c" x="300" y="304" text-anchor="middle">territorial</text></svg></div>
+    <div class="familias"><div class="familia a" style="--d:3"><span class="k">Lo que el territorio pone</span><ul><li><svg viewBox="0 0 30 22" aria-hidden="true"><path d="M3 18 L27 6" stroke="#F0801A" stroke-width="3.5" stroke-linecap="round"/><circle cx="27" cy="6" r="3.6" fill="#0F3B4C"/><path d="M11 20 L15 13 L19 20 Z" fill="#0F3B4C"/></svg>Conectividad que mueve la producción y acerca a la gente</li><li><svg viewBox="0 0 30 22" aria-hidden="true"><path d="M3 18 L27 6" stroke="#F0801A" stroke-width="3.5" stroke-linecap="round"/><circle cx="27" cy="6" r="3.6" fill="#0F3B4C"/><path d="M11 20 L15 13 L19 20 Z" fill="#0F3B4C"/></svg>Energía confiable para la casa y la industria</li><li><svg viewBox="0 0 30 22" aria-hidden="true"><path d="M3 18 L27 6" stroke="#F0801A" stroke-width="3.5" stroke-linecap="round"/><circle cx="27" cy="6" r="3.6" fill="#0F3B4C"/><path d="M11 20 L15 13 L19 20 Z" fill="#0F3B4C"/></svg>Agua que llega a los hogares y riega el campo</li><li><svg viewBox="0 0 30 22" aria-hidden="true"><path d="M3 18 L27 6" stroke="#F0801A" stroke-width="3.5" stroke-linecap="round"/><circle cx="27" cy="6" r="3.6" fill="#0F3B4C"/><path d="M11 20 L15 13 L19 20 Z" fill="#0F3B4C"/></svg>Territorio que se anticipa al clima</li></ul></div><div class="familia a" style="--d:4"><span class="k">Lo que mueve a las empresas</span><ul><li><svg viewBox="0 0 30 22" aria-hidden="true"><path d="M3 18 L27 6" stroke="#F0801A" stroke-width="3.5" stroke-linecap="round"/><circle cx="27" cy="6" r="3.6" fill="#0F3B4C"/><path d="M11 20 L15 13 L19 20 Z" fill="#0F3B4C"/></svg>Reglas claras para abrir, operar y formalizarse</li><li><svg viewBox="0 0 30 22" aria-hidden="true"><path d="M3 18 L27 6" stroke="#F0801A" stroke-width="3.5" stroke-linecap="round"/><circle cx="27" cy="6" r="3.6" fill="#0F3B4C"/><path d="M11 20 L15 13 L19 20 Z" fill="#0F3B4C"/></svg>Crédito que llega y produce</li><li><svg viewBox="0 0 30 22" aria-hidden="true"><path d="M3 18 L27 6" stroke="#F0801A" stroke-width="3.5" stroke-linecap="round"/><circle cx="27" cy="6" r="3.6" fill="#0F3B4C"/><path d="M11 20 L15 13 L19 20 Z" fill="#0F3B4C"/></svg>Formación pertinente para el trabajo</li></ul></div><div class="familia a" style="--d:5"><span class="k">Lo que sostiene a la gente</span><ul><li><svg viewBox="0 0 30 22" aria-hidden="true"><path d="M3 18 L27 6" stroke="#F0801A" stroke-width="3.5" stroke-linecap="round"/><circle cx="27" cy="6" r="3.6" fill="#0F3B4C"/><path d="M11 20 L15 13 L19 20 Z" fill="#0F3B4C"/></svg>Cierre de brechas que activa el potencial productivo</li><li><svg viewBox="0 0 30 22" aria-hidden="true"><path d="M3 18 L27 6" stroke="#F0801A" stroke-width="3.5" stroke-linecap="round"/><circle cx="27" cy="6" r="3.6" fill="#0F3B4C"/><path d="M11 20 L15 13 L19 20 Z" fill="#0F3B4C"/></svg>Instituciones regionales con respaldo de la Nación</li></ul></div><p class="marco-pie a" style="--d:6">Nueve palancas: condiciones que, al moverse, <b style="color:#E0650F">hacen girar el ciclo</b>.</p></div>
   </div>
-  <div class="pie"><span>4 propuestas con texto · 10 fichas contrastadas con registro oficial (v2, 23-sep)</span><span>8</span></div>
+  <div class="franja"><span class="t">De la técnica a la incidencia</span><span class="logos"><img src="img/logo-cg.png" alt=""><i></i><img src="img/logo-dual.png" alt=""></span><span class="n">6</span></div>
 </section>
 
-<!-- 9 agenda -->
-<section class="lam">
-  <div class="ey">La agenda</div>
-  <h2>Dieciocho propuestas con texto, vía y precedente. Cinco cerraron sin un solo arreglo de fondo.</h2>
-  <div class="dos">
-    <table><tr><th>ID</th><th>Qué pide</th><th>Vía</th><th>Auditoría</th></tr>
-      <tr><td><b>EN-4</b></td><td>La UPME publica cada semestre lo que ya recibe</td><td>Articulado</td><td><span class="tag v">cierra</span></td></tr>
-      <tr><td><b>E5</b></td><td>Licencia y consulta previa antes de licitar transmisión</td><td>Articulado</td><td><span class="tag v">cierra</span></td></tr>
-      <tr><td><b>TU-1</b></td><td>Decretos de la Ley 1617 en seis meses; proyecto de ley del art. 133</td><td>Articulado</td><td><span class="tag v">cierra</span></td></tr>
-      <tr><td><b>MA-4</b></td><td>DIMAR publica el registro de astilleros</td><td>Articulado</td><td><span class="tag v">cierra</span></td></tr>
-      <tr><td><b>MA-5</b></td><td>Evaluar PROASTILLEROS en 12 meses</td><td>Articulado</td><td><span class="tag v">cierra</span></td></tr>
-      <tr><td><b>EN-1</b></td><td>Plazo máximo al régimen tarifario y publicación de sus causas</td><td>Articulado</td><td><span class="tag c">corregida</span></td></tr>
-      <tr><td><b>PR-001</b></td><td>Vigencias del Dique blindadas</td><td>Artic. + plurianual</td><td><span class="tag c">corregida</span></td></tr>
-    </table>
-    <div>
-      <div class="caja"><h3>Por sector</h3><p>Energía <b>6</b> · Turismo <b>3</b> · Proyectos <b>4</b> · Marítimo <b>5</b></p><h3 style="margin-top:10px">Por vía</h3><p>Articulado 14 · Bases + articulado 2 · Plurianual 3 · <b>No es del Plan 1</b> (y dice a dónde sí va)</p></div>
-      <div class="caja" style="margin-top:14px"><h3>Lo que un abogado del Gobierno no puede tumbar</h3><p style="font-size:16px">Ninguna fija tarifa, arancel ni impuesto. Todas ordenan <b>publicar, evaluar, definir o cumplir</b> lo que ya existe, con plazo y con el artículo que ya lo hizo antes.</p></div>
-    </div>
+<!-- 7 · La misma lista, ordenada -->
+<section class="l" data-notas="El antes y el después. Las mismas palabras de la nube caen en su palanca. Así se ve la lista cuando se ordena por las condiciones que la hacen posible.">
+  <div class="ceja a" style="--d:0">Ordenar la lista</div>
+  <h2 class="a" style="--d:1">La misma lista, <span class="pastilla">ordenada en palancas</span></h2>
+  <div class="orden"><div class="col-f"><span class="k a" style="--d:2">Lo que el territorio pone</span><div class="caja-p a" style="--d:3"><h3>Conectividad que mueve la producción</h3><div class="ch"><span class="vuela" style="--x:-380px;--y:-260px;--d:0">corredor de carga</span><span class="vuela" style="--x:240px;--y:-300px;--d:1">tren regional</span><span class="vuela" style="--x:-120px;--y:220px;--d:2">doble calzada</span></div></div><div class="caja-p a" style="--d:3"><h3>Energía confiable</h3><div class="ch"><span class="vuela" style="--x:420px;--y:180px;--d:3">tarifa de energía</span><span class="vuela" style="--x:-460px;--y:60px;--d:4">solares represados</span></div></div><div class="caja-p a" style="--d:3"><h3>Agua para hogares y campo</h3><div class="ch"><span class="vuela" style="--x:300px;--y:-120px;--d:5">agua en los corregimientos</span><span class="vuela" style="--x:-260px;--y:-80px;--d:6">Canal del Dique</span></div></div><div class="caja-p a" style="--d:3"><h3>Territorio que se anticipa al clima</h3><div class="ch"><span class="vuela" style="--x:180px;--y:260px;--d:7">protección costera</span></div></div></div><div class="col-f"><span class="k a" style="--d:2">Lo que mueve a las empresas</span><div class="caja-p a" style="--d:3"><h3>Reglas claras</h3><div class="ch"><span class="vuela" style="--x:-60px;--y:-340px;--d:8">formalización</span></div></div><div class="caja-p a" style="--d:3"><h3>Crédito que llega y produce</h3><div class="ch"><span class="vuela" style="--x:380px;--y:40px;--d:9">crédito para la pequeña empresa</span><span class="vuela" style="--x:-340px;--y:240px;--d:10">astilleros</span></div></div><div class="caja-p a" style="--d:3"><h3>Formación pertinente</h3><div class="ch"><span class="vuela" style="--x:120px;--y:-220px;--d:11">talento bilingüe</span></div></div></div><div class="col-f"><span class="k a" style="--d:2">Lo que sostiene a la gente</span><div class="caja-p a" style="--d:3"><h3>Cierre de brechas</h3><div class="ch"><span class="vuela" style="--x:-420px;--y:-160px;--d:12">brecha rural</span></div></div><div class="caja-p a" style="--d:3"><h3>Instituciones regionales</h3><div class="ch"><span class="vuela" style="--x:60px;--y:300px;--d:13">competencias turísticas</span><span class="vuela" style="--x:260px;--y:120px;--d:14">gobernanza regional</span></div></div></div></div>
+  <div class="franja"><span class="t">De la técnica a la incidencia</span><span class="logos"><img src="img/logo-cg.png" alt=""><i></i><img src="img/logo-dual.png" alt=""></span><span class="n">7</span></div>
+</section>
+
+<!-- 8 · Las voces de la sala -->
+<section class="l" data-notas="Momento interactivo. Las respuestas de la zona de experiencia («¿Qué le quiere decir a Bolívar?») se agrupan por palanca. Mostrar cuántas voces cayeron en cada una y leer dos. Es también una validación externa de las palancas. Los números se llenan con lo que llegue de la zona.">
+  <div class="ceja a" style="--d:0">Ustedes, en las palancas</div>
+  <h2 class="a" style="--d:1">Lo que la sala le dijo <span class="pastilla">a Bolívar hoy</span></h2>
+  <p class="envivo a" style="--d:2"><i></i>En vivo · voces de la zona de experiencia, agrupadas por palanca</p>
+  <div class="sala"><div class="voz-p a" style="--d:3"><span>Conectividad</span><b data-palanca="Conectividad">—</b></div><div class="voz-p a" style="--d:3"><span>Energía</span><b data-palanca="Energía">—</b></div><div class="voz-p a" style="--d:3"><span>Agua</span><b data-palanca="Agua">—</b></div><div class="voz-p a" style="--d:4"><span>Clima</span><b data-palanca="Clima">—</b></div><div class="voz-p a" style="--d:4"><span>Reglas claras</span><b data-palanca="Reglas claras">—</b></div><div class="voz-p a" style="--d:4"><span>Crédito</span><b data-palanca="Crédito">—</b></div><div class="voz-p a" style="--d:5"><span>Formación</span><b data-palanca="Formación">—</b></div><div class="voz-p a" style="--d:5"><span>Brechas</span><b data-palanca="Brechas">—</b></div><div class="voz-p a" style="--d:5"><span>Instituciones</span><b data-palanca="Instituciones">—</b></div></div>
+  <p class="qr-lema a" style="--d:6">«Mi compromiso y mi voz por Bolívar» · escanee el código de la zona de experiencia y cuéntenos qué le quiere decir a Bolívar.</p>
+  <div class="franja"><span class="t">De la técnica a la incidencia</span><span class="logos"><img src="img/logo-cg.png" alt=""><i></i><img src="img/logo-dual.png" alt=""></span><span class="n">8</span></div>
+</section>
+
+<!-- 9 · El sistema por niveles -->
+<section class="l" data-notas="El fuerte del sistema es centralizar: documentos, fuentes, datos, normas y voces que ya existen en la región, en un solo lugar, ordenados para incidir. No reemplaza a nadie: suma lo que cada uno ya hace. La inteligencia artificial recorre; el equipo audita.">
+  <div class="ceja a" style="--d:0">Cómo funciona el sistema</div>
+  <h2 class="a" style="--d:1">Reúne lo que la región ya produce <span class="pastilla">y lo ordena para incidir</span></h2>
+  <div class="diagrama">
+    <div class="nivel entrada a" style="--d:2"><span class="k">Entra</span><h3>Voces y datos</h3><ul><li>gremios y mesas</li><li>solicitudes</li><li>censo y registro</li></ul></div>
+    <div class="nivel n1 a" style="--d:3"><span class="k">Nivel 1</span><h3>Cuatro miradas por sector</h3><div class="capas4"><span>Norma</span><span>Dato</span><span>Referentes</span><span>Voz</span></div></div>
+    <div class="nivel n2 a" style="--d:4"><span class="k">Nivel 2</span><h3>Expedientes que se cruzan</h3><ul><li>contradicciones que se aclaran</li><li>lo que falta medir, marcado</li><li>auditoría independiente y del equipo</li></ul></div>
+    <div class="nivel n3 a" style="--d:5"><span class="k">Nivel 3</span><h3>La puerta</h3><ul><li>Bases</li><li>articulado</li><li>plan de inversiones</li><li>otra vía</li></ul></div>
+    <div class="nivel salida a" style="--d:6"><span class="k">Sale</span><h3>Propuesta lista</h3><p>con texto, vía, precedente e indicador</p></div>
   </div>
-  <div class="pie"><span>AGENDA_Junta_de_Juntas_propuestas.md · 23-sep-2026</span><span>9</span></div>
+  <div class="roles a" style="--d:7"><span>Documentos, datos, normas y voces, <b>en un solo lugar</b></span><span>La máquina <b>recorre</b>; el equipo <b>audita</b></span><span>Suma lo que cada uno hace; <b>no reemplaza a nadie</b></span></div>
+  <div class="franja"><span class="t">De la técnica a la incidencia</span><span class="logos"><img src="img/logo-cg.png" alt=""><i></i><img src="img/logo-dual.png" alt=""></span><span class="n">9</span></div>
 </section>
 
-<!-- 10 no es del plan -->
-<section class="lam">
-  <div class="ey">La otra mitad del valor</div>
-  <h2>Saber qué no va al Plan, y a dónde sí va</h2>
-  <table style="margin-top:6px"><tr><th>Pieza</th><th>Por qué no</th><th>Dónde sí</th></tr>
-    <tr><td>Hipoteca naval (rango, plazo, prescripción)</td><td>Código de Comercio: política permanente</td><td><b>Ley propia</b> · SFC/URF</td></tr>
-    <tr><td>Arancel o IVA de PROASTILLEROS</td><td>El Gobierno fija el arancel (C-026/2020)</td><td><b>Decreto</b> · Estatuto Tributario</td></tr>
-    <tr><td>Rediseño permanente del régimen tarifario · pérdidas · plazos de conexión</td><td>Reserva de la CREG; C-364/2025</td><td><b>Regulación CREG</b> · ley ordinaria</td></tr>
-    <tr><td>Reforma de la consulta previa</td><td>Ley estatutaria</td><td><b>Proyecto de ley propio</b> (desde sep-2026)</td></tr>
-    <tr><td>Opción tarifaria · deuda de Air-e · estampilla nueva</td><td>Regulación · intervención · ya hay cinco</td><td><b>CREG · SSPD</b> · PL 432/2025</td></tr>
-    <tr><td>Regular la renta corta reformando la ley de turismo</td><td>Viabilidad nula, según la propia mesa</td><td><b>POT</b> + Hacienda distrital + RNT</td></tr>
-    <tr><td>Traslado de Bazurto · Aeropuerto Rafael Núñez</td><td>POT y sentencias · contrato APP sin PGN</td><td><b>Distrito</b></td></tr>
-  </table>
-  <div class="pie"><span>Cada fila con su norma y su sentencia en el expediente correspondiente.</span><span>10</span></div>
-</section>
-
-<!-- 11 respuesta en vivo -->
-<section class="lam">
-  <div class="ey">La respuesta en vivo</div>
-  <h2 id="tit11">La agenda del asesor para la pregunta de hoy</h2>
-  <div class="resp" id="resp"><p style="color:var(--gris)">Cuando la barra llegue a «Auditoría», la respuesta aparece aquí.</p></div>
-  <div class="pie"><span>Cada frase con [n] tiene fuente en el acervo; ⚠️ marca lo que hay que verificar antes de usarlo.</span><span>11</span></div>
-</section>
-
-<!-- 12 cierre -->
-<section class="lam oscura">
-  <div class="ey">Lo que sigue</div>
-  <h1>El sistema sigue trabajando después de hoy</h1>
-  <p style="font-size:22px">Cada pregunta que llegue de una UTL, un gremio o una entidad se convierte en un expediente. Lo que se establece queda escrito, con su fuente, y lo que no se pudo confirmar queda marcado hasta que alguien lo confirme.</p>
-  <div class="dos" style="margin-top:22px">
-    <div class="caja" style="background:rgba(255,255,255,.08);box-shadow:none"><h3 style="color:var(--dor)">Pregúntele</h3><p style="color:#fff;font-size:18px">alonsorh-econ.github.io/sistema-inteligencia-territorial</p></div>
-    <div class="caja" style="background:rgba(255,255,255,.08);box-shadow:none"><h3 style="color:var(--dor)">Quién responde</h3><p style="color:#fff;font-size:18px">Departamento de Investigaciones Económicas · Cámara de Comercio de Cartagena, con el Consejo Gremial, la CRCI e Invest in Cartagena</p></div>
+<!-- 10 · Cómo llegamos acá -->
+<section class="l" data-notas="Empezamos escuchando, desde julio. Las cifras son volumen de trabajo, no metas cumplidas. Antes de proyectar, confirmar de qué sesión es cada foto.">
+  <div class="ceja a" style="--d:0">Cómo llegamos acá</div>
+  <h2 class="a" style="--d:1">Empezamos escuchando</h2>
+  <div class="hitos-c a" style="--d:2"><span><b>42</b> fuentes documentales</span><span>→ <b>35</b> entradas</span><span>→ <b>20</b> apuestas</span><span>→ <b>9</b> palancas</span><span><b>30</b> organizaciones consultadas desde el 15 de julio</span></div>
+  <div class="cifras">
+    <div class="cifra a" style="--d:3"><b>12</b><span>conversaciones de validación con gremios y actores</span></div>
+    <div class="cifra a" style="--d:3"><b>+20</b><span>expedientes sobre los temas de la región</span></div>
+    <div class="cifra a" style="--d:4"><b>91</b><span>auditorías independientes de lo que se afirma</span></div>
+    <div class="cifra a" style="--d:4"><b>847</b><span>documentos que el sistema puede citar</span></div>
   </div>
-  <div class="pie"><span>Gracias.</span><span>12</span></div>
+  <div class="fotos a" style="--d:5"><img src="img/foto_mesas.jpg" alt="Mesa de trabajo con gremios"><img src="img/foto_postits.jpg" alt="Tablero de propuestas de la mesa de turismo"><img src="img/foto_mesa_trabajo.jpg" alt="Mesa de trabajo con actores"><img src="img/foto_validacion.jpg" alt="Validación con los gremios"></div>
+  <div class="franja"><span class="t">De la técnica a la incidencia</span><span class="logos"><img src="img/logo-cg.png" alt=""><i></i><img src="img/logo-dual.png" alt=""></span><span class="n">10</span></div>
 </section>
 
-<div class="nav">← → para pasar · L lanza la pregunta · R reinicia</div>
+<!-- 11 · El caso: energía -->
+<section class="l" data-notas="El caso. Un problema estructural que afecta a hogares, industria y comercio, y que ya tiene muchos esfuerzos encima: el Plan Caribe Energético de la RAP Caribe, la mesa técnica con la CREG que convocó la representante Juliana Aray el 18 de septiembre, los gremios y los operadores. Darles el crédito en voz alta. El sistema no compite con esos esfuerzos: los reúne y los ordena por vía. No contradecir en público las cifras dichas en la mesa ni las del Plan Caribe Energético.">
+  <div class="ceja a" style="--d:0">Un caso: energía</div>
+  <h2 class="a" style="--d:1;font-size:48px">Un problema estructural, muchos esfuerzos, <span class="pastilla">varias vías</span></h2>
+  <div class="energia">
+    <div class="reune a" style="--d:2"><span class="k">Lo que ya existe, y el sistema reúne</span><ul>
+      <li>El Plan Caribe Energético de la RAP Caribe</li>
+      <li>La mesa técnica con la CREG que convocó la representante Juliana Aray</li>
+      <li>Las resoluciones de la CREG y la sentencia C-364 de 2025</li>
+      <li>Los datos de la Superservicios</li>
+      <li>Las voces de gremios y operadores</li></ul></div>
+    <div class="ordena a" style="--d:3"><span class="k">Y lo ordena por vía</span><table>
+      <tr><td>Plan · articulado</td><td>Plazo y reglas de salida del régimen del Caribe, y publicar cada semestre si sus causas siguen</td></tr>
+      <tr><td>Plan · articulado</td><td>Que la UPME publique cada semestre las solicitudes de conexión que ya recibe</td></tr>
+      <tr><td>Plan · articulado</td><td>Una meta cuatrienal de normalización eléctrica, con fondos que no se desvíen</td></tr>
+      <tr><td>Regulación</td><td>El rediseño del régimen y el reconocimiento de las pérdidas son de la CREG</td></tr>
+      <tr><td>Decreto y ley</td><td>El plazo del régimen lo fijó un decreto; y cada proyecto de ley en curso, con lo que le toca</td></tr>
+    </table></div>
+  </div>
+  <p class="hallado a" style="--d:4"><b>Lo que encontró el sistema:</b> el plazo de cinco años del régimen se cuenta desde la firmeza de los cargos. Para Air-e esa fecha fue el 30 de junio de 2021 (Decreto 1645 de 2019 y constancia de la CREG).</p>
+  <div class="franja"><span class="t">De la técnica a la incidencia</span><span class="logos"><img src="img/logo-cg.png" alt=""><i></i><img src="img/logo-dual.png" alt=""></span><span class="n">11</span></div>
+</section>
 
+<!-- 12 · Lo que ya propone -->
+<section class="l" data-notas="Una línea por palanca. No leer las cinco: escoger dos según la sala. Cada una tiene detrás un expediente con su precedente y su auditoría.">
+  <div class="ceja a" style="--d:0">Lo que ya propone</div>
+  <h2 class="a" style="--d:1">Lo que ya se puede pedir, <span class="pastilla">y por dónde</span></h2>
+  <div class="props">
+    <div class="prop a" style="--d:2"><span class="p">Energía</span><p>Que la UPME publique cada semestre las solicitudes de conexión que ya recibe, por operador y departamento.</p><span class="v">Articulado</span></div>
+    <div class="prop a" style="--d:3"><span class="p">Instituciones</span><p>Que en seis meses salgan los decretos que financian las competencias turísticas de Cartagena.</p><span class="v">Articulado</span></div>
+    <div class="prop a" style="--d:4"><span class="p">Reglas claras</span><p>Que la DIMAR publique cada año el registro de astilleros y talleres, distinguiendo construcción de reparación.</p><span class="v">Articulado</span></div>
+    <div class="prop a" style="--d:5"><span class="p">Clima</span><p>Culminar, mantener y extender la protección costera de Cartagena, con el siguiente tramo nombrado.</p><span class="v">Bases y plan de inversiones</span></div>
+    <div class="prop a" style="--d:6"><span class="p">Conectividad</span><p>Que en doce meses se defina cómo los accesos portuarios urbanos pasan a red nacional o se cofinancian.</p><span class="v">Articulado</span></div>
+  </div>
+  <p class="otra-via a" style="--d:7">Y lo que no va al Plan también tiene camino: <b>la tarifa</b>, a la CREG · <b>el arancel</b>, a un decreto · <b>la hipoteca naval</b>, a una ley propia · <b>los recursos de los puertos</b>, al proyecto de ley en trámite.</p>
+  <p class="bancada a" style="--d:8">Para la bancada: cada propuesta trae <b>el texto del artículo, su precedente y su auditoría</b>.</p>
+  <div class="franja"><span class="t">De la técnica a la incidencia</span><span class="logos"><img src="img/logo-cg.png" alt=""><i></i><img src="img/logo-dual.png" alt=""></span><span class="n">12</span></div>
+</section>
+
+<!-- 13 · La ventanilla -->
+<section class="l" data-notas="La idea de Juan Camilo: una ventanilla. Cada gremio trae su propuesta y la recibe de vuelta trabajada. Decir con claridad que es un punto de partida y que está en construcción. Cerrar con la invitación.">
+  <div class="ceja a" style="--d:0">Un punto de partida</div>
+  <h2 class="a" style="--d:1">Una ventanilla para la incidencia, <span class="pastilla">abierta a cada gremio</span></h2>
+  <div class="ventanilla">
+    <div class="vpaso a" style="--d:2"><span class="num">1</span><h3>Trae su propuesta</h3><p>Una necesidad, un proyecto o una pregunta.</p></div>
+    <div class="vpaso a" style="--d:3"><span class="num">2</span><h3>El sistema la trabaja</h3><p>Norma, dato, referentes y voces, en un expediente.</p></div>
+    <div class="vpaso a" style="--d:4"><span class="num">3</span><h3>El equipo la audita</h3><p>Lo que se afirma, con fuente; lo que falta, marcado.</p></div>
+    <div class="vpaso a" style="--d:5"><span class="num">4</span><h3>Vuelve lista</h3><p>Con su vía, su precedente y su evidencia. Y después, seguimiento.</p></div>
+  </div>
+  <p class="bancada a" style="--d:6">Para congresistas y sus equipos: <b>textos listos para proponer</b>, con su evidencia.</p>
+  <p class="invita a" style="--d:7">Esto apenas empieza. <span class="pastilla">Construyámoslo juntos</span></p>
+  <div class="franja"><span class="t">De la técnica a la incidencia</span><span class="logos"><img src="img/logo-cg.png" alt=""><i></i><img src="img/logo-dual.png" alt=""></span><span class="n">13</span></div>
+</section>
+
+<!-- 14 · Revelación -->
+<section class="l centro" data-notas="«Mientras les contaba esto, el sistema trabajó en la pregunta del comienzo. Esto es lo que encontró.» Presionar R. Leer la respuesta directa y una propuesta. Si la corrida falló, la respuesta que aparece es la del ensayo, y lo dice.">
+  <div class="ceja a" style="--d:0">La pregunta del comienzo</div>
+  <h2 class="a" style="--d:1">Mientras hablábamos, <span class="pastilla">el sistema trabajó</span></h2>
+  <p class="sub a" style="--d:2">Lo que la región ya produjo, reunido y ordenado: responde en minutos.</p>
+  <p class="tecla a" style="--d:3">Presione <kbd>R</kbd> para ver lo que encontró</p>
+  <div class="franja"><span class="t">De la técnica a la incidencia</span><span class="logos"><img src="img/logo-cg.png" alt=""><i></i><img src="img/logo-dual.png" alt=""></span><span class="n">14</span></div>
+</section>
+
+<!-- 15 · Cierre -->
+<section class="l centro" data-notas="Cerrar con el lema del evento y la invitación. Quedar disponible para preguntas.">
+  <div class="ceja a" style="--d:0">Junta de Juntas 2026</div>
+  <h1 class="a" style="--d:1">Empresas que construyen<br><span class="pastilla">una región más grande</span></h1>
+  <p class="sub a" style="--d:2">De la técnica a la incidencia · Departamento de Investigaciones Económicas · Cámara de Comercio de Cartagena</p>
+  <div class="franja"><span class="t">Gracias</span><span class="logos"><img src="img/logo-cg.png" alt=""><i></i><img src="img/logo-dual.png" alt=""></span></div>
+</section>
+
+</div>
+<div id="notas" hidden></div>
+
+<script src="ensayo_apertura.js"></script>
+<script src="demo_vivo.js" data-pregunta="¿Qué puede hacer el Plan Nacional de Desarrollo para bajar la tarifa de energía del Caribe, y qué no puede hacer?"></script>
 <script>
-const BASE = localStorage.getItem('sit_base') || 'https://192-81-211-68.sslip.io';
-const LLAVE = localStorage.getItem('sit_llave') || '';
-const ET=[['entender','Entender'],['norma','1 Norma'],['dato','2 Dato'],['referentes','3 Referentes'],['voz','4 Voz'],['nivel2','Nivel 2'],['nivel3','Nivel 3'],['cierre','Agenda'],['auditoria','Auditoría']];
-const SUGS=['¿Qué debe incluir el Plan Nacional de Desarrollo 2026-2030 para resolver el problema de las tarifas de energía del Caribe, y qué no puede incluir?','¿Qué necesita la industria astillera de Cartagena del Plan Nacional de Desarrollo 2026-2030?','¿Qué le piden al Plan los diez proyectos estratégicos?','¿Qué debe incluir el Plan Nacional de Desarrollo para el turismo de Cartagena y Bolívar?'];
-const $=s=>document.querySelector(s); const lams=[...document.querySelectorAll('.lam')]; let i=0, job=null, timer=null;
-function ver(n){i=Math.max(0,Math.min(lams.length-1,n));lams.forEach((l,k)=>l.classList.toggle('on',k===i));}
-document.addEventListener('keydown',e=>{if(e.target.tagName==='INPUT')return;if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown')ver(i+1);else if(e.key==='ArrowLeft'||e.key==='PageUp')ver(i-1);else if(e.key.toLowerCase()==='l')lanzar();else if(e.key.toLowerCase()==='r')reiniciar();});
-$('#sugs').innerHTML=SUGS.map(s=>`<span class="sug">${s}</span>`).join('');document.querySelectorAll('.sug').forEach(b=>b.onclick=()=>{$('#q').value=b.textContent});
-function barra(etapas){$('#ets').innerHTML=ET.map(([k,n])=>{const e=(etapas||[]).find(x=>x.nombre===k)||{estado:'pendiente'};return `<div class="et ${e.estado==='en curso'?'encurso':e.estado==='listo'?'listo':''}">${n}</div>`}).join('');}
-function esc(s){return (s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}
-function md(t){t=(t||'').replace(/^#\s*(Texto auditado|Agenda (auditada|corregida))\s*\n?/i,'');let h=esc(t).replace(/^### (.+)$/gm,'<h3>$1</h3>').replace(/^## (.+)$/gm,'<h2>$1</h2>').replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\[(\d+)\]/g,'<span class="cita">$1</span>');
- h=h.replace(/(^|\n)((?:[-•] .+\n?)+)/g,(m,a,b)=>a+'<ul>'+b.trim().split(/\n/).map(l=>'<li>'+l.replace(/^[-•] /,'')+'</li>').join('')+'</ul>');
- h=h.replace(/(^|\n)((?:\d+\. .+\n?)+)/g,(m,a,b)=>a+'<ol>'+b.trim().split(/\n/).map(l=>'<li>'+l.replace(/^\d+\. /,'')+'</li>').join('')+'</ol>');
- h=h.replace(/\n\|[^\n]*\|\n\|[-| ]+\|\n((?:\|[^\n]*\|\n?)+)/g,(m)=>{const rows=m.trim().split('\n').filter(r=>!/^\|[-| ]+\|$/.test(r));return '<table>'+rows.map((r,k)=>'<tr>'+r.split('|').slice(1,-1).map(c=>(k?'<td>':'<th>')+c.trim()+(k?'</td>':'</th>')).join('')+'</tr>').join('')+'</table>'});
- return h.replace(/\n{2,}/g,'</p><p>').replace(/^(?!<)/,'<p>')+'</p>';}
-async function lanzar(){const q=$('#q').value.trim();if(!q)return;$('#estado2').textContent='lanzando…';
- try{const r=await fetch(BASE+'/api/asesor',{method:'POST',headers:{'Content-Type':'application/json','X-Llave':LLAVE},body:JSON.stringify({pregunta:q})});const j=await r.json();if(!r.ok)throw new Error(j.error||r.status);
-  job=j.id;$('#bq').textContent=q;$('#barra').classList.add('on');$('#estado2').textContent=j.de_cache?'Esta pregunta ya fue trabajada: la barra reproduce el recorrido.':'Lanzada. La barra muestra el avance mientras seguimos.';barra([]);
-  clearInterval(timer);timer=setInterval(sondear,3000);sondear();
- }catch(e){$('#estado2').textContent='No se pudo lanzar: '+e.message;}}
-async function sondear(){if(!job)return;try{const e=await (await fetch(BASE+'/api/estado/'+job)).json();barra(e.etapas);const act=(e.etapas||[]).find(x=>x.estado==='en curso');$('#bt').textContent=e.listo?'lista · '+e.segundos+' s':((act?(ET.find(x=>x[0]===act.nombre)||[])[1]:'')+' · '+e.segundos+' s');
- if(e.listo){clearInterval(timer);const r=await (await fetch(BASE+'/api/resultado/'+job)).json();$('#resp').innerHTML=md(r.cierre||'')+(r.auditoria?`<p><span class="sello">Auditoría: ${r.auditoria.cotejadas||0} afirmaciones cotejadas · ${r.auditoria.retiradas||0} marcadas · ${r.auditoria.verificar||0} sin fuente</span> &nbsp; ${(r.fuentes||[]).length} fuentes · ${r.segundos||''} s</p>`:'');}
- }catch(err){$('#bt').textContent='sin conexión';}}
-function reiniciar(){clearInterval(timer);job=null;$('#barra').classList.remove('on');$('#resp').innerHTML='<p style="color:var(--gris)">Cuando la barra llegue a «Auditoría», la respuesta aparece aquí.</p>';$('#estado2').textContent='';}
-$('#go').onclick=lanzar;$('#q').addEventListener('keydown',e=>{if(e.key==='Enter')lanzar()});
-</script></body></html>
+(function(){
+  const esc = document.getElementById('escenario');
+  const ls = [...document.querySelectorAll('.l')];
+  let i = 0;
+  function ajustar(){ const s = Math.min(innerWidth/1600, innerHeight/900); esc.style.transform = `translate(-50%,-50%) scale(${s})`; }
+  function ver(n){ i = Math.max(0, Math.min(ls.length-1, n)); ls.forEach((l,k)=>l.classList.toggle('on', k===i)); document.getElementById('notas').textContent = (i+1) + ' · ' + (ls[i].dataset.notas || ''); try{ history.replaceState(null,'','#l'+(i+1)); }catch(e){} }
+  addEventListener('resize', ajustar); ajustar();
+  const h = parseInt((location.hash||'').replace('#l','')); ver(isNaN(h) ? 0 : h-1);
+  document.addEventListener('keydown', e=>{
+    if (e.target && /INPUT|TEXTAREA/.test(e.target.tagName)) return;
+    const k = e.key;
+    if (k==='ArrowRight'||k===' '||k==='PageDown'){ e.preventDefault(); ver(i+1); }
+    else if (k==='ArrowLeft'||k==='PageUp'){ e.preventDefault(); ver(i-1); }
+    else if (k==='n'||k==='N'){ const no=document.getElementById('notas'); no.hidden=!no.hidden; }
+    else if (k==='f'||k==='F'){ if(!document.fullscreenElement){ document.documentElement.requestFullscreen?.().catch(()=>{}); } else { document.exitFullscreen?.(); } }
+  });
+})();
+</script>
+</body>
+</html>
