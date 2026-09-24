@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Prueba del sistema · VÍA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+:root{
+  --suelo:#F4F6F5; --hoja:#FFFFFF; --tinta:#16262E; --gris:#56666E; --linea:#D9E1E3; --suave:#EAF0F1;
+  --azul:#0F3B4C; --naranja:#D9600C; --naranja-suave:#FCEFE4; --teal:#167384; --teal-suave:#E2F1F3;
+  --ok:#2D7A4E; --ok-suave:#E3F2E9; --ojo:#94650F; --ojo-suave:#FBF1DC; --mal:#A63A2C; --mal-suave:#F8E4E1;
+  --display:"Montserrat","Avenir Next","Helvetica Neue",Arial,sans-serif;
+  --texto:"Source Sans 3","Segoe UI",system-ui,-apple-system,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --suelo:#0E181D; --hoja:#15232A; --tinta:#E4ECEF; --gris:#A3B3BA; --linea:#2A3B43; --suave:#1C2D35;
+  --azul:#9CCBDD; --naranja:#F29A4A; --naranja-suave:#3A2616; --teal:#6CC5D3; --teal-suave:#15343B;
+  --ok:#74C997; --ok-suave:#173325; --ojo:#E4B75E; --ojo-suave:#3A2F16; --mal:#EE8C7F; --mal-suave:#3D1E1B; color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --suelo:#0E181D; --hoja:#15232A; --tinta:#E4ECEF; --gris:#A3B3BA; --linea:#2A3B43; --suave:#1C2D35;
+  --azul:#9CCBDD; --naranja:#F29A4A; --naranja-suave:#3A2616; --teal:#6CC5D3; --teal-suave:#15343B;
+  --ok:#74C997; --ok-suave:#173325; --ojo:#E4B75E; --ojo-suave:#3A2F16; --mal:#EE8C7F; --mal-suave:#3D1E1B; color-scheme:dark;}
+*{box-sizing:border-box}
+body{background:var(--suelo);color:var(--tinta);font:17px/1.55 var(--texto);padding-inline:16px;padding-block:24px 72px}
+.pag{max-width:860px;margin:0 auto;display:flex;flex-direction:column;gap:44px}
+h1,h2,h3{font-family:var(--display);color:var(--azul);margin:0;text-wrap:balance;line-height:1.15}
+h1{font-size:clamp(28px,5vw,40px);font-weight:800}
+h2{font-size:clamp(21px,3vw,25px);font-weight:800}
+h3{font-size:18px;font-weight:700}
+p{margin:0;max-width:66ch}
+.ceja{font:500 12.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--naranja)}
+.lead{font-size:19px;color:var(--gris)}
+header,section{display:flex;flex-direction:column;gap:14px}
+.pasos{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:0;padding:0;list-style:none;counter-reset:p}
+.pasos li{background:var(--hoja);border:1px solid var(--linea);border-radius:12px;padding:16px 18px;counter-increment:p;display:flex;flex-direction:column;gap:4px}
+.pasos li::before{content:counter(p);font:800 22px var(--display);color:var(--naranja)}
+.regla{background:var(--naranja-suave);border-left:6px solid var(--naranja);border-radius:0 12px 12px 0;padding:16px 20px;display:flex;flex-direction:column;gap:8px}
+.regla ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.preg{background:var(--hoja);border:1px solid var(--linea);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:14px}
+.preg .cab{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.chip{font:500 12px var(--mono);letter-spacing:.05em;text-transform:uppercase;border-radius:999px;padding:3px 10px;background:var(--teal-suave);color:var(--teal)}
+.chip.quien{background:var(--suave);color:var(--gris)}
+.q{font:700 19px/1.4 var(--texto);color:var(--tinta);margin:0}
+.nota{color:var(--gris);font-size:15.5px}
+.botones{display:flex;flex-wrap:wrap;gap:8px}
+.btn{font:600 15px var(--texto);border-radius:9px;padding:9px 14px;text-decoration:none;border:1px solid var(--linea);background:var(--hoja);color:var(--tinta);cursor:pointer}
+.btn.pri{background:var(--azul);border-color:var(--azul);color:var(--hoja)}
+.btn:focus-visible,select:focus-visible,textarea:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--naranja);outline-offset:2px}
+.verif{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+.verif li{display:grid;grid-template-columns:28px 1fr;gap:4px 10px}
+.verif b.n{font:800 15px var(--display);color:var(--naranja);padding-top:1px}
+.verif small{grid-column:2;color:var(--gris);font-size:14.5px}
+details.preg summary{cursor:pointer;font-weight:700;color:var(--azul)}
+.tabla{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:520px;background:var(--hoja);border:1px solid var(--linea);border-radius:12px;overflow:hidden}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--linea);vertical-align:top;font-size:15.5px}
+th{font:500 12px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--gris);background:var(--suave)}
+tr:last-child td{border-bottom:0}
+form{background:var(--hoja);border:1px solid var(--linea);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:18px}
+.fila{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+label{display:flex;flex-direction:column;gap:6px;font-weight:600;font-size:15px}
+select,textarea,input{font:16px var(--texto);color:var(--tinta);background:var(--suelo);border:1px solid var(--linea);border-radius:8px;padding:9px 10px;width:100%}
+textarea{min-height:80px;resize:vertical}
+fieldset{border:1px solid var(--linea);border-radius:10px;padding:12px 14px;margin:0;display:flex;flex-direction:column;gap:10px}
+legend{font:700 15px var(--texto);padding:0 6px;color:var(--azul)}
+.rub{display:grid;grid-template-columns:1fr auto auto;gap:8px 14px;align-items:center}
+.rub span{font-size:15px}
+.rub .h{font:500 11.5px var(--mono);text-transform:uppercase;color:var(--gris);letter-spacing:.05em}
+.rub select{width:auto;min-width:92px}
+.afirm{display:grid;grid-template-columns:1fr;gap:8px}
+.afirm .una{display:grid;grid-template-columns:1fr 150px;gap:8px;align-items:start}
+.afirm .una p{font-size:15px}
+.afirm .una textarea{grid-column:1 / -1;min-height:44px}
+.estado{font-weight:600}
+.estado.ok{color:var(--ok)} .estado.mal{color:var(--mal)}
+.registros{display:flex;flex-direction:column;gap:10px}
+.reg{background:var(--hoja);border:1px solid var(--linea);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.reg .l1{display:flex;flex-wrap:wrap;gap:8px;align-items:baseline}
+.marcas{display:flex;flex-wrap:wrap;gap:6px}
+.m{font:500 12.5px var(--mono);border-radius:6px;padding:2px 8px}
+.m.v{background:var(--ok-suave);color:var(--ok)} .m.o{background:var(--ojo-suave);color:var(--ojo)} .m.x{background:var(--mal-suave);color:var(--mal)} .m.s{background:var(--suave);color:var(--gris)}
+.num{font-variant-numeric:tabular-nums;font-family:var(--mono);font-size:14px}
+.vacio{color:var(--gris)}
+footer{color:var(--gris);font-size:14px;border-top:1px solid var(--linea);padding-top:14px}
+@media (max-width:560px){.afirm .una{grid-template-columns:1fr}.rub{grid-template-columns:1fr auto auto}}
+</style>
+</head>
+<body>
+<main class="pag">
+<header>
+  <span class="ceja">Junta de Juntas · prueba del sistema · jueves 24 de septiembre</span>
+  <h1>Prueba del sistema: cinco preguntas, dos rivales, tres verificaciones</h1>
+  <p class="lead">Carolina, Steffi: la idea es comprobar, antes de mañana, que lo que dice el sistema es cierto y que responde mejor que ChatGPT o Claude. Cada pregunta toma unos 30 minutos.</p>
+</header>
+
+<section aria-labelledby="t-como">
+  <h2 id="t-como">Cómo se hace, en cuatro pasos</h2>
+  <ol class="pasos">
+    <li><b>Abre la pregunta en el sistema</b><span>Con el botón azul de cada tarjeta. La respuesta sale al instante porque ya está trabajada.</span></li>
+    <li><b>Hazle la misma pregunta a ChatGPT o a Claude</b><span>En una conversación nueva, con la pregunta exacta y sin agregar contexto. En ChatGPT, con la búsqueda web activada.</span></li>
+    <li><b>Verifica tres afirmaciones</b><span>Cada tarjeta dice cuáles y dónde buscarlas. Abre la fuente que cita el sistema y confírmala en la oficial.</span></li>
+    <li><b>Registra el resultado</b><span>En el formulario de abajo. Queda guardado en el servidor del sistema y el Departamento lo revisa.</span></li>
+  </ol>
+  <div class="regla" role="note">
+    <h3>Para no gastar el cupo del sistema</h3>
+    <ul>
+      <li><b>No escribas ninguna llave</b> en el sistema. Sin llave solo salen respuestas ya trabajadas, que no cuestan.</li>
+      <li><b>No marques «Volver a trabajarla».</b></li>
+      <li>Si ves «Esta pregunta es nueva: hace falta la llave», es que la pregunta cambió en algo. Ábrela otra vez con el botón de la tarjeta.</li>
+      <li>ChatGPT y Claude los usas con tu propia cuenta: eso no toca el cupo del sistema.</li>
+    </ul>
+  </div>
+</section>
+
+<section aria-labelledby="t-preg">
+  <h2 id="t-preg">Las cinco preguntas</h2>
+  <p class="nota">La primera la revisan las dos. Las otras están repartidas, pero si alguna termina antes, puede tomar otra.</p>
+  <div id="preguntas" class="registros"></div>
+</section>
+
+<section aria-labelledby="t-rub">
+  <h2 id="t-rub">Con qué se califica</h2>
+  <p>Califica al sistema y al rival con la misma vara: <b>0</b> no cumple, <b>1</b> cumple en parte, <b>2</b> cumple.</p>
+  <div class="tabla"><table>
+    <thead><tr><th>Criterio</th><th>Qué mirar</th></tr></thead>
+    <tbody id="rubrica"></tbody>
+  </table></div>
+</section>
+
+<section aria-labelledby="t-form">
+  <h2 id="t-form">Registrar una prueba</h2>
+  <form id="form" novalidate>
+    <div class="fila">
+      <label for="f-quien">Quién prueba<select id="f-quien" required><option value="">Elige</option><option>Carolina</option><option>Steffi</option><option>Otra persona</option></select></label>
+      <label for="f-preg">Pregunta<select id="f-preg" required></select></label>
+      <label for="f-rival">Rival<select id="f-rival" required><option value="">Elige</option><option>ChatGPT con búsqueda</option><option>ChatGPT sin búsqueda</option><option>Claude</option><option>Gemini</option></select></label>
+    </div>
+    <fieldset>
+      <legend>Calificación</legend>
+      <div class="rub" id="f-rub"></div>
+    </fieldset>
+    <fieldset>
+      <legend>Las tres afirmaciones del sistema</legend>
+      <div class="afirm" id="f-afirm"><p class="vacio">Elige primero la pregunta.</p></div>
+    </fieldset>
+    <label for="f-mejor">¿Qué respuesta usarías frente a un congresista?<select id="f-mejor"><option value="">Elige</option><option>La del sistema</option><option>La del rival</option><option>Ninguna de las dos</option><option>Las dos sirven igual</option></select></label>
+    <label for="f-falta">Qué le falta o qué corregir en la respuesta del sistema<textarea id="f-falta" placeholder="Por ejemplo: la cifra rural no tiene año; el enlace de la Ley 1617 no abre; el rival mencionó el decreto tal que el sistema no trae."></textarea></label>
+    <label for="f-rivaltxt">Respuesta del rival (opcional: pégala completa)<textarea id="f-rivaltxt" placeholder="Pega aquí lo que respondió ChatGPT o Claude."></textarea></label>
+    <div class="botones"><button class="btn pri" type="submit" id="f-enviar">Guardar la prueba</button><span class="estado" id="f-estado" role="status" aria-live="polite"></span></div>
+  </form>
+</section>
+
+<section aria-labelledby="t-reg">
+  <h2 id="t-reg">Lo que has guardado desde este navegador</h2>
+  <div id="registros" class="registros"><p class="vacio">Todavía no hay pruebas guardadas.</p></div>
+</section>
+
+<footer>Departamento de Investigaciones Económicas · Cámara de Comercio de Cartagena. Las respuestas del sistema salen de su memoria del 23 y 24 de septiembre. Uso interno.</footer>
+</main>
+<script>
+const PREG = [{"id": "energia", "palanca": "Energía", "quien": "Carolina y Steffi", "q": "¿Qué puede hacer el Plan Nacional de Desarrollo para bajar la tarifa de energía del Caribe, y qué no puede hacer?", "nota": "Es la pregunta que el sistema responde en vivo mañana. Por eso la revisan las dos.", "v": [["Fijar tarifas y metodologías es competencia de la CREG (Ley 142 de 1994, art. 74.1 lit. d; Ley 143 de 1994, art. 23).", "Texto de las leyes en la Secretaría del Senado (secretariasenado.gov.co)."], ["El art. 272 de la Ley 2294 de 2023 prorrogó las reglas de subsidios que venían de la Ley 1117 de 2006.", "Ley 2294 de 2023, art. 272, en la Secretaría del Senado."], ["La Corte, en la sentencia C-049 de 2026, tumbó por vicios de forma la parte del art. 372 de la Ley 2294 que derogaba el parágrafo 3 del art. 167 de la Ley 142 y el parágrafo 3 del art. 32 de la Ley 143.", "Relatoría de la Corte Constitucional (corteconstitucional.gov.co/relatoria)."]], "sis": "https://alonsorh-econ.github.io/sistema-inteligencia-territorial/preguntar.html?q=%C2%BFQu%C3%A9%20puede%20hacer%20el%20Plan%20Nacional%20de%20Desarrollo%20para%20bajar%20la%20tarifa%20de%20energ%C3%ADa%20del%20Caribe%2C%20y%20qu%C3%A9%20no%20puede%20hacer%3F", "gpt": "https://chatgpt.com/?q=%C2%BFQu%C3%A9%20puede%20hacer%20el%20Plan%20Nacional%20de%20Desarrollo%20para%20bajar%20la%20tarifa%20de%20energ%C3%ADa%20del%20Caribe%2C%20y%20qu%C3%A9%20no%20puede%20hacer%3F", "cla": "https://claude.ai/new?q=%C2%BFQu%C3%A9%20puede%20hacer%20el%20Plan%20Nacional%20de%20Desarrollo%20para%20bajar%20la%20tarifa%20de%20energ%C3%ADa%20del%20Caribe%2C%20y%20qu%C3%A9%20no%20puede%20hacer%3F"}, {"id": "agua", "palanca": "Agua", "quien": "Steffi", "q": "¿Cuánta gente en Cartagena no tiene agua potable, contando las islas y los corregimientos?", "nota": "Tiene muchas cifras: es buena para ver si el sistema las cita bien.", "v": [["93,7 % de las viviendas de Cartagena tienen acueducto, según el censo del DANE de 2018.", "DANE, Censo Nacional de Población y Vivienda 2018, resultados por municipio."], ["En la zona rural, la cobertura es de 18,71 % (2022) y 21,02 % (2023).", "El enlace que cita el sistema para esa cifra. Anota si abre y si dice eso."], ["La Ley 2294 de 2023 permite un subsidio diferencial rural (art. 276) y ordena el giro directo de subsidios (art. 303).", "Ley 2294 de 2023, arts. 276 y 303, en la Secretaría del Senado."]], "sis": "https://alonsorh-econ.github.io/sistema-inteligencia-territorial/preguntar.html?q=%C2%BFCu%C3%A1nta%20gente%20en%20Cartagena%20no%20tiene%20agua%20potable%2C%20contando%20las%20islas%20y%20los%20corregimientos%3F", "gpt": "https://chatgpt.com/?q=%C2%BFCu%C3%A1nta%20gente%20en%20Cartagena%20no%20tiene%20agua%20potable%2C%20contando%20las%20islas%20y%20los%20corregimientos%3F", "cla": "https://claude.ai/new?q=%C2%BFCu%C3%A1nta%20gente%20en%20Cartagena%20no%20tiene%20agua%20potable%2C%20contando%20las%20islas%20y%20los%20corregimientos%3F"}, {"id": "informales", "palanca": "Reglas claras", "quien": "Carolina", "q": "¿Cuántos negocios informales hay en Cartagena y qué debe pedirle la ciudad al Plan para formalizarlos?", "nota": "Las cifras del censo son nuestras: aquí el sistema no puede equivocarse.", "v": [["El censo contó 42.762 unidades económicas: 32.086 informales (75,0 %) y 10.676 formales (25,0 %).", "Ficha oficial del Censo Empresarial de Cartagena 2025-26 del Departamento."], ["21.945 informales (68,4 %) declaran disposición a formalizarse.", "Base del censo o el equipo del censo. Si no se puede confirmar, márcalo ⚠️."], ["El art. 7 de la Ley 2069 de 2020 le ordena al DANE diseñar e implementar el sistema de información de la economía informal (SIECI).", "Ley 2069 de 2020, art. 7, en la Secretaría del Senado."]], "sis": "https://alonsorh-econ.github.io/sistema-inteligencia-territorial/preguntar.html?q=%C2%BFCu%C3%A1ntos%20negocios%20informales%20hay%20en%20Cartagena%20y%20qu%C3%A9%20debe%20pedirle%20la%20ciudad%20al%20Plan%20para%20formalizarlos%3F", "gpt": "https://chatgpt.com/?q=%C2%BFCu%C3%A1ntos%20negocios%20informales%20hay%20en%20Cartagena%20y%20qu%C3%A9%20debe%20pedirle%20la%20ciudad%20al%20Plan%20para%20formalizarlos%3F", "cla": "https://claude.ai/new?q=%C2%BFCu%C3%A1ntos%20negocios%20informales%20hay%20en%20Cartagena%20y%20qu%C3%A9%20debe%20pedirle%20la%20ciudad%20al%20Plan%20para%20formalizarlos%3F"}, {"id": "distrito", "palanca": "Instituciones", "quien": "Steffi", "q": "¿Qué le debe la Nación a Cartagena como distrito turístico según la Ley 1617 de 2013?", "nota": "Es de la palanca de instituciones, la que Presidencia ve «en construcción».", "v": [["Los parágrafos de los arts. 92 y 102 de la Ley 1617 le ordenaban al Gobierno expedir decretos con fuentes de recursos (bienes turísticos y patrimonio cultural).", "Ley 1617 de 2013, arts. 92 y 102, en la Secretaría del Senado."], ["El art. 32 de la Ley 768 de 2002 y el art. 95 de la Ley 1617 ordenan entregarle al Distrito el Registro Nacional de Turismo desagregado.", "Ley 768 de 2002, art. 32, y Ley 1617 de 2013, art. 95."], ["Lo único reglamentado fue el parágrafo del art. 88, con el Decreto 2127 de 2015, hoy compilado en el Decreto 1074 de 2015.", "Decreto 2127 de 2015 y Decreto 1074 de 2015, en SUIN-Juriscol o en Función Pública."]], "sis": "https://alonsorh-econ.github.io/sistema-inteligencia-territorial/preguntar.html?q=%C2%BFQu%C3%A9%20le%20debe%20la%20Naci%C3%B3n%20a%20Cartagena%20como%20distrito%20tur%C3%ADstico%20seg%C3%BAn%20la%20Ley%201617%20de%202013%3F", "gpt": "https://chatgpt.com/?q=%C2%BFQu%C3%A9%20le%20debe%20la%20Naci%C3%B3n%20a%20Cartagena%20como%20distrito%20tur%C3%ADstico%20seg%C3%BAn%20la%20Ley%201617%20de%202013%3F", "cla": "https://claude.ai/new?q=%C2%BFQu%C3%A9%20le%20debe%20la%20Naci%C3%B3n%20a%20Cartagena%20como%20distrito%20tur%C3%ADstico%20seg%C3%BAn%20la%20Ley%201617%20de%202013%3F"}, {"id": "puertos", "palanca": "Conectividad", "quien": "Carolina", "q": "¿Cuánto pagan los puertos de Cartagena en contraprestación portuaria y cuánto de esa plata vuelve a la ciudad?", "nota": "Es el tema del proyecto de ley que se discute ahora en el Congreso.", "v": [["El Distrito recibió $7.431.478.730 por contraprestación portuaria en 2025 (CUIPO, cuenta 1.1.02.02.096).", "CHIP de la Contaduría, reporte CUIPO de Cartagena, o el enlace que cita el sistema."], ["Hoy rige un reparto de 80 % para la Nación (Invías) y 20 % para el municipio por zona de uso público (Ley 1 de 1991, art. 7, modificado por la Ley 856 de 2003).", "Ley 1 de 1991, art. 7, y Ley 856 de 2003, art. 1, en la Secretaría del Senado."], ["No hay una cifra oficial publicada del recaudo total por puerto (Contecar y Sociedad Portuaria).", "Busca en Invías, ANI y datos.gov.co. Si la encuentras, pega el enlace: sería un hallazgo."]], "sis": "https://alonsorh-econ.github.io/sistema-inteligencia-territorial/preguntar.html?q=%C2%BFCu%C3%A1nto%20pagan%20los%20puertos%20de%20Cartagena%20en%20contraprestaci%C3%B3n%20portuaria%20y%20cu%C3%A1nto%20de%20esa%20plata%20vuelve%20a%20la%20ciudad%3F", "gpt": "https://chatgpt.com/?q=%C2%BFCu%C3%A1nto%20pagan%20los%20puertos%20de%20Cartagena%20en%20contraprestaci%C3%B3n%20portuaria%20y%20cu%C3%A1nto%20de%20esa%20plata%20vuelve%20a%20la%20ciudad%3F", "cla": "https://claude.ai/new?q=%C2%BFCu%C3%A1nto%20pagan%20los%20puertos%20de%20Cartagena%20en%20contraprestaci%C3%B3n%20portuaria%20y%20cu%C3%A1nto%20de%20esa%20plata%20vuelve%20a%20la%20ciudad%3F"}];
+const RUB = [
+  ["directa","Responde lo que se preguntó","La primera parte contesta la pregunta, sin rodeos."],
+  ["cifras","Cifras correctas","Según lo que verificaste. Una cifra mal ya baja a 0 o 1."],
+  ["normas","Normas correctas y vigentes","Leyes, artículos y sentencias que existen y dicen eso."],
+  ["fuentes","Fuentes que se pueden abrir","Cada dato trae su fuente y el enlace funciona."],
+  ["via","Dice por dónde","Qué va al Plan y qué va por otra vía: CREG, decreto, ley."],
+  ["honesta","Dice lo que no sabe","Marca lo que no está verificado en vez de inventarlo."],
+  ["region","Sirve para Cartagena y Bolívar","Es específica para la región, no una respuesta genérica."]
+];
+const $ = s => document.querySelector(s);
+const esc = t => String(t ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function pintarPreguntas(){
+  $("#preguntas").innerHTML = PREG.map((p,i) => `
+    <article class="preg" id="p-${p.id}">
+      <div class="cab"><span class="chip">${esc(p.palanca)}</span><span class="chip quien">${esc(p.quien)}</span></div>
+      <p class="q">${esc(p.q)}</p>
+      <p class="nota">${esc(p.nota)}</p>
+      <div class="botones">
+        <a class="btn pri" href="${p.sis}" target="_blank" rel="noopener">Abrir en el sistema</a>
+        <a class="btn" href="${p.gpt}" target="_blank" rel="noopener">Abrir en ChatGPT</a>
+        <a class="btn" href="${p.cla}" target="_blank" rel="noopener">Abrir en Claude</a>
+        <button class="btn" type="button" data-copiar="${i}">Copiar la pregunta</button>
+      </div>
+      <h3>Qué verificar</h3>
+      <ol class="verif">${p.v.map((v,j)=>`<li><b class="n">${j+1}</b><span>${esc(v[0])}</span><small>Dónde: ${esc(v[1])}</small></li>`).join("")}</ol>
+    </article>`).join("");
+  document.querySelectorAll("[data-copiar]").forEach(b => b.addEventListener("click", async () => {
+    const t = PREG[+b.dataset.copiar].q;
+    try { await navigator.clipboard.writeText(t); b.textContent = "Copiada"; }
+    catch(e){ const r=document.createRange(); r.selectNodeContents(b.closest(".preg").querySelector(".q")); const s=getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent="Seleccionada: cópiala"; }
+    setTimeout(()=>{ b.textContent = "Copiar la pregunta"; }, 2200);
+  }));
+}
+function pintarRubrica(){
+  $("#rubrica").innerHTML = RUB.map(r => `<tr><td><b>${esc(r[1])}</b></td><td>${esc(r[2])}</td></tr>`).join("");
+  const op = `<option value="">—</option><option>0</option><option>1</option><option>2</option>`;
+  $("#f-rub").innerHTML = `<span class="h">Criterio</span><span class="h">Sistema</span><span class="h">Rival</span>` +
+    RUB.map(r => `<span>${esc(r[1])}</span><select id="s-${r[0]}" aria-label="${esc(r[1])}, sistema">${op}</select><select id="r-${r[0]}" aria-label="${esc(r[1])}, rival">${op}</select>`).join("");
+}
+function pintarAfirm(){
+  const p = PREG.find(x => x.id === $("#f-preg").value);
+  if(!p){ $("#f-afirm").innerHTML = `<p class="vacio">Elige primero la pregunta.</p>`; return; }
+  $("#f-afirm").innerHTML = p.v.map((v,j) => `
+    <div class="una">
+      <p><b>${j+1}.</b> ${esc(v[0])}</p>
+      <select id="a-${j}" aria-label="Resultado de la afirmación ${j+1}"><option value="">Resultado</option><option value="v">✅ Confirmada</option><option value="o">⚠️ Con matices</option><option value="x">❌ Equivocada</option><option value="s">No pude verificar</option></select>
+      <textarea id="an-${j}" placeholder="Qué encontraste y el enlace de la fuente oficial"></textarea>
+    </div>`).join("");
+}
+$("#f-preg").innerHTML = `<option value="">Elige</option>` + PREG.map(p => `<option value="${p.id}">${esc(p.palanca)}: ${esc(p.q.slice(0,58))}…</option>`).join("");
+$("#f-preg").addEventListener("change", pintarAfirm);
+pintarPreguntas(); pintarRubrica();
+
+const ETQ = {v:"✅ confirmada", o:"⚠️ con matices", x:"❌ equivocada", s:"sin verificar"};
+function pintarRegistros(docs){
+  if(!docs.length){ $("#registros").innerHTML = `<p class="vacio">Todavía no hay pruebas guardadas.</p>`; return; }
+  $("#registros").innerHTML = docs.map(d => {
+    const p = PREG.find(x => x.id === d.pregunta) || {palanca:"", q:d.pregunta};
+    const sum = o => Object.values(o||{}).reduce((a,b)=>a+(+b||0),0);
+    const n = o => Object.values(o||{}).filter(x=>x!=="" && x!=null).length;
+    return `<article class="reg">
+      <div class="l1"><b>${esc(d.quien)}</b><span class="chip">${esc(p.palanca)}</span><span class="nota">frente a ${esc(d.rival)}</span></div>
+      <p>${esc(p.q)}</p>
+      <p class="num">Sistema ${sum(d.sistema)}/${n(d.sistema)*2} · Rival ${sum(d.rival_notas)}/${n(d.rival_notas)*2}${d.mejor?` · Usaría: ${esc(d.mejor.toLowerCase())}`:""}</p>
+      <div class="marcas">${(d.afirmaciones||[]).map((a,j)=>`<span class="m ${a.r||"s"}">${j+1}: ${ETQ[a.r]||"sin marcar"}</span>`).join("")}</div>
+      ${d.falta?`<p class="nota">${esc(d.falta)}</p>`:""}
+    </article>`;
+  }).join("");
+}
+
+const BASE = "https://192-81-211-68.sslip.io";
+const MIAS = "vía_pruebas_guardadas";
+function leerMias(){ try { return JSON.parse(localStorage.getItem(MIAS) || "[]"); } catch(e){ return []; } }
+function guardarMia(d){ try { const m = leerMias(); m.unshift(d); localStorage.setItem(MIAS, JSON.stringify(m.slice(0, 40))); } catch(e){} }
+pintarRegistros(leerMias());
+
+$("#form").addEventListener("submit", async ev => {
+  ev.preventDefault();
+  const est = $("#f-estado"); est.className = "estado";
+  const quien = $("#f-quien").value, pregunta = $("#f-preg").value, rival = $("#f-rival").value;
+  if(!quien || !pregunta || !rival){ est.textContent = "Falta elegir quién prueba, la pregunta o el rival."; est.classList.add("mal"); return; }
+  const sistema = {}, rival_notas = {};
+  RUB.forEach(r => { sistema[r[0]] = $("#s-"+r[0]).value; rival_notas[r[0]] = $("#r-"+r[0]).value; });
+  const afirmaciones = [0,1,2].map(j => ({ r: $("#a-"+j)?.value || "", nota: $("#an-"+j)?.value.trim() || "" }));
+  const doc = { quien, pregunta, rival, sistema, rival_notas, afirmaciones,
+    mejor: $("#f-mejor").value, falta: $("#f-falta").value.trim(), rival_texto: $("#f-rivaltxt").value.trim().slice(0, 40000),
+    creado: new Date().toISOString() };
+  $("#f-enviar").disabled = true; est.textContent = "Guardando…";
+  try {
+    const r = await fetch(BASE + "/api/prueba", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(doc) });
+    const j = await r.json().catch(() => ({}));
+    if(!r.ok) throw new Error(j.error || ("error " + r.status));
+    guardarMia(doc); pintarRegistros(leerMias());
+    est.textContent = "Guardada. Gracias."; est.classList.add("ok");
+    ["#f-falta","#f-rivaltxt"].forEach(s => $(s).value = ""); $("#f-mejor").value = "";
+    RUB.forEach(r => { $("#s-"+r[0]).value = ""; $("#r-"+r[0]).value = ""; }); pintarAfirm();
+  } catch(e) {
+    est.textContent = "No se guardó (" + (e.message || "sin conexión") + "). Revisa la conexión y vuelve a intentarlo; lo que escribiste sigue en el formulario."; est.classList.add("mal");
+  } finally { $("#f-enviar").disabled = false; }
+});
+</script>
+
+</body>
+</html>
