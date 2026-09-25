@@ -123,6 +123,9 @@
   }
   async function lanzar() {
     if (job) return;
+    resultado = null; deEnsayo = false; falla = ''; segundos = 0; etapasVivas = []; horaFin = null;
+    caja.querySelectorAll('li').forEach(li => { li.className = ''; });
+    caja.querySelector('.dv-tit').textContent = 'El sistema está trabajando';
     caja.hidden = false; caja.classList.remove('min'); t0 = Date.now(); horaIni = new Date();
     reloj = setInterval(() => { caja.querySelector('.dv-reloj').textContent = mmss((Date.now() - t0) / 1000); }, 1000);
     try {
