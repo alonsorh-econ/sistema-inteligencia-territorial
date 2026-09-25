@@ -492,6 +492,16 @@ document.addEventListener('DOMContentLoaded',function(){var d=document.createEle
 d.innerHTML='<b>Clave del panel</b><span>Péguela una sola vez; queda guardada en este navegador.</span><input type="password" id="vzpin" autocomplete="off" aria-label="Clave del panel"><button type="submit">Entrar</button>';
 d.addEventListener('submit',function(e){e.preventDefault();var v=document.getElementById('vzpin').value.trim();if(!v)return;try{localStorage.setItem('voz_clave',v)}catch(x){}q.set('clave',v);location.replace(location.pathname+'?'+q.toString());});
 document.body.appendChild(d);setTimeout(function(){document.getElementById('vzpin').focus()},50);});}catch(e){}})();</script>
+<script>(function(){
+ function firma(v){return [v.nombre||'',v.organizacion||'',v.momento||'',String(v.texto||'').slice(0,80)].join('|')}
+ function simulada(v){return /^prueba\b/i.test(String(v.nombre||'').trim())||/^organizaci[oó]n \d+$/i.test(String(v.organizacion||'').trim())}
+ window.vozFiltrar=function(voces){
+  var cero=[];try{cero=JSON.parse(localStorage.getItem('voz_cero')||'[]')}catch(e){}
+  var q=new URLSearchParams(location.search);
+  if(q.get('cero')!==null){cero=voces.filter(function(v){return !simulada(v)}).map(firma);try{localStorage.setItem('voz_cero',JSON.stringify(cero))}catch(e){}q.delete('cero');history.replaceState(null,'',location.pathname+(q.toString()?'?'+q.toString():''));}
+  var set={};cero.forEach(function(x){set[x]=1});
+  return voces.filter(function(v){return !simulada(v)&&!set[firma(v)]});
+ };})();</script>
 </head><body>
 <div class="shell">
 <nav aria-label="Secciones">
@@ -1317,7 +1327,7 @@ function cargar(){
   const t=setTimeout(()=>{modo="caido";pinta();fin()},15000);
   window[cb]=d=>{clearTimeout(t);
     if(d&&d.ok===false){modo="caido";pinta();fin();console.warn("El panel no pudo leer los datos:",d.error);return}
-    if(d&&Array.isArray(d.voces)){datos=d.voces;modo="vivo";ult=new Date();pinta()}fin()};
+    if(d&&Array.isArray(d.voces)){datos=window.vozFiltrar?window.vozFiltrar(d.voces):d.voces;modo="vivo";ult=new Date();pinta()}fin()};
   s.onerror=()=>{clearTimeout(t);modo="caido";pinta();fin()};
   s.src=VOZ_CONFIG.url+(VOZ_CONFIG.url.includes("?")?"&":"?")+"accion=datos&token="+encodeURIComponent(VOZ_CONFIG.token)+"&callback="+cb+"&_="+Date.now();
   document.body.appendChild(s);

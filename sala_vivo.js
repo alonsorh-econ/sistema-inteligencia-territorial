@@ -15,6 +15,11 @@
     let j;
     try { j = await (await fetch(fuente + '?accion=datos&token=' + encodeURIComponent(clave))).json(); } catch (e) { return; }
     if (!j || !j.ok || !Array.isArray(j.voces)) return;
+    const firma = v => [v.nombre || '', v.organizacion || '', v.momento || '', String(v.texto || '').slice(0, 80)].join('|');
+    const simulada = v => /^prueba\b/i.test(String(v.nombre || '').trim()) || /^organizaci[oó]n \d+$/i.test(String(v.organizacion || '').trim());
+    let cero = []; try { cero = JSON.parse(localStorage.getItem('voz_cero') || '[]'); } catch (e) { }
+    const enCero = new Set(cero);
+    j.voces = j.voces.filter(v => !simulada(v) && !enCero.has(firma(v)));
     const voces = j.voces.filter(v => v.palanca);
     const cuenta = {}; voces.forEach(v => { cuenta[v.palanca] = (cuenta[v.palanca] || 0) + 1; });
     const max = Math.max(1, ...Object.values(cuenta));
