@@ -483,7 +483,16 @@ body.proyectar #v-voz .vz-hero{padding-top:30px;padding-bottom:34px}
 #v-voz .arb-vacio{color:var(--gris);text-align:center;padding:40px 0;font-size:15px}
 body.proyectar #v-voz .vz-arb-top{display:none}
 body.proyectar #v-voz .vz-arb-caja{background:transparent;border:0}
-</style><style>nav[aria-label="Secciones"]{display:none!important}.shell{display:block!important}</style><style>:root,:root:not([data-theme="light"]),:root[data-theme="dark"]{--p1:#0F3B4C !important;--p1d:#082637 !important;--p2:#1A7F92 !important;--acc:#E0650F !important;--oro:#F5A83B !important;--inv:#1A7F92 !important;--ink:#1D2B33 !important;--ink2:#3E5159 !important;--gris:#5C6B73 !important;--fondo:#F5F7F8 !important;--crema:#EEF2F4 !important;--sup:#FFFFFF !important;--linea:#DCE3E7 !important;--mono:#EEF2F4 !important;--ok:#1A7F92 !important;--nav:#082637 !important;--navtx:#CFE0E8 !important;color-scheme:light}</style></head><body>
+</style><style>nav[aria-label="Secciones"]{display:none!important}.shell{display:block!important}</style><style>:root,:root:not([data-theme="light"]),:root[data-theme="dark"]{--p1:#0F3B4C !important;--p1d:#082637 !important;--p2:#1A7F92 !important;--acc:#E0650F !important;--oro:#F5A83B !important;--inv:#1A7F92 !important;--ink:#1D2B33 !important;--ink2:#3E5159 !important;--gris:#5C6B73 !important;--fondo:#F5F7F8 !important;--crema:#EEF2F4 !important;--sup:#FFFFFF !important;--linea:#DCE3E7 !important;--mono:#EEF2F4 !important;--ok:#1A7F92 !important;--nav:#082637 !important;--navtx:#CFE0E8 !important;color-scheme:light}</style><style>#vzpide{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:99999;background:#fff;color:#0F3B4C;border-radius:18px;box-shadow:0 20px 60px rgba(8,38,55,.35);padding:28px;width:min(420px,90vw);display:flex;flex-direction:column;gap:12px;font:16px system-ui,-apple-system,sans-serif}#vzpide b{font-size:20px}#vzpide span{color:#5C6B73;font-size:15px}#vzpide input{font-size:18px;padding:12px;border:2px solid #DCE3E7;border-radius:10px}#vzpide button{font-size:17px;font-weight:700;padding:13px;border:0;border-radius:10px;background:#0F3B4C;color:#fff;cursor:pointer}</style>
+<script>(function(){try{var q=new URLSearchParams(location.search);
+if(q.get('cambiar')!==null){try{localStorage.removeItem('voz_clave')}catch(e){}q.delete('cambiar');q.delete('clave');}
+if(q.get('clave'))return;var k='';try{k=localStorage.getItem('voz_clave')||''}catch(e){}
+if(k){q.set('clave',k);location.replace(location.pathname+'?'+q.toString());return;}
+document.addEventListener('DOMContentLoaded',function(){var d=document.createElement('form');d.id='vzpide';
+d.innerHTML='<b>Clave del panel</b><span>Péguela una sola vez; queda guardada en este navegador.</span><input type="password" id="vzpin" autocomplete="off" aria-label="Clave del panel"><button type="submit">Entrar</button>';
+d.addEventListener('submit',function(e){e.preventDefault();var v=document.getElementById('vzpin').value.trim();if(!v)return;try{localStorage.setItem('voz_clave',v)}catch(x){}q.set('clave',v);location.replace(location.pathname+'?'+q.toString());});
+document.body.appendChild(d);setTimeout(function(){document.getElementById('vzpin').focus()},50);});}catch(e){}})();</script>
+</head><body>
 <div class="shell">
 <nav aria-label="Secciones">
   <div class="logo"><span class="m"><i></i><i></i><i></i><i></i></span><span><b>Inteligencia territorial</b><small>Incidencia en política pública</small></span></div>
