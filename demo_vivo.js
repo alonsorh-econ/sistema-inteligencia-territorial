@@ -108,7 +108,7 @@
       if (e.estado === 'en curso' || (e.estado === 'listo' && e.linea)) ultima = e;
     });
     if (ultima) { const p = PASOS.find(x => x[0] === ultima.nombre);
-      caja.querySelector('.dv-linea').innerHTML = `<b>${esc(p ? p[1] : ultima.nombre)}</b>${ultima.linea ? ' · ' + esc(limpiar(ultima.linea)) : '…'}`; }
+      caja.querySelector('.dv-linea').innerHTML = `<b>${esc(p ? p[1] : ultima.nombre)}</b>${ultima.linea && !SENSIBLE.test(ultima.linea) ? ' · ' + esc(limpiar(ultima.linea)) : '…'}`; }
   }
   function terminar(texto) {
     clearInterval(sondeo); clearInterval(reloj); horaFin = new Date();
@@ -175,8 +175,13 @@
     const m = bloque.match(re); if (!m) return '';
     return sinCitas(voz(m[1].replace(/^\s*[-*]\s*/gm, '').replace(/\n+/g, ' ')));
   }
+  const SENSIBLE = /mesa energ[eé]tica|gobernanza|institucionaliz|instancia|concertaci[oó]n|RAP\b|RAP Caribe|Congreso|bancada|pol[ií]tic[oa]s? regional/i;
+  const TECNICO = /tarif|subsidi|p[eé]rdid|\bredes?\b|normaliz|deuda|saneamiento|inversi[oó]n|factura|comercializ|CREG|UPME|medici[oó]n|cargo/gi;
   function propuestas(md) {
-    return seccion(md, 'Las propuestas para llevar').split(/\n(?=\*\*\d+\.)/).filter(b => /^\*\*\d+\./.test(b.trim())).slice(0, 2).map(b => {
+    const todas = seccion(md, 'Las propuestas para llevar').split(/\n(?=\*\*\d+\.)/).filter(b => /^\*\*\d+\./.test(b.trim()));
+    const limpias = todas.filter(b => !SENSIBLE.test(b.split(/Precedente|Evidencia/i)[0]));
+    const puntaje = b => (b.match(TECNICO) || []).length;
+    return limpias.map((b, i) => [b, puntaje(b), i]).sort((x, y) => y[1] - x[1] || x[2] - y[2]).slice(0, 2).sort((x, y) => x[2] - y[2]).map(x => x[0]).map(b => {
       const titulo = (b.match(/^\*\*\d+\.\s*([^*\n]+)\*\*/) || ['', ''])[1].trim();
       const pedir = campo(b, 'Qué pedir'), vehiculo = campo(b, 'Vehículo'), precedente = campo(b, 'Precedente');
       const primera = pedir.split(/(?<=[.;])\s+(?=[A-ZÁÉÍÓÚÑ¿])/)[0] || pedir;
@@ -195,10 +200,11 @@
     if (!resultado) { await ensayo(); }
     if (!resultado) { caja.hidden = false; caja.querySelector('.dv-tit').textContent = 'Sin conexión por ahora'; return; }
     const md = resultado.cierre || '';
-    const [lead, resto] = partir(seccion(md, 'Respuesta directa'));
+    let [lead, resto] = partir(seccion(md, 'Respuesta directa'));
+    if (SENSIBLE.test(lead)) { const fs = frasesDe(resto).filter(x => !SENSIBLE.test(x)); lead = fs.shift() || lead; resto = fs.join(' '); }
     const props = propuestas(md);
     const nf = (resultado.fuentes || []).length;
-    const frases = frasesDe(resto).map(fr => { fr = fr.charAt(0).toUpperCase() + fr.slice(1);
+    const frases = frasesDe(resto).filter(fr => !SENSIBLE.test(fr)).map(fr => { fr = fr.charAt(0).toUpperCase() + fr.slice(1);
       const m = fr.match(/^([^:()]{3,34}):\s+(.*)$/); return m ? `<b>${esc(m[1])}:</b> ${negritas(m[2])}` : negritas(fr); });
     const pag1 = `<section data-p><p class="r-q">${esc(PREGUNTA)}</p><p class="r-k">Respuesta directa</p>
       <p class="r-lead">${negritas(lead.replace(/[:;]$/, '.'))}</p>${frases.map(fr => `<p class="r-resto">${fr}</p>`).join('')}</section>`;
@@ -207,7 +213,7 @@
       return `<article class="r-prop"><h3>${esc(p.titulo)}</h3>${p.vehiculo ? `<span class="r-via${otra ? ' otra' : ''}">${negritas(p.vehiculo.split(/\s[—–-]\s/)[0])}</span>` : ''}
         <p><b>Qué pedir:</b> ${negritas(p.pedir)}</p>${p.precedente ? `<p class="r-prec"><b>Precedente:</b> ${negritas(p.precedente.length > 220 ? p.precedente.slice(0, 200).replace(/\s+\S*$/, '') + '…' : p.precedente)}</p>` : ''}</article>`; }).join('')}</div></section>` : '';
     const conLineas = !deEnsayo ? (etapasVivas || []).filter(e => e.estado === 'listo') : [];
-    const pag3 = conLineas.length ? `<section data-p><p class="r-k">Cómo trabajó el sistema, en vivo</p><p class="r-q">Lanzada a las ${esc(hora(horaIni))} · lista a las ${esc(hora(horaFin))} · ${esc(mmss(segundos))}</p><ol class="r-pasos">${PASOS.map(([k, nom]) => { const e = conLineas.find(x => x.nombre === k); return e ? `<li><b>${esc(nom)}</b>${e.t != null ? `<span>${esc(String(e.t))} s</span>` : ''}<p>${esc(limpiar(e.linea || ''))}</p></li>` : ''; }).join('')}</ol></section>` : '';
+    const pag3 = conLineas.length ? `<section data-p><p class="r-k">Cómo trabajó el sistema, en vivo</p><p class="r-q">Lanzada a las ${esc(hora(horaIni))} · lista a las ${esc(hora(horaFin))} · ${esc(mmss(segundos))}</p><ol class="r-pasos">${PASOS.map(([k, nom]) => { const e = conLineas.find(x => x.nombre === k); return e ? `<li><b>${esc(nom)}</b>${e.t != null ? `<span>${esc(String(e.t))} s</span>` : ''}<p>${SENSIBLE.test(e.linea || '') ? '' : esc(limpiar(e.linea || ''))}</p></li>` : ''; }).join('')}</ol></section>` : '';
     const n = [pag1, pag2, pag3].filter(Boolean).length;
     const eti = deEnsayo ? 'Respuesta del sistema' : ('En vivo' + (horaIni ? ' · lanzada a las ' + hora(horaIni) : '') + (segundos ? ' · ' + mmss(segundos) : ''));
     resp.innerHTML = `<header class="r-cab"><div class="r-marca">${VIA}<span><b>Ventanilla de Incidencia Asistida</b>Sistema de Inteligencia Territorial</span></div><span class="r-eti${deEnsayo ? ' ensayo' : ''}">${esc(eti)}</span></header>
