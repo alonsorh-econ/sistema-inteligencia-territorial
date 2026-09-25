@@ -193,7 +193,7 @@
     if (forzarEnsayo && !resultado) { await ensayo(); }
     if (!resultado && job) { caja.hidden = false; caja.classList.remove('min'); caja.querySelector('.dv-tit').textContent = 'El sistema sigue trabajando…'; return; }
     if (!resultado) { await ensayo(); }
-    if (!resultado) { caja.hidden = false; caja.querySelector('.dv-tit').textContent = 'Sin conexión y sin ensayo guardado'; return; }
+    if (!resultado) { caja.hidden = false; caja.querySelector('.dv-tit').textContent = 'Sin conexión por ahora'; return; }
     const md = resultado.cierre || '';
     const [lead, resto] = partir(seccion(md, 'Respuesta directa'));
     const props = propuestas(md);
