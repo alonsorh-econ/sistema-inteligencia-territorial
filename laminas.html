@@ -272,6 +272,10 @@ body:hover #ayuda{opacity:.8}
 .tf-nota{margin-top:18px;border-left:8px solid var(--naranja);padding:8px 20px;font-size:21px;font-weight:600;color:var(--tinta);max-width:1300px}
 .tf-nota b{color:var(--azul)}
 .tf-fuente{margin:12px 0 0;font-size:15px;color:var(--gris)}
+.pasos-sig{margin-top:18px;display:grid;grid-template-columns:auto 1fr 1fr 1fr;gap:14px;align-items:stretch}
+.pasos-sig .k{align-self:center;font-size:15px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--naranja-osc);writing-mode:horizontal-tb;max-width:120px}
+.pasos-sig div{background:var(--azul);color:#fff;border-radius:16px;padding:14px 18px;font-size:18px;font-weight:600;line-height:1.35}
+.pasos-sig div b{color:var(--amarillo)}
 </style>
 </head>
 <body>
@@ -452,7 +456,7 @@ body:hover #ayuda{opacity:.8}
     <div class="vpaso a" style="--d:4"><span class="num">3</span><h3>El equipo técnico la despliega</h3><p>Valida lo que se afirma, con fuente, y marca lo que falta.</p></div>
     <div class="vpaso a" style="--d:5"><span class="num">4</span><h3>Sale como propuesta</h3><p>Con texto, vía, precedente y evidencia. Y después, seguimiento.</p></div>
   </div>
-  <p class="bancada a" style="--d:6">Próximo paso: <b>sentarnos con la UTL de cada congresista</b> y entregar las propuestas técnicas, según el nivel de incidencia de cada una.</p>
+  <div class="pasos-sig a" style="--d:6"><span class="k">Próximos pasos</span><div><b>Trabajar con las UTL</b> de cada congresista durante el trámite del Plan, propuesta por propuesta.</div><div><b>Mantener vivo el sistema:</b> que los gremios, las investigadoras y la región lo sigan alimentando.</div><div><b>Insumos técnicos más detallados</b> por sector, por proyecto estratégico y por cada instrumento de política pública.</div></div>
   <p class="invita a" style="--d:7">Esto apenas empieza. <span class="pastilla">Construyámoslo juntos</span></p>
   <div class="franja"><span class="t">De la técnica a la incidencia</span><span class="logos"><img src="img/logo-cg.png" alt=""><i></i><img src="img/logo-dual.png" alt=""></span><span class="n">12</span></div>
 </section>
@@ -494,7 +498,7 @@ body:hover #ayuda{opacity:.8}
 
 <script src="ensayo_apertura.js?v=20260924c"></script>
 <script src="sala_vivo.js?v=20260924e"></script>
-<script src="demo_vivo.js?v=20260925a" data-pregunta="¿Qué puede hacer el Plan Nacional de Desarrollo para bajar la tarifa de energía del Caribe, y qué no puede hacer?"></script>
+<script src="demo_vivo.js?v=20260925b" data-pregunta="¿Qué puede hacer el Plan Nacional de Desarrollo para bajar la tarifa de energía del Caribe, y qué no puede hacer?"></script>
 <script>
 (function(){
   const esc = document.getElementById('escenario');

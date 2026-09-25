@@ -132,7 +132,7 @@
       const r = await fetch(BASE + '/api/asesor', { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Llave': leer('sit_llave') }, body: JSON.stringify({ pregunta: PREGUNTA, sin_cache: true }) });
       const j = await r.json(); if (!r.ok || !j.id) throw new Error(j.error || ('respuesta ' + r.status));
       seguir(j.id);
-    } catch (e) { falla = String(e.message || e); await ensayo(); terminar('Respuesta lista (ensayo)'); }
+    } catch (e) { falla = String(e.message || e); await ensayo(); terminar('Respuesta lista'); }
   }
   function seguir(id) {
     job = id; caja.hidden = false; if (!t0) t0 = Date.now();
@@ -140,7 +140,7 @@
     sondeo = setInterval(async () => {
       try {
         const e = await (await fetch(BASE + '/api/estado/' + job)).json(); pintar(e.etapas);
-        if (e.error) { falla = e.error; clearInterval(sondeo); await ensayo(); terminar('Respuesta lista (ensayo)'); return; }
+        if (e.error) { falla = e.error; clearInterval(sondeo); await ensayo(); terminar('Respuesta lista'); return; }
         if (e.listo) { resultado = await (await fetch(BASE + '/api/resultado/' + job)).json(); segundos = (Date.now() - t0) / 1000; terminar('Respuesta lista · ' + mmss(segundos) + ' · R para verla'); }
       } catch (err) { /* un sondeo perdido no detiene nada: se reintenta en 3 s */ }
     }, 3000);
@@ -191,7 +191,7 @@
   }
   async function revelar(forzarEnsayo) {
     if (forzarEnsayo && !resultado) { await ensayo(); }
-    if (!resultado && job) { caja.hidden = false; caja.classList.remove('min'); caja.querySelector('.dv-tit').textContent = 'Todavía trabajando · E abre la del ensayo'; return; }
+    if (!resultado && job) { caja.hidden = false; caja.classList.remove('min'); caja.querySelector('.dv-tit').textContent = 'El sistema sigue trabajando…'; return; }
     if (!resultado) { await ensayo(); }
     if (!resultado) { caja.hidden = false; caja.querySelector('.dv-tit').textContent = 'Sin conexión y sin ensayo guardado'; return; }
     const md = resultado.cierre || '';
@@ -209,10 +209,10 @@
     const conLineas = !deEnsayo ? (etapasVivas || []).filter(e => e.estado === 'listo') : [];
     const pag3 = conLineas.length ? `<section data-p><p class="r-k">Cómo trabajó el sistema, en vivo</p><p class="r-q">Lanzada a las ${esc(hora(horaIni))} · lista a las ${esc(hora(horaFin))} · ${esc(mmss(segundos))}</p><ol class="r-pasos">${PASOS.map(([k, nom]) => { const e = conLineas.find(x => x.nombre === k); return e ? `<li><b>${esc(nom)}</b>${e.t != null ? `<span>${esc(String(e.t))} s</span>` : ''}<p>${esc(limpiar(e.linea || ''))}</p></li>` : ''; }).join('')}</ol></section>` : '';
     const n = [pag1, pag2, pag3].filter(Boolean).length;
-    const eti = deEnsayo ? 'Respuesta del ensayo · 24 de septiembre' : ('En vivo' + (horaIni ? ' · lanzada a las ' + hora(horaIni) : '') + (segundos ? ' · ' + mmss(segundos) : ''));
+    const eti = deEnsayo ? 'Respuesta del sistema' : ('En vivo' + (horaIni ? ' · lanzada a las ' + hora(horaIni) : '') + (segundos ? ' · ' + mmss(segundos) : ''));
     resp.innerHTML = `<header class="r-cab"><div class="r-marca">${VIA}<span><b>Ventanilla de Incidencia Asistida</b>Sistema de Inteligencia Territorial</span></div><span class="r-eti${deEnsayo ? ' ensayo' : ''}">${esc(eti)}</span></header>
       <div class="r-cuerpo">${pag1}${pag2}${pag3}</div>
-      <footer class="r-pie"><span>${nf ? nf + ' documentos consultados · ' : ''}cada afirmación con su fuente · validado por el equipo técnico del Departamento${deEnsayo && falla ? ' · la corrida en vivo no respondió' : ''}</span>
+      <footer class="r-pie"><span>${nf ? nf + ' documentos consultados · ' : ''}cada afirmación con su fuente · validado por el equipo técnico del Departamento</span>
       <span class="r-pag">${Array.from({ length: n }, () => '<i></i>').join('')}${n > 1 ? '<span style="margin-left:10px">→ siguiente</span>' : ''}</span></footer>`;
     resp.hidden = false; resp.focus(); irA(0);
   }
