@@ -42,9 +42,12 @@ em.o{font-style:normal;color:var(--naranja-osc)}
 /* portada */
 .portada{padding-top:170px}
 .portada .estela{display:none}
-.portada .foto-p{position:absolute;right:0;top:0;bottom:64px;width:720px;background:url(img/portada_cadena.jpg) center/cover no-repeat}
-.portada .foto-p::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#FFFFFF 0%,rgba(255,255,255,.55) 16%,rgba(255,255,255,0) 38%)}
+.portada .foto-p{position:absolute;right:0;top:0;bottom:64px;width:720px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:minmax(0,1.35fr) minmax(0,1fr) minmax(0,1fr);gap:6px;background:#fff;overflow:hidden}
+.portada .foto-p img{width:100%;height:100%;min-height:0;object-fit:cover;display:block}
+.portada .foto-p img:first-child{grid-column:1 / 3}
+.portada .foto-p::before{content:"";position:absolute;inset:0;z-index:2;background:linear-gradient(90deg,#FFFFFF 0%,rgba(255,255,255,.6) 9%,rgba(255,255,255,0) 26%);pointer-events:none}
 .portada h1,.portada .sub,.portada .quien,.portada .ceja{position:relative;max-width:820px}
+.portada .sub,.portada .quien{max-width:720px}
 .portada .quien{margin-top:60px;font-size:22px;font-weight:700;color:var(--azul)}
 .portada .quien span{display:block;font-weight:600;color:var(--gris);margin-top:4px}
 /* rompehielos */
@@ -234,8 +237,8 @@ body:hover #ayuda{opacity:.8}
 .via-txt span{font-size:19px;font-weight:600;color:var(--gris)}
 
 /* muro de organizaciones */
-.muro{margin-top:22px;display:grid;grid-template-columns:repeat(7,1fr);gap:12px}
-.logo-t{height:78px;border:2px solid var(--linea);border-radius:14px;background:#fff;display:flex;align-items:center;justify-content:center;padding:10px 14px}
+.muro{margin-top:24px;display:grid;grid-template-columns:repeat(8,1fr);gap:12px}
+.logo-t{height:92px;border:2px solid var(--linea);border-radius:14px;background:#fff;display:flex;align-items:center;justify-content:center;padding:10px 14px}
 .logo-t.osc{background:var(--azul);border-color:var(--azul)}
 .logo-t img{max-width:100%;max-height:54px;min-height:30px;object-fit:contain}
 .sinlogo{margin-top:14px;display:flex;flex-wrap:wrap;gap:8px}
@@ -244,7 +247,7 @@ body:hover #ayuda{opacity:.8}
 .cifras-c{margin-top:22px}
 .cifras-c .cifra b{font-size:46px}
 /* proyectos estratégicos */
-.pry{margin-top:26px;display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.pry{margin-top:26px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 .pry div{border:2px solid var(--linea);border-top:6px solid var(--naranja);border-radius:16px;padding:14px 16px;display:flex;flex-direction:column;gap:8px}
 .pry h3{margin:0;font-size:19px;font-weight:900;color:var(--azul);line-height:1.2}
 .pry p{margin:0;font-size:16px;font-weight:600;line-height:1.3;flex:1;color:var(--tinta)}
@@ -279,11 +282,11 @@ body:hover #ayuda{opacity:.8}
 
 <!-- 1 · Portada -->
 <section class="l on portada" data-notas="Saludo breve y agradecimiento. Enlazar con Andrea («trabajemos juntos») y con Juan Camilo («la lista de deseos y el momento político»): «Ellos nos mostraron el qué y el para qué. Yo les quiero mostrar el cómo.»">
-  <div class="foto-p" role="img" aria-label="Tienda de barrio en Cartagena que se ilumina al anochecer; los cables de energía vienen desde el puerto"></div>
+  <div class="foto-p" role="img" aria-label="Collage: la tienda de barrio, el puerto, el astillero, el hotel y la construcción"><img src="img/col_c_calle.jpg" alt=""><img src="img/col_c_puerto.jpg" alt=""><img src="img/col_c_astillero.jpg" alt=""><img src="img/col_c_hotel.jpg" alt=""><img src="img/col_c_construccion.jpg" alt=""></div>
   <svg class="estela" viewBox="0 0 760 420" aria-hidden="true"><path d="M40 380 C300 330 520 170 740 30" stroke="#F0801A" stroke-width="34" fill="none" stroke-linecap="round"/><path d="M150 420 C380 380 560 250 760 130" stroke="#F5A83B" stroke-width="20" fill="none" stroke-linecap="round"/></svg>
-  <div class="ceja a" style="--d:0">Junta de Juntas 2026</div>
+  <div class="ceja a" style="--d:0">Del qué al cómo</div>
   <h1 class="a" style="--d:1">De la técnica<br><span class="pastilla">a la incidencia</span></h1>
-  <p class="sub a" style="--d:2">Un sistema de inteligencia territorial para que las prioridades de Cartagena y Bolívar lleguen al Plan Nacional de Desarrollo 2026-2030, y a cada instrumento de política pública, con su vehículo, su precedente y su evidencia.</p>
+  <p class="sub a" style="--d:2">Un sistema de inteligencia territorial que traduce lo que la región necesita en propuestas técnicas, con la vía para hacerlas realidad: el Plan Nacional de Desarrollo y cada instrumento de política pública.</p>
   <p class="quien a" style="--d:3">Alonso Ramírez Hernández<span>Jefe del Departamento de Investigaciones Económicas · Cámara de Comercio de Cartagena</span></p>
   <div class="franja"><span class="t">Departamento de Investigaciones Económicas</span><span class="logos"><img src="img/logo-cg.png" alt="Consejo Gremial de Bolívar"><i></i><img src="img/logo-dual.png" alt="Cámara de Comercio de Cartagena y Tejiendo Progreso en Bolívar"></span></div>
 </section>
@@ -394,12 +397,12 @@ body:hover #ayuda{opacity:.8}
 </section>
 
 <!-- 10 · Cómo llegamos acá -->
-<section class="l" data-notas="Empezamos escuchando. Son las organizaciones con las que hemos trabajado o que nos compartieron sus propuestas; la lista está en orden alfabético y sigue creciendo. La mesa técnica de turismo del 15 de julio reunió cerca de 30 organizaciones. Las 12 conversaciones de validación son las registradas en el sistema. Las cifras son volumen de trabajo, no metas cumplidas.">
+<section class="l" data-notas="Empezamos escuchando. Son las organizaciones con las que nos hemos reunido para validar, en orden alfabético; la lista sigue creciendo. La mesa técnica de turismo del 15 de julio reunió cerca de 30 organizaciones. Las 12 conversaciones de validación son las registradas en el sistema. Las cifras son volumen de trabajo, no metas cumplidas.">
   <div class="ceja a" style="--d:0">Cómo llegamos acá</div>
   <h2 class="a" style="--d:1">Empezamos escuchando</h2>
   <div class="hitos-c a" style="--d:2"><span><b>42</b> fuentes documentales, con los <b>3</b> últimos planes nacionales</span><span>→ <b>35</b> entradas</span><span>→ <b>20</b> apuestas</span><span>→ <b>9</b> palancas</span></div>
-  <div class="muro a" style="--d:3"><div class="logo-t"><img src="img/logos/acopi.png" alt="ACOPI Bolívar"></div><div class="logo-t"><img src="img/logos/afinia.png" alt="Afinia Grupo EPM"></div><div class="logo-t"><img src="img/logos/alcaldia.png" alt="Alcaldía de Cartagena de Indias"></div><div class="logo-t osc"><img src="img/logos/anato.png" alt="ANATO Noroccidente"></div><div class="logo-t osc"><img src="img/logos/andi.png" alt="ANDI Más País (Seccional Bolívar)"></div><div class="logo-t osc"><img src="img/logos/camacol.webp" alt="CAMACOL Bolívar"></div><div class="logo-t osc"><img src="img/logos/consejo_gremial.png" alt="Consejo Gremial de Bolívar"></div><div class="logo-t"><img src="img/logos/cotelco.png" alt="Cotelco"></div><div class="logo-t"><img src="img/logos/fenalco.png" alt="Fenalco Bolívar"></div><div class="logo-t"><img src="img/logos/fitac.png" alt="FITAC"></div><div class="logo-t"><img src="img/logos/fsd.png" alt="Fundación Santo Domingo"></div><div class="logo-t osc"><img src="img/logos/gobernacion.webp" alt="Gobernación de Bolívar"></div><div class="logo-t osc"><img src="img/logos/invest.webp" alt="Invest In Cartagena & Bolívar"></div></div>
-  <div class="sinlogo a" style="--d:4"><span>Barú 2030</span><span>Casa Grande Caribe</span><span>Comisión Regional de Competitividad e Innovación de Bolívar</span><span>Confecámaras</span><span>Consejo Gremial Nacional</span><span>Cotecmar</span><span>CREG</span><span>FONTUR</span><span>Ministerio de Comercio, Industria y Turismo</span><span>RAP Caribe</span><span>Universidad del Norte</span><span class="mas">y sigue creciendo</span></div>
+  <div class="muro a" style="--d:3"><div class="logo-t osc"><img src="img/logos/andi.png" alt="ANDI Seccional Bolívar"></div><div class="logo-t"><img src="img/logos/nautica.png" alt="Asociación Náutica de Colombia"></div><div class="logo-t osc"><img src="img/logos/ccc.webp" alt="Cámara de Comercio de Cartagena"></div><div class="logo-t osc"><img src="img/logos/camacol.webp" alt="Camacol Bolívar"></div><div class="logo-t osc"><img src="img/logos/consejo_gremial.png" alt="Consejo Gremial de Bolívar"></div><div class="logo-t"><img src="img/logos/cotelco.png" alt="Cotelco"></div><div class="logo-t"><img src="img/logos/fitac.png" alt="FITAC"></div><div class="logo-t osc"><img src="img/logos/invest.webp" alt="Invest in Cartagena y Bolívar"></div></div>
+  <div class="sinlogo a" style="--d:4"><span>Barú 2030</span><span>Fundación Santo Domingo</span><span>Universidad Colegio Mayor de Bolívar</span><span>Gremios de la mesa técnica de turismo</span><span class="mas">y sigue creciendo</span></div>
   <div class="cifras cifras-c a" style="--d:5">
     <div class="cifra"><b>~30</b><span>organizaciones en la mesa técnica de turismo del 15 de julio</span></div>
     <div class="cifra"><b>12</b><span>conversaciones de validación registradas</span></div>
@@ -433,11 +436,11 @@ body:hover #ayuda{opacity:.8}
 </section>
 
 <!-- 12 · Lo que ya propone -->
-<section class="l" data-notas="Los diez proyectos estratégicos de la región y qué le pide cada uno al Plan, con su vía. El hallazgo: en ocho de los diez, el freno no es la plata; es una decisión, un trámite o un responsable. Escoger dos o tres según la sala. Detrás de cada tarjeta hay una ficha con su fuente.">
+<section class="l" data-notas="Los proyectos estratégicos con más acuerdo en la región y qué le pide cada uno al Plan, con su vía. El hallazgo: en la mayoría, el freno no es la plata; es una decisión, un trámite o un responsable. El Recinto Ferial y la Central de Abastos se dejaron por fuera porque no tienen el mismo acuerdo. Escoger dos o tres según la sala. Detrás de cada tarjeta hay una ficha con su fuente.">
   <div class="ceja a" style="--d:0">Lo que ya propone</div>
   <h2 class="a" style="--d:1">Los proyectos estratégicos: <span class="pastilla">qué le piden al Plan</span></h2>
-  <div class="pry a" style="--d:2"><div><h3>Canal del Dique</h3><p>Proteger las vigencias futuras ya autorizadas contra aplazamientos. No pide plata nueva.</p><span class="">Articulado y plan plurianual</span></div><div><h3>Aeropuerto Rafael Núñez</h3><p>En construcción por APP. Solo un hito de seguimiento de la terminal internacional.</p><span class="otra">Otra vía · seguimiento</span></div><div><h3>Ciudadela Aeroportuaria de Bayunca</h3><p>Que se pronuncien en los términos de ley y reporten el estado, respetando la consulta previa.</p><span class="">Articulado</span></div><div><h3>Cantagallo–Yondó</h3><p>Ordenar su rehabilitación: rediseño y licencia nueva.</p><span class="">Articulado o Bases</span></div><div><h3>Doble calzada Cartagena–Barranquilla</h3><p>Definir de dónde sale la plata del tramo que falta.</p><span class="">Plan plurianual</span></div><div><h3>Corredor de Carga Cartagena–Mamonal</h3><p>Que los accesos portuarios pasen a la red nacional o se cofinancien, con la Ley 105.</p><span class="">Articulado y plan plurianual</span></div><div><h3>Tren Regional del Caribe</h3><p>Una entidad responsable en seis meses y la factibilidad financiada.</p><span class="">Articulado y plan plurianual</span></div><div><h3>Recinto Ferial de Cartagena</h3><p>Reconocer el turismo de reuniones y la red de recintos del Caribe.</p><span class="">Bases y articulado</span></div><div><h3>Central de Abastos Regional</h3><p>El traslado es local; a lo sumo, estructurar los centros de transformación.</p><span class="otra">Otra vía</span></div><div><h3>Portafolio energético del Caribe</h3><p>Coordinación con plazos para licencias y conexión de 27 proyectos.</p><span class="">Bases y articulado</span></div></div>
-  <p class="freno a" style="--d:3">En ocho de los diez, el freno <em>no es la plata</em>: es una decisión, un trámite o un responsable.</p>
+  <div class="pry a" style="--d:2"><div><h3>Canal del Dique</h3><p>Proteger las vigencias futuras ya autorizadas contra aplazamientos. No pide plata nueva.</p><span class="">Articulado y plan plurianual</span></div><div><h3>Aeropuerto Rafael Núñez</h3><p>En construcción por APP. Solo un hito de seguimiento de la terminal internacional.</p><span class="otra">Otra vía · seguimiento</span></div><div><h3>Ciudadela Aeroportuaria de Bayunca</h3><p>Que se pronuncien en los términos de ley y reporten el estado, respetando la consulta previa.</p><span class="">Articulado</span></div><div><h3>Cantagallo–Yondó</h3><p>Ordenar su rehabilitación: rediseño y licencia nueva.</p><span class="">Articulado o Bases</span></div><div><h3>Doble calzada Cartagena–Barranquilla</h3><p>Definir de dónde sale la plata del tramo que falta.</p><span class="">Plan plurianual</span></div><div><h3>Corredor de Carga Cartagena–Mamonal</h3><p>Que los accesos portuarios pasen a la red nacional o se cofinancien, con la Ley 105.</p><span class="">Articulado y plan plurianual</span></div><div><h3>Tren Regional del Caribe</h3><p>Una entidad responsable en seis meses y la factibilidad financiada.</p><span class="">Articulado y plan plurianual</span></div><div><h3>Portafolio energético del Caribe</h3><p>Coordinación con plazos para licencias y conexión de 27 proyectos.</p><span class="">Bases y articulado</span></div></div>
+  <p class="freno a" style="--d:3">En la mayoría, el freno <em>no es la plata</em>: es una decisión, un trámite o un responsable.</p>
   <div class="franja"><span class="t">De la técnica a la incidencia</span><span class="logos"><img src="img/logo-cg.png" alt=""><i></i><img src="img/logo-dual.png" alt=""></span><span class="n">11</span></div>
 </section>
 
